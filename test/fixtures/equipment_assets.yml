@@ -1,11 +1,11 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 one:
   id: 1
-  name: MyString
-  location: MyString
-  inservice: false
+  name: "Widget (in Service)"
+  location: "here"
+  inservice: true
 two:
   id: 2
-  name: MyString
-  location: MyString
+  name: "Widget (not in Service)"
+  location: "there"
   inservice: false
