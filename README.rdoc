@@ -1,3 +1,7 @@
 = equipment_status_viewer
 
-Description goes here
+* Package is dependent on resource_controller *
+see https://github.com/jamesgolick/resource_controller
+
+run redmine root:
+script/plugin install git://github.com/jamesgolick/resource_controller.git
