@@ -4,8 +4,12 @@ one:
   name: "Widget (in Service)"
   location: "here"
   inservice: true
+  type: "test"
+  serial_number: "001"
 two:
   id: 2
   name: "Widget (not in Service)"
   location: "there"
   inservice: false
+  type: "test"
+  serial_number: "002"
