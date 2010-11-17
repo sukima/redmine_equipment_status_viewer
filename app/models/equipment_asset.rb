@@ -5,7 +5,7 @@ class EquipmentAsset < ActiveRecord::Base
   validates_presence_of :name
 
   def location
-    if last_seens.last
+    if last_seens && last_seens.last
       last_seens.last.location
     else
       false

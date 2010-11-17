@@ -3,5 +3,5 @@ class LastSeen < ActiveRecord::Base
 
   belongs_to :equipment_asset
 
-  validates_presence_of :location
+  validates_presence_of :location, :person, :equipment_asset_id
 end
