@@ -1,0 +1,18 @@
+<% form_for(@equipment_asset) do |f| %>
+  <%= error_messages_for :equipment_asset %>
+  <div class="pluginESV_formfield">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="pluginESV_formfield">
+    <%= f.label :type %><br />
+    <%= f.text_field :type %>
+  </div>
+  <div class="pluginESV_formfield">
+    <%= f.label :serial_number %><br />
+    <%= f.text_field :serial_number %>
+  </div>
+  <div class="pluginESV_formactions">
+    <%= f.submit "Submit" %>
+  </div>
+<% end %>
