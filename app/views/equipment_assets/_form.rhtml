@@ -1,4 +1,4 @@
-<% form_for(@equipment_asset) do |f| %>
+<% form_for(:equipment_asset, :url => collection_url) do |f| %>
   <%= error_messages_for :equipment_asset %>
   <div class="pluginESV_formfield">
     <%= f.label :name %><br />

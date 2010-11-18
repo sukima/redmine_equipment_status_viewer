@@ -7,4 +7,6 @@ Redmine::Plugin.register :redmine_equipment_status_viewer do
   version '0.0.1'
   url 'http://github.com/sukima/RedmineEquipmentStatusPlugin'
   author_url 'http://github.com/sukima'
+
+  menu :application_menu, :equipment_status_viewer, { :controller => 'equipment_assets', :action => 'index' }, :caption => 'Equipment'
 end
