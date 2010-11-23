@@ -1,4 +1,6 @@
-class LastSeensController < ResourceController::Base
+class LastSeensController < ResourceController::Singleton
   unloadable
-  actions [:create, :new]
+  # REST actions: index, new, create, show, edit, update, destroy
+  # No index action in singleton controllers
+  actions :all, :except => [ :destroy, :show, :edit, :update ]
 end
