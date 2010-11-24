@@ -5,7 +5,7 @@
   <span class="pluginESV_name"><%=h @equipment_asset.name %></span>
   <br />
   <span class="pluginESV_title">Type:</span>
-  <span class="pluginESV_type"><%=h @equipment_asset.type %></span>
+  <span class="pluginESV_type"><%=h @equipment_asset.asset_type %></span>
   <br />
   <span class="pluginESV_title">Serial Number:</span>
   <span class="pluginESV_serialnumber"><%=h @equipment_asset.serial_number %></span>
@@ -15,12 +15,12 @@
 </div>
 
 <div class="pluginESV_actions">
-  <span><%= link_to "Edit", edit_object_url(@equipment_asset) %></span>
-  <span><%= link_to "Delete", object_url(@equipment_asset), :confirm => "Are you sure?", :method => :delete %></span>
+  <span><%= link_to "Edit", edit_equipment_assets_path(@equipment_asset) %></span>
+  <span><%= link_to "Delete", equipment_assets_path(@equipment_asset), :confirm => "Are you sure?", :method => :delete %></span>
 </div>
 
 <div class="pluginESV_lastseen_list">
   <% @equipment_asset.last_seens.each do |ls| %>
-    <div class="pluginESV_lastseen">Checked in by <%=h ls.person %> at <%=h ls.location %> on <%=h ls.created_on %></div>
+    <div class="pluginESV_lastseen">Checked in by <%=h ls.person %> at <%=h ls.location %> on <%=h ls.created_at %></div>
   <% end %>
 </div>

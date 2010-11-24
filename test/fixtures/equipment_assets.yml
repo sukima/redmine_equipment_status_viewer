@@ -3,11 +3,11 @@ one:
   id: 1
   name: "Widget (in Service)"
   inservice: true
-  type: "test"
+  asset_type: "test"
   serial_number: "001"
 two:
   id: 2
   name: "Widget (not in Service)"
   inservice: false
-  type: "test"
+  asset_type: "test"
   serial_number: "002"

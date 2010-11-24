@@ -5,7 +5,7 @@ require 'equipment_assets_controller'
 #class EquipmentAssetsController; def rescue_action(e) raise e end; end
 
 class EquipmentAssetsControllerTest < ActionController::TestCase
-  fixtures :all
+  fixtures :equipment_assets, :last_seens
 
   def setup
     @controller = EquipmentAssetsController.new
