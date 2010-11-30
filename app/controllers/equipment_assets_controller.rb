@@ -19,4 +19,8 @@ class EquipmentAssetsController < ActionController::Base
       @last_seen = LastSeen.new
     end
   end
+
+  def print
+    @equipment_asset = EquipmentAsset.find(params[:id])
+  end
 end
