@@ -11,12 +11,14 @@ class EquipmentAssetsController < ActionController::Base
 
     if request.post?
       @last_seen = LastSeen.new(params[:last_seen])
+      @last_seen.equipment_asset = @equipment_asset
       if @last_seen.save
         flash[:notice] = 'Saved.'
         redirect_to(@equipment_asset)
       end
     else
       @last_seen = LastSeen.new
+      @last_seen.equipment_asset = @equipment_asset
     end
   end
 

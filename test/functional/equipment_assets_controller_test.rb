@@ -97,6 +97,11 @@ class EquipmentAssetsControllerTest < ActionController::TestCase
     should_assign_to :equipment_asset
     should_assign_to :last_seen
     should_render_template :check_in
+    should "set equipment_asset value on @last_seen" do
+      ls = @controller.instance_variable_get(:@last_seen)
+      assert_not_nil ls.equipment_asset
+      assert_equal 1, ls.equipment_asset.id
+    end
   end
 
   context "POST :check_in" do
