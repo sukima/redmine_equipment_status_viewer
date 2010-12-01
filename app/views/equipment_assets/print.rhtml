@@ -1,1 +1,58 @@
-print here!
+<style type="text/css">
+ table {
+  border-width: 0;
+  border-style: none;
+  /* border-color: #0000ff; */
+  border-collapse: collapse;
+ }
+ td {
+   border-width: 0;
+   border-style: none;
+   /* border-color: #0000ff; */
+   border-collapse: collapse;
+   padding: 0;
+   margin: 0;
+   width: 4px;
+   height: 4px;
+ }
+ td.black { background-color: #000; }
+ td.white { background-color: #fff; }
+ #container {
+   width: 500px;
+   text-align: center;
+ }
+ #qrcode {
+   width: 132px;
+   margin: 0 auto;
+ }
+</style>
+ 
+<div id="container">
+  <h2><%= @equipment_asset.name %> (<%= @equipment_asset.asset_type %>)</h2>
+  <p>
+    <b>Serial Number:</b>
+    <%= @equipment_asset.serial_number %>
+  </p>
+
+  <div id="qrcode">
+    <table>
+     <% @qrcode.modules.each_index do |x| -%>
+       <tr>
+       <% @qrcode.modules.each_index do |y| -%>
+        <% if @qrcode.is_dark(x,y) -%>
+        <td class="black" />
+        <% else -%>
+        <td class="white" />
+        <% end -%>
+       <% end -%>
+       </tr>
+     <% end -%>
+    </table>
+  </div>
+
+  <p>
+    <b>Check in at:</b><br />
+    <%= root_url %><br />
+    <%= relative_check_in_path(@equipment_asset) %>
+  </p>
+</div>

@@ -126,6 +126,7 @@ class EquipmentAssetsControllerTest < ActionController::TestCase
     end
     should_respond_with :success
     should_assign_to :equipment_asset
+    should_assign_to :qrcode
     should_render_template :print
   end
 end

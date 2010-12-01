@@ -2,6 +2,11 @@
 
 * Package is dependent on resource_controller *
 see https://github.com/jamesgolick/resource_controller
+gem install resource_controller
+
+* Package is dependent on rqrcode *
+see http://whomwah.github.com/rqrcode/
+gem install rqrcode
 
 run redmine root:
 script/plugin install git://github.com/jamesgolick/resource_controller.git

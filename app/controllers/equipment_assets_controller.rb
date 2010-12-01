@@ -1,3 +1,5 @@
+require 'rqrcode'
+
 class EquipmentAssetsController < ActionController::Base
   unloadable
   resource_controller
@@ -24,5 +26,6 @@ class EquipmentAssetsController < ActionController::Base
 
   def print
     @equipment_asset = EquipmentAsset.find(params[:id])
+    @qrcode = RQRCode::QRCode.new("url", :size => 4, :level => :q)
   end
 end

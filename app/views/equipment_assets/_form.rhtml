@@ -1,5 +1,5 @@
-<% form_for(:equipment_asset, :url => collection_path) do |f| %>
-  <%= error_messages_for :equipment_assets %>
+<% form_for(@equipment_asset) do |f| %>
+  <%= f.error_messages %>
   <div class="pluginESV_formfield">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
@@ -11,6 +11,10 @@
   <div class="pluginESV_formfield">
     <%= f.label :serial_number %><br />
     <%= f.text_field :serial_number %>
+  </div>
+  <div class="pluginESV_formfield">
+    <%= f.label :inservice %><br />
+    <%= f.check_box :inservice %>
   </div>
   <div class="pluginESV_formactions">
     <%= f.submit "Submit" %>
