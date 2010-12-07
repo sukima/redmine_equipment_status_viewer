@@ -1,4 +1,5 @@
-<h1><%=h @equipment_asset.name %> (<%=h @equipment_asset.asset_type %>)</h1>
+<% html_title "Equipment Details for #{@equipment_asset.name}" %>
+<h1><%= name_and_type @equipment_asset %></h1>
 
 <div class="pluginESV_equipment_info">
   <span class="pluginESV_title">Name:</span>

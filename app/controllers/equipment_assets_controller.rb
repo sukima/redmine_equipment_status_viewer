@@ -88,6 +88,7 @@ class EquipmentAssetsController < ApplicationController
 
   def print
     @equipment_asset = EquipmentAsset.find(params[:id])
-    @qrcode = RQRCode::QRCode.new("url", :size => 4, :level => :q)
+    @qrcode = RQRCode::QRCode.new(check_in_equipment_asset_url(@equipment_asset),
+                                  :size => 4, :level => :q)
   end
 end
