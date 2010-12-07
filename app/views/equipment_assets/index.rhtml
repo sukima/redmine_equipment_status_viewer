@@ -19,7 +19,7 @@
         <%   oos_class = (e.inservice) ? "inservice" : "outofservice" %>
           <tr class="pluginESV_<%= oos_class %>">
             <td class="pluginESV_<%= oos_class %>">
-              <%= link_to e.name, object_path(e) %>
+              <%= link_to e.name, equipment_asset_path(e) %>
             </td>
             <td class="pluginESV_<%= oos_class %>"><%=h e.asset_type %></td>
             <td class="pluginESV_<%= oos_class %>"><%=h e.serial_number %></td>
@@ -29,7 +29,7 @@
       </tbody>
     </table>
     <div>
-      <%= link_to "Add Equipment", new_object_path %>
+      <%= link_to "Add Equipment", new_equipment_asset_path %>
     </div>
   </div>
   <div id="pluginESV_lastseen_list">
