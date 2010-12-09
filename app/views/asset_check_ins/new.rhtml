@@ -1,0 +1,22 @@
+<% html_title "Check in for #{@equipment_asset.name}" %>
+<h2>Check in for <%= name_and_type @equipment_asset %></h2>
+
+<!-- FIXME: Use form_tag here -->
+<% form_for([@equipment_asset, @asset_check_in]) do |f| %>
+  <%= error_messages_for :equipment_asset, :asset_check_in %>
+  <div class="pluginESV_formfield">
+    <%= f.label :person %><br />
+    <%= f.text_field :person %>
+  </div>
+  <div class="pluginESV_formfield">
+    <%= f.label :location %><br />
+    <%= f.text_field :location %>
+  </div>
+  <div class="pluginESV_formfield">
+    <%#= f.label :inservice %><br />
+    <%#= f.check_box :inservice %>
+  </div>
+  <div class="pluginESV_formactions">
+    <%= f.submit %>
+  </div>
+<% end %>

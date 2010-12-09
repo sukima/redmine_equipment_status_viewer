@@ -1,0 +1,45 @@
+require File.dirname(__FILE__) + '/../test_helper.rb'
+require 'asset_check_ins_controller'
+
+# Re-raise errors caught by the controller.
+#class EquipmentAssetsController; def rescue_action(e) raise e end; end
+
+class AssetCheckInsControllerTest < ActionController::TestCase
+  fixtures :equipment_assets, :asset_check_ins
+
+  def setup
+    @controller = AssetCheckInsController.new
+    @request    = ActionController::TestRequest.new
+    @response   = ActionController::TestResponse.new
+    #User.current = nil
+  end
+
+  should_route :get, "/equipment_assets/1/asset_check_ins/new",
+    :action => :new, :equipment_asset_id => 1
+  should_route :post, "/equipment_assets/1/asset_check_ins",
+    :action => :create, :equipment_asset_id => 1
+  # This test will not pass.
+  # should_route :get, "/equipment_assets/1/check_in",
+  #   :action => :new, :equipment_asset_id => 1
+
+  context "GET :new" do
+    setup do
+      get :new, :equipment_asset_id => 1
+    end
+    should_respond_with :success
+    should_render_template :new
+    should_assign_to :equipment_asset
+    should_assign_to :asset_check_in
+  end
+  
+  context "POST :create" do
+    setup do
+      @old_count = AssetCheckIn.count
+      post :create, :equipment_asset_id => 1, :asset_check_in => { :person => "foo", :location => "bar" }
+    end
+    should "increase count by 1" do
+      assert AssetCheckIn.count - @old_count == 1
+    end
+    should_redirect_to(":show") { equipment_asset_path(1) }
+  end
+end

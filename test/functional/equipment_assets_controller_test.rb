@@ -22,8 +22,6 @@ class EquipmentAssetsControllerTest < ActionController::TestCase
   should_route :put, "/equipment_assets/1", :action => :update, :id => 1
   should_route :delete, "/equipment_assets/1", :action => :destroy, :id => 1
   should_route :get, "/equipment_assets/1/print", :action => :print, :id => 1
-  # should_route :get, "/equipment_assets/1/check_in",
-  #   :controller => 'asset_check_ins', :action => :new, :equipment_asset_id => 1
 
   context "GET :index" do
     setup do
