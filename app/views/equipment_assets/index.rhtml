@@ -33,10 +33,10 @@
       <%= link_to "Add Equipment", new_equipment_asset_path %>
     </div>
   </div>
-  <div id="pluginESV_lastseen_list">
-    <% @lastseen_list.each do |ls| %>
-      <div class="pluginESV_lastseen">
-        <p><%=h ls.equipment_asset.name %> was moved to <%=h ls.location %> by <%=h ls.person %> on <%=h ls.created_at %>.<p>
+  <div id="pluginESV_asset_check_ins">
+    <% @asset_check_ins.each do |check_in| %>
+      <div class="pluginESV_asset_check_in">
+        <p><%=h check_in.equipment_asset.name %> was moved to <%=h check_in.location %> by <%=h check_in.person %> on <%=h check_in.created_at %>.<p>
       </div>
     <% end %>
   </div>

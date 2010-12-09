@@ -5,7 +5,7 @@ require 'equipment_assets_controller'
 #class EquipmentAssetsController; def rescue_action(e) raise e end; end
 
 class EquipmentAssetsControllerTest < ActionController::TestCase
-  fixtures :equipment_assets, :last_seens
+  fixtures :equipment_assets, :asset_check_ins
 
   def setup
     @controller = EquipmentAssetsController.new
@@ -21,9 +21,9 @@ class EquipmentAssetsControllerTest < ActionController::TestCase
   should_route :get, "/equipment_assets/1/edit", :action => :edit, :id => 1
   should_route :put, "/equipment_assets/1", :action => :update, :id => 1
   should_route :delete, "/equipment_assets/1", :action => :destroy, :id => 1
-  should_route :get, "/equipment_assets/1/check_in", :action => :check_in, :id => 1
-  should_route :post, "/equipment_assets/1/check_in", :action => :check_in, :id => 1
   should_route :get, "/equipment_assets/1/print", :action => :print, :id => 1
+  # should_route :get, "/equipment_assets/1/check_in",
+  #   :controller => 'asset_check_ins', :action => :new, :equipment_asset_id => 1
 
   context "GET :index" do
     setup do
@@ -31,7 +31,7 @@ class EquipmentAssetsControllerTest < ActionController::TestCase
     end
     should_respond_with :success
     should_assign_to :equipment_assets
-    should_assign_to :lastseen_list
+    should_assign_to :asset_check_ins
     should_render_template :index
   end
 
@@ -87,37 +87,6 @@ class EquipmentAssetsControllerTest < ActionController::TestCase
       assert EquipmentAsset.count - @old_count == -1
     end
     should_redirect_to(":index") { equipment_assets_path }
-  end
-
-  context "GET :check_in" do
-    setup do
-      get :check_in, :id => 1
-    end
-    should_respond_with :success
-    should_assign_to :equipment_asset
-    should_assign_to :last_seen
-    should_render_template :check_in
-    should "set equipment_asset value on @last_seen" do
-      ls = @controller.instance_variable_get(:@last_seen)
-      assert_not_nil ls.equipment_asset
-      assert_equal 1, ls.equipment_asset.id
-    end
-  end
-
-  context "POST :check_in" do
-    setup do
-      @old_count = LastSeen.count
-      @equipment_asset = EquipmentAsset.find(1)
-      post :check_in, :id => 1, :last_seen =>
-        { :person => "foo", :location => "bar", :equipment_asset_id => 1 }
-    end
-    should "increase last_seen count by 1" do
-      assert LastSeen.count - @old_count == 1
-    end
-    should_assign_to :equipment_asset
-    should_assign_to :last_seen
-    should_set_the_flash_to /saved/i
-    should_redirect_to(":show") { equipment_asset_path(@equipment_asset) }
   end
 
   context "GET :print" do

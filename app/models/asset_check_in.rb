@@ -1,4 +1,4 @@
-class LastSeen < ActiveRecord::Base
+class AssetCheckIn < ActiveRecord::Base
   unloadable
 
   belongs_to :equipment_asset

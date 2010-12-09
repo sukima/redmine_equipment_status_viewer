@@ -5,7 +5,7 @@ class EquipmentAssetsController < ApplicationController
 
   def index
     @equipment_assets = EquipmentAsset.all
-    @lastseen_list = LastSeen.find(:all, :order => "id desc", :limit => 20)
+    @asset_check_ins = AssetCheckIn.find(:all, :order => "id desc", :limit => 20)
   end
 
   def show
@@ -70,25 +70,27 @@ class EquipmentAssetsController < ApplicationController
     end
   end
 
-  def check_in
-    @equipment_asset = EquipmentAsset.find(params[:id])
+  # def check_in
+  #   @equipment_asset = EquipmentAsset.find(params[:id])
 
-    if request.post?
-      @last_seen = LastSeen.new(params[:last_seen])
-      @last_seen.equipment_asset = @equipment_asset
-      if @last_seen.save
-        flash[:notice] = 'Saved.'
-        redirect_to(@equipment_asset)
-      end
-    else
-      @last_seen = LastSeen.new
-      @last_seen.equipment_asset = @equipment_asset
-    end
-  end
+  #   if request.post?
+  #     @last_seen = LastSeen.new(
+  #       :person => params[:last_seen_person],
+  #       :location => params[:last_seen_location])
+  #     @last_seen.equipment_asset = @equipment_asset
+  #     if @last_seen.save && @equipment_asset.update_attributes(params[:equipment_asset])
+  #       flash[:notice] = 'Saved.'
+  #       redirect_to(@equipment_asset)
+  #     end
+  #   else
+  #     @last_seen = LastSeen.new
+  #     @last_seen.equipment_asset = @equipment_asset
+  #   end
+  # end
 
   def print
     @equipment_asset = EquipmentAsset.find(params[:id])
-    @qrcode = RQRCode::QRCode.new(check_in_equipment_asset_url(@equipment_asset),
+    @qrcode = RQRCode::QRCode.new(equipment_asset_check_in_url(@equipment_asset),
                                   :size => 4, :level => :q)
   end
 end

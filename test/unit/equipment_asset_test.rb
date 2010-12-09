@@ -3,9 +3,8 @@ require 'equipment_asset'
 
 class EquipmentAssetTest < ActiveSupport::TestCase
   fixtures :equipment_assets
-  should_have_many :last_seens
+  should_have_many :asset_check_ins
   should_validate_presence_of :name
-  should_have_instance_methods :last_seen_person, :last_seen_location
 
   context "location method" do
     setup do
@@ -14,7 +13,7 @@ class EquipmentAssetTest < ActiveSupport::TestCase
     should "exist" do
       assert @asset.respond_to? :location
     end
-    should "return false if no last_seen found" do
+    should "return false if no asset_check_ins found" do
       assert !@asset.location
     end
   end
