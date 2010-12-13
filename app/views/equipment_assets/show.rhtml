@@ -2,6 +2,9 @@
 <h1><%= name_and_type @equipment_asset %></h1>
 
 <div class="pluginESV_equipment_info">
+  <% if @equipment_asset.oos %>
+    <div class="outofservice">This equipment is out of service!</div>
+  <% end %>
   <span class="pluginESV_title">Name:</span>
   <span class="pluginESV_name"><%=h @equipment_asset.name %></span>
   <br />
@@ -20,8 +23,8 @@
   <span><%= link_to "Delete", equipment_asset_path(@equipment_asset), :confirm => "Are you sure?", :method => :delete %></span>
 </div>
 
-<div class="pluginESV_lastseen_list">
-  <% @equipment_asset.last_seens.each do |ls| %>
-    <div class="pluginESV_lastseen">Checked in by <%=h ls.person %> at <%=h ls.location %> on <%=h ls.created_at %></div>
+<div class="pluginESV_asset_check_ins">
+  <% @equipment_asset.asset_check_ins.each do |check_in| %>
+    <div class="pluginESV_asset_check_in">Checked in by <%=h check_in.person %> at <%=h check_in.location %> on <%=h check_in.created_at %></div>
   <% end %>
 </div>

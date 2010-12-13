@@ -1,6 +1,6 @@
-class CreateLastSeens < ActiveRecord::Migration
+class CreateAssetCheckIns < ActiveRecord::Migration
   def self.up
-    create_table :last_seens do |t|
+    create_table :asset_check_ins do |t|
       t.column :person, :string
       t.column :location, :string
       t.belongs_to :equipment_asset
@@ -9,6 +9,6 @@ class CreateLastSeens < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :last_seens
+    drop_table :asset_check_ins
   end
 end
