@@ -17,7 +17,7 @@
           <tr><td>No Equipment Found</td></tr>
         <% end %>
         <% @equipment_assets.each do |e| %>
-        <%   oos_class = (e.inservice) ? "inservice" : "outofservice" %>
+        <%   oos_class = (e.oos) ? "outofservice" : "inservice" %>
           <tr class="pluginESV_<%= oos_class %>">
             <td class="pluginESV_<%= oos_class %>">
               <%= link_to e.name, equipment_asset_path(e) %>

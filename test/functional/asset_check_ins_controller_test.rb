@@ -35,19 +35,18 @@ class AssetCheckInsControllerTest < ActionController::TestCase
   context "POST :create" do
     setup do
       @old_count = AssetCheckIn.count
-      @hash = { :inservice => false }
       post :create, :equipment_asset_id => 1, :asset_check_in => {
         :person => "foo",
         :location => "bar",
-        :equipment_asset_oos => "0"
+        :equipment_asset_oos => true
       }
     end
     should "increase count by 1" do
       assert AssetCheckIn.count - @old_count == 1
     end
-    should "set equipment_asset :inservice to false" do
+    should "set equipment_asset :oos to true" do
       @e = EquipmentAsset.find(1)
-      assert ! @e.inservice
+      assert @e.oos
     end
     should_set_the_flash_to /success/i
     should_redirect_to(":show") { equipment_asset_path(1) }
