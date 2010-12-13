@@ -6,6 +6,7 @@ class AssetCheckInsController < ApplicationController
 
   def new
     @asset_check_in = @equipment_asset.asset_check_ins.new
+    @asset_check_in.equipment_asset_oos = @equipment_asset.oos
   
     respond_to do |wants|
       wants.html # new.html.erb
@@ -17,7 +18,7 @@ class AssetCheckInsController < ApplicationController
     @asset_check_in = @equipment_asset.asset_check_ins.new(params[:asset_check_in])
 
     respond_to do |wants|
-      if @asset_check_in.save && @equipment_asset.update_attributes({:oos => params[:asset_check_in][:equipment_asset_oos]})
+      if @asset_check_in.save && @equipment_asset.update_attributes({:oos => @asset_check_in.equipment_asset_oos})
         flash[:notice] = 'Check in was successfull.'
         wants.html { redirect_to(@equipment_asset) }
         wants.xml  { render :xml => @asset_check_in, :status => :created, :location => @equipment_asset }
