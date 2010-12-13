@@ -15,9 +15,9 @@ class AssetCheckInsController < ApplicationController
 
   def create
     @asset_check_in = @equipment_asset.asset_check_ins.new(params[:asset_check_in])
-  
+
     respond_to do |wants|
-      if @asset_check_in.save #&& @equipment_asset.update_attributes(params[:equipment_asset])
+      if @asset_check_in.save && @equipment_asset.update_attributes({:inservice => params[:oos] == "0" ? "1" : "0" })
         flash[:notice] = 'Check in was successfull.'
         wants.html { redirect_to(@equipment_asset) }
         wants.xml  { render :xml => @asset_check_in, :status => :created, :location => @equipment_asset }
