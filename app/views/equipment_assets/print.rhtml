@@ -20,6 +20,7 @@
        margin: 0;
        width: 4px;
        height: 4px;
+       font-size: 0px;
      }
      td.black { background-color: #000; }
      td.white { background-color: #fff; }
@@ -47,9 +48,9 @@
            <tr>
            <% @qrcode.modules.each_index do |y| -%>
             <% if @qrcode.is_dark(x,y) -%>
-            <td class="black" />
+              <td class="black"><%= image_tag "black_box.png", :plugin => "redmine_equipment_status_viewer" %></td>
             <% else -%>
-            <td class="white" />
+              <td class="white"><%= image_tag "white_box.png", :plugin => "redmine_equipment_status_viewer" %></td>
             <% end -%>
            <% end -%>
            </tr>
