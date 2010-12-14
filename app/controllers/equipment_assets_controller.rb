@@ -91,6 +91,7 @@ class EquipmentAssetsController < ApplicationController
   def print
     @equipment_asset = EquipmentAsset.find(params[:id])
     @qrcode = getQRCode(equipment_asset_check_in_url(@equipment_asset))
+    render :layout => false
   end
 
   private
