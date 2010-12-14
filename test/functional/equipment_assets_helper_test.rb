@@ -36,4 +36,25 @@ class EquipmentAssetsHelperTest < ActionController::TestCase
       assert_match "<br />", @html
     end
   end
+
+  context "name_and_type" do
+    setup do
+      @asset_mock = Class.new
+      def @asset_mock.asset_type
+        "test_type"
+      end
+      def @asset_mock.name
+        "test"
+      end
+    end
+    should "return a string" do
+      assert name_and_type(@asset_mock).kind_of? String
+    end
+  end
+
+  context "simple_date" do
+    should "return a string" do
+      assert simple_date(Time.now).kind_of? String
+    end
+  end
 end

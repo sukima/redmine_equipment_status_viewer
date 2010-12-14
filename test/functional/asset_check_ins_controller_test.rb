@@ -30,6 +30,13 @@ class AssetCheckInsControllerTest < ActionController::TestCase
     should_render_template :new
     should_assign_to :equipment_asset
     should_assign_to :asset_check_in
+    context "with iPhone request" do
+      setup do
+        @request.user_agent = iphone_user_agent
+        get :new, :equipment_asset_id => 1
+      end
+      should_render_template :new_iphone
+    end
   end
   
   context "POST :create" do
@@ -50,5 +57,21 @@ class AssetCheckInsControllerTest < ActionController::TestCase
     end
     should_set_the_flash_to /success/i
     should_redirect_to(":show") { equipment_asset_path(1) }
+    context "with iPhone request" do
+      setup do
+        @request.user_agent = iphone_user_agent
+        post :create, :equipment_asset_id => 1, :asset_check_in => {
+          :person => "foo",
+          :location => "bar",
+          :equipment_asset_oos => true
+        }
+      end
+      should_render_template :create_iphone
+    end
+  end
+
+  private
+  def iphone_user_agent
+    "Mozilla/5.0 (iPhone; U; CPU like Mac OS X; en) AppleWebKit/420+ (KHTML, like Gecko) Version/3.0 Mobile/1A543 Safari/419.3"
   end
 end

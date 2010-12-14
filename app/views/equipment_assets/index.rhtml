@@ -1,4 +1,8 @@
 <% html_title "Equipment Assets" %>
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'style', :plugin => 'redmine_equipment_status_viewer' %>
+<% end %>
+
 <h2>Equipment Status</h2>
 
 <div id="pluginESV_container">
@@ -20,7 +24,7 @@
         <%   oos_class = (e.oos) ? "outofservice" : "inservice" %>
           <tr class="pluginESV_<%= oos_class %>">
             <td class="pluginESV_<%= oos_class %>">
-              <%= link_to e.name, equipment_asset_path(e) %>
+              <%= link_to e.name.capitalize, equipment_asset_path(e) %>
             </td>
             <td class="pluginESV_<%= oos_class %>"><%=h e.asset_type %></td>
             <td class="pluginESV_<%= oos_class %>"><%=h e.serial_number %></td>
@@ -36,7 +40,7 @@
   <div id="pluginESV_asset_check_ins">
     <% @asset_check_ins.each do |check_in| %>
       <div class="pluginESV_asset_check_in">
-        <p><%=h check_in.equipment_asset.name %> was moved to <%=h check_in.location %> by <%=h check_in.person %> on <%=h check_in.created_at %>.<p>
+        <p><%=h check_in.equipment_asset.name.capitalize %> was moved to <%=h check_in.location %> by <%=h check_in.person %> on <%=h simple_date(check_in.created_at) %>.<p>
       </div>
     <% end %>
   </div>

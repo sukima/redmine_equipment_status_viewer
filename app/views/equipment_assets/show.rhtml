@@ -1,4 +1,4 @@
-<% html_title "Equipment Details for #{@equipment_asset.name}" %>
+<% html_title "Equipment Details for #{@equipment_asset.name.capitalize}" %>
 <h1><%= name_and_type @equipment_asset %></h1>
 
 <div class="pluginESV_equipment_info">
@@ -6,7 +6,7 @@
     <div class="outofservice">This equipment is out of service!</div>
   <% end %>
   <span class="pluginESV_title">Name:</span>
-  <span class="pluginESV_name"><%=h @equipment_asset.name %></span>
+  <span class="pluginESV_name"><%=h @equipment_asset.name.capitalize %></span>
   <br />
   <span class="pluginESV_title">Type:</span>
   <span class="pluginESV_type"><%=h @equipment_asset.asset_type %></span>

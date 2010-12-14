@@ -10,6 +10,11 @@ module EquipmentAssetsHelper
   end
 
   def name_and_type(asset)
-    h "#{asset.name} (#{asset.asset_type})"
+    h "#{asset.name.capitalize} (#{asset.asset_type})"
+  end
+
+  def simple_date(time)
+    # FIXME: This is not i18n compatable!
+    time.strftime("%a %m/%d %H:%M")
   end
 end
