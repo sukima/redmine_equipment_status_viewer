@@ -1,4 +1,5 @@
 = equipment_status_viewer
+Version 0.1
 
 * Package is dependent on rqrcode *
 see http://whomwah.github.com/rqrcode/
