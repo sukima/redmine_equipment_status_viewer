@@ -24,7 +24,7 @@
 </div>
 
 <div class="pluginESV_asset_check_ins">
-  <% @equipment_asset.asset_check_ins.each do |check_in| %>
-    <div class="pluginESV_asset_check_in">Checked in by <%=h check_in.person %> at <%=h check_in.location %> on <%=h simple_date(check_in.created_at) %></div>
+  <% @equipment_asset.asset_check_ins.reverse.each do |check_in| %>
+    <div class="pluginESV_asset_check_in"><%= print_check_in(check_in).capitalize %></div>
   <% end %>
 </div>

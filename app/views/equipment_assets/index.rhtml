@@ -40,7 +40,7 @@
   <div id="pluginESV_asset_check_ins">
     <% @asset_check_ins.each do |check_in| %>
       <div class="pluginESV_asset_check_in">
-        <p><%=h check_in.equipment_asset.name.capitalize %> was moved to <%=h check_in.location %> by <%=h check_in.person %> on <%=h simple_date(check_in.created_at) %>.<p>
+        <p><%=h check_in.equipment_asset.name.capitalize %> was <%= print_check_in(check_in) %>.<p>
       </div>
     <% end %>
   </div>

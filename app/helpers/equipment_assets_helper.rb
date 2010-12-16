@@ -17,4 +17,8 @@ module EquipmentAssetsHelper
     # FIXME: This is not i18n compatable!
     time.strftime("%a %m/%d %H:%M")
   end
+
+  def print_check_in(check_in)
+    "checked in at #{h check_in.location} by #{h check_in.person} on #{h simple_date(check_in.created_at)}"
+  end
 end

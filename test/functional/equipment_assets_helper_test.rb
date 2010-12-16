@@ -39,16 +39,13 @@ class EquipmentAssetsHelperTest < ActionController::TestCase
 
   context "name_and_type" do
     setup do
-      @asset_mock = Class.new
-      def @asset_mock.asset_type
-        "test_type"
-      end
-      def @asset_mock.name
-        "test"
-      end
+      @asset = EquipmentAsset.new(
+        :asset_type => "test_type",
+        :name => "test"
+      )
     end
     should "return a string" do
-      assert name_and_type(@asset_mock).kind_of? String
+      assert name_and_type(@asset).kind_of? String
     end
   end
 
@@ -56,5 +53,18 @@ class EquipmentAssetsHelperTest < ActionController::TestCase
     should "return a string" do
       assert simple_date(Time.now).kind_of? String
     end
+
+  context "print_check_in" do
+    setup do
+      @check_in = AssetCheckIn.new(
+        :person => "test",
+        :location => "foobar",
+        :created_at => Time.now
+      )
+    end
+    should "return a string" do
+      assert print_check_in(@check_in).kind_of? String
+    end
+  end
   end
 end
