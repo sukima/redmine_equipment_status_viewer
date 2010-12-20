@@ -2,10 +2,11 @@ require File.dirname(__FILE__) + '/../test_helper.rb'
 require 'equipment_assets_helper'
 
 class EquipmentAssetsHelperTest < ActionController::TestCase
-  fixtures :equipment_assets
+  fixtures :equipment_assets, :asset_check_ins
 
   include ActionView::Helpers::TextHelper
   include ActionView::Helpers::TagHelper
+  include ActionView::Helpers::DateHelper
   include ActionController::UrlWriter
   include ApplicationHelper
   include EquipmentAssetsHelper
@@ -64,6 +65,14 @@ class EquipmentAssetsHelperTest < ActionController::TestCase
     end
     should "return a string" do
       assert print_check_in(@check_in).kind_of? String
+      assert print_check_in(@check_in, :only => :person).kind_of? String
+      assert print_check_in(@check_in, :except => :date).kind_of? String
+      assert print_check_in(@check_in, :only => :all).kind_of? String
+      assert print_check_in(@check_in, :except => :none).kind_of? String
+      assert print_check_in(@check_in, :link => :true).kind_of? String
+      assert print_check_in(@check_in, :link => :false).kind_of? String
+      assert print_check_in(@check_in, :except => :none, :link => true).kind_of? String
+      assert print_check_in(@check_in, :except => :none, :fuzzy_date => false).kind_of? String
     end
   end
   end
