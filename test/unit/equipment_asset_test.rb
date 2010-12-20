@@ -13,8 +13,12 @@ class EquipmentAssetTest < ActiveSupport::TestCase
     should "exist" do
       assert @asset.respond_to? :location
     end
-    should "return false if no asset_check_ins found" do
-      assert !@asset.location
+    should "return string" do
+      @asset.asset_check_ins = [ AssetCheckIn.new(:person => "foo", :location => "bar") ]
+      assert @asset.location.kind_of? String
+    end
+    should "return string if no asset_check_ins found" do
+      assert @asset.location.kind_of? String
     end
   end
 end
