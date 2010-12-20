@@ -1,0 +1,9 @@
+.pluginESV_outofservice {
+  text-decoration: line-through;
+  color: gray;
+}
+.pluginESV_inservice {
+}
+#pluginESV_attributes {
+  width: 300px;
+}

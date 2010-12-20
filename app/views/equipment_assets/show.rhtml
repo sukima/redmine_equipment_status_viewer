@@ -1,30 +1,49 @@
 <% html_title "Equipment Details for #{@equipment_asset.name.capitalize}" %>
-<h1><%= name_and_type @equipment_asset %></h1>
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'style', :plugin => 'redmine_equipment_status_viewer' %>
+<% end %>
 
-<div class="pluginESV_equipment_info">
-  <% if @equipment_asset.oos %>
-    <div class="outofservice">This equipment is out of service!</div>
-  <% end %>
-  <span class="pluginESV_title">Name:</span>
-  <span class="pluginESV_name"><%=h @equipment_asset.name.capitalize %></span>
-  <br />
-  <span class="pluginESV_title">Type:</span>
-  <span class="pluginESV_type"><%=h @equipment_asset.asset_type %></span>
-  <br />
-  <span class="pluginESV_title">Serial Number:</span>
-  <span class="pluginESV_serialnumber"><%=h @equipment_asset.serial_number %></span>
-  <br />
-  <span class="pluginESV_title">Location:</span>
-  <span class="pluginESV_location"><%=h @equipment_asset.location %></span>
+<div class="contextual">
+  <span><%= link_to "Check In", equipment_asset_check_in_path(@equipment_asset), :class => "icon icon-time-add" %></span>
+  <span><%= link_to "Print Label", print_equipment_asset_path(@equipment_asset), :class => "icon icon-report" %></span>
+  <span><%= link_to "Edit", edit_equipment_asset_path(@equipment_asset), :class => "icon icon-edit" %></span>
+  <span><%= link_to "Delete", equipment_asset_path(@equipment_asset), :confirm => "Are you sure?", :method => :delete, :class => "icon icon-del" %></span>
 </div>
 
-<div class="pluginESV_actions">
-  <span><%= link_to "Edit", edit_equipment_asset_path(@equipment_asset) %></span>
-  <span><%= link_to "Delete", equipment_asset_path(@equipment_asset), :confirm => "Are you sure?", :method => :delete %></span>
+<h2><%= name_and_type @equipment_asset %></h2>
+
+<div class="issue">
+<% if @equipment_asset.oos %>
+  <div id="errorExplanation" class="errorExplanation">This equipment is out of service!</div>
+<% end %>
+  <table class="attributes" id="pluginESV_attributes">
+    <tr>
+      <th>Name:</th>
+      <td><%=h @equipment_asset.name.capitalize %></td>
+    </tr>
+    <tr>
+      <th>Type:</th>
+      <td><%=h @equipment_asset.asset_type %></td>
+    </tr>
+    <tr>
+      <th>Serial Number:</th>
+      <td><%=h @equipment_asset.serial_number %></td>
+    </tr>
+    <tr>
+      <th>Current Location:</th>
+      <td><%= @equipment_asset.location %></td>
+    </tr>
+  </table>
 </div>
 
 <div class="pluginESV_asset_check_ins">
-  <% @equipment_asset.asset_check_ins.reverse.each do |check_in| %>
-    <div class="pluginESV_asset_check_in"><%= print_check_in(check_in).capitalize %></div>
+  <h3>Check Ins</h3>
+  <% if @equipment_asset.asset_check_ins.empty? %>
+    <p class="nodata">No data to display</p>
   <% end %>
+  <ul>
+    <% @equipment_asset.asset_check_ins.reverse.each do |check_in| %>
+      <li class="pluginESV_asset_check_in"><%= print_check_in(check_in) %></li>
+    <% end %>
+  </ul>
 </div>
