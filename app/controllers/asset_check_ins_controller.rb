@@ -19,7 +19,7 @@ class AssetCheckInsController < ApplicationController
 
     respond_to do |wants|
       if @asset_check_in.save && @equipment_asset.update_attributes({:oos => @asset_check_in.equipment_asset_oos})
-        flash[:notice] = 'Check in was successfull.'
+        flash[:notice] = t(:asset_check_in_created)
         wants.html { render_with_iphone_check :template => 'create', :redirect => true }
         wants.xml  { render :xml => @asset_check_in, :status => :created, :location => @equipment_asset }
       else

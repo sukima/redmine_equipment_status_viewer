@@ -35,7 +35,7 @@ class EquipmentAssetsController < ApplicationController
   
     respond_to do |wants|
       if @equipment_asset.save
-        flash[:notice] = 'EquipmentAsset was successfully created.'
+        flash[:notice] = t(:equipment_asset_created)
         wants.html { redirect_to(@equipment_asset) }
         wants.xml  { render :xml => @equipment_asset, :status => :created, :location => @equipment_asset }
       else
@@ -50,7 +50,7 @@ class EquipmentAssetsController < ApplicationController
   
     respond_to do |wants|
       if @equipment_asset.update_attributes(params[:equipment_asset])
-        flash[:notice] = 'EquipmentAsset was successfully updated.'
+        flash[:notice] = t(:equipment_asset_updated)
         wants.html { redirect_to(@equipment_asset) }
         wants.xml  { head :ok }
       else
