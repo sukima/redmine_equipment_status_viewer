@@ -5,6 +5,8 @@ class EquipmentAsset < ActiveRecord::Base
 
   validates_presence_of :name
 
+  validates_uniqueness_of :serial_number
+
   def location
     if asset_check_ins && asset_check_ins.last
       asset_check_ins.last.location

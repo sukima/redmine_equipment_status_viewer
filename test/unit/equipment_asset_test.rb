@@ -5,6 +5,7 @@ class EquipmentAssetTest < ActiveSupport::TestCase
   fixtures :equipment_assets
   should_have_many :asset_check_ins
   should_validate_presence_of :name
+  should_validate_uniqueness_of :serial_number
 
   context "location method" do
     setup do
