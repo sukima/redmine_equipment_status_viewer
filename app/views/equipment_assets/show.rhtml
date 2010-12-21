@@ -4,6 +4,7 @@
 <% end %>
 
 <div class="contextual">
+  <span><%= link_to "Add Equipment", new_equipment_asset_path, :class => "icon icon-add" %></span>
   <span><%= link_to "Check In", equipment_asset_check_in_path(@equipment_asset), :class => "icon icon-time-add" %></span>
   <span><%= link_to "Print Label", print_equipment_asset_path(@equipment_asset), :class => "icon icon-report" %></span>
   <span><%= link_to "Edit", edit_equipment_asset_path(@equipment_asset), :class => "icon icon-edit" %></span>
