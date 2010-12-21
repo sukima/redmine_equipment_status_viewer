@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+one:
+  id: 1
+  name: "Widget (in Service)"
+  oos: false
+  asset_type: "test"
+  serial_number: "001"
+two:
+  id: 2
+  name: "Widget (not in Service)"
+  oos: false
+  asset_type: "test"
+  serial_number: "002"

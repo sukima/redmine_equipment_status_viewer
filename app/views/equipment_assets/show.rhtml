@@ -1,0 +1,50 @@
+<% html_title "Equipment Details for #{@equipment_asset.name.capitalize}" %>
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'style', :plugin => 'redmine_equipment_status_viewer' %>
+<% end %>
+
+<div class="contextual">
+  <span><%= link_to "Add Equipment", new_equipment_asset_path, :class => "icon icon-add" %></span>
+  <span><%= link_to "Check In", equipment_asset_check_in_path(@equipment_asset), :class => "icon icon-time-add" %></span>
+  <span><%= link_to "Print Label", print_equipment_asset_path(@equipment_asset), :class => "icon icon-report" %></span>
+  <span><%= link_to "Edit", edit_equipment_asset_path(@equipment_asset), :class => "icon icon-edit" %></span>
+  <span><%= link_to "Delete", equipment_asset_path(@equipment_asset), :confirm => "Are you sure?", :method => :delete, :class => "icon icon-del" %></span>
+</div>
+
+<h2><%= name_and_type @equipment_asset %></h2>
+
+<div class="issue">
+<% if @equipment_asset.oos %>
+  <div id="errorExplanation" class="errorExplanation">This equipment is out of service!</div>
+<% end %>
+  <table class="attributes" id="pluginESV_attributes">
+    <tr>
+      <th>Name:</th>
+      <td><%=h @equipment_asset.name.capitalize %></td>
+    </tr>
+    <tr>
+      <th>Type:</th>
+      <td><%=h @equipment_asset.asset_type %></td>
+    </tr>
+    <tr>
+      <th>Serial Number:</th>
+      <td><%=h @equipment_asset.serial_number %></td>
+    </tr>
+    <tr>
+      <th>Current Location:</th>
+      <td><%= @equipment_asset.location %></td>
+    </tr>
+  </table>
+</div>
+
+<div class="pluginESV_asset_check_ins">
+  <h3>Check Ins</h3>
+  <% if @equipment_asset.asset_check_ins.empty? %>
+    <p class="nodata">No data to display</p>
+  <% end %>
+  <ul>
+    <% @equipment_asset.asset_check_ins.reverse.each do |check_in| %>
+      <li class="pluginESV_asset_check_in"><%= print_check_in(check_in) %></li>
+    <% end %>
+  </ul>
+</div>

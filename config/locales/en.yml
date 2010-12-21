@@ -1,3 +1,11 @@
 # English strings go here for Rails i18n
 en:
-  my_label: "My label"
+  field_asset_type: "Type"
+  field_name: "Name"
+  field_serial_number: "Serial Number"
+  field_oos: "Out Of Service"
+  field_person: "Person"
+  field_location: "Location"
+  equipment_asset_created: "Equipment added successfully."
+  equipment_asset_updated: "Equipment updated successfully."
+  asset_check_in_created: "Checked in successfully."

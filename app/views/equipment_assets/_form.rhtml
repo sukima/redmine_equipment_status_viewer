@@ -1,0 +1,23 @@
+<% form_for(@equipment_asset) do |f| %>
+  <%= f.error_messages %>
+  <div class="pluginESV_formfield">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="pluginESV_formfield">
+    <%= f.label :asset_type %><br />
+    <%= f.text_field :asset_type %>
+  </div>
+  <div class="pluginESV_formfield">
+    <%= f.label :serial_number %><br />
+    <%= f.text_field :serial_number %>
+  </div>
+  <div class="pluginESV_formfield">
+    <%= f.label :oos, 'Out of service' %><br />
+    <%= f.check_box :oos %>
+  </div>
+  <div class="pluginESV_formactions">
+    <%= f.submit "Submit" %>
+    <%= link_to "Cancel", equipment_assets_path %>
+  </div>
+<% end %>

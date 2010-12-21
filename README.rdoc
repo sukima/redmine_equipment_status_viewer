@@ -1,3 +1,14 @@
 = equipment_status_viewer
+Version 0.1
 
-Description goes here
+Equipment Status Viewer is a Redmine plugin that tracks the location of
+equipment. It uses a check in system to track where each item is. It can also
+print out a QRCode label that your iPhone or Andriod phone can snap and check
+in quickly.
+
+* Package is dependent on rqrcode *
+see http://whomwah.github.com/rqrcode/
+    gem install rqrcode
+
+Run in redmine root:
+    script/plugin install git://github.com/jamesgolick/resource_controller.git

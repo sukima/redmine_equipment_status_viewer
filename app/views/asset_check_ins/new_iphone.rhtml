@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<!-- <meta content="yes" name="apple-mobile-web-app-capable" /> -->
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta content="minimum-scale=1.0, width=device-width, maximum-scale=0.6667, user-scalable=no" name="viewport" />
+<%= stylesheet_link_tag 'iWebKitStyle', :plugin => 'redmine_equipment_status_viewer' %>
+<%= javascript_include_tag 'iWebKitFunctions', :plugin => 'redmine_equipment_status_viewer' %>
+<title>Check in for <%=h @equipment_asset.name.capitalize %></title>
+</head>
+
+<body>
+
+<!--
+<div id="topbar">
+  <div id="title">Check In</div>
+</div>
+-->
+<div id="content">
+<% form_for([@equipment_asset, @asset_check_in]) do |f| %>
+  <%#= f.error_messages :class => 'graytitle',
+    :header_message => "Oops - We couldn't check in!",
+    :message => "The following fields were a bit of a problem:",
+    :header_tag => :span %>
+  <ul class="pageitem">
+    <li class="textbox">
+      <span class="header"><%=h @equipment_asset.name.capitalize %></span>
+      <table>
+        <tbody>
+          <tr>
+            <td><strong>Type:</strong></td>
+            <td><%=h @equipment_asset.asset_type %></td>
+          </tr>
+          <tr>
+            <td><strong>Serial #:</strong></td>
+            <td><%=h @equipment_asset.serial_number %></td>
+          </tr>
+          <tr>
+            <td><strong>Location:</strong></td>
+            <td><%=h @equipment_asset.location %></td>
+          </tr>
+        </tbody>
+      </table>
+    </li>
+  </ul>
+  <% if @asset_check_in.errors.empty? %>
+    <div class="graytitle">Check In</div>
+  <% else %>
+    <span class="graytitle">Could not check in!</span>
+    <ul class="pageitem">
+      <li class="textbox">
+        <% @asset_check_in.errors.each do |attr,err| %>
+          <p style="color: red;"><strong><%=h attr %></strong> <%=h err %></p>
+        <% end %>
+      </li>
+    </ul>
+  <% end %>
+  <ul class="pageitem">
+    <li class="smallfield">
+      <span class="name"><%= f.label :person %></span>
+      <%= f.text_field :person, :placeholder => "Who are you?" %>
+    </li>
+    <li class="smallfield">
+      <span class="name"><%= f.label :location %></span>
+      <%= f.text_field :location, :placeholder => "Where are you?" %>
+    </li>
+    <li class="checkbox">
+      <span class="name"><%= f.label :equipment_asset_oos %></span>
+      <%= f.check_box :equipment_asset_oos %>
+    </li>
+  </ul>
+  <ul class="pageitem">
+    <li class="button">
+      <%= f.submit "Check In" %>
+    </li>
+  </ul>
+<% end %>
+</div>
+<div id="footer">
+	<!-- Support iWebKit by sending us traffic; please keep this footer on your page, consider it a thank you for our work :-) -->
+	<a class="noeffect" href="http://iwebkit.net">Powered by iWebKit</a></div>
+
+  </body>
+</html>

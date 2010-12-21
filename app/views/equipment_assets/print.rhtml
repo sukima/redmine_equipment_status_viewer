@@ -1,0 +1,88 @@
+<% html_title "Label for #{@equipment_asset.name.capitalize}" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>Label for <%=h @equipment_asset.name.capitalize %></title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <style type="text/css">
+     table {
+      border-width: 0;
+      border-style: none;
+      /* border-color: #0000ff; */
+      border-collapse: collapse;
+     }
+     td {
+       border-width: 0;
+       border-style: none;
+       /* border-color: #0000ff; */
+       border-collapse: collapse;
+       padding: 0;
+       margin: 0;
+       width: 4px;
+       height: 4px;
+       font-size: 0px;
+     }
+     td.black { background-color: #000; }
+     td.white { background-color: #fff; }
+     #container {
+       width: 500px;
+     }
+     #asset-label {
+       width: 300px;
+       text-align: center;
+       border: thin dashed black;
+     }
+     #qrcode {
+       width: 132px;
+       margin: 0 auto;
+     }
+     #instructions {
+       margin-top: 10px;
+       text-align: left;
+     }
+    </style>
+    <style type="text/css" media="print">
+      #instructions {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div id="asset-label">
+        <h2><%= @equipment_asset.name.capitalize %></h2>
+        <p>
+          <b>Serial Number:</b>
+          <%= @equipment_asset.serial_number %>
+        </p>
+
+        <div id="qrcode">
+          <table>
+           <% @qrcode.modules.each_index do |x| -%>
+             <tr>
+             <% @qrcode.modules.each_index do |y| -%>
+              <% if @qrcode.is_dark(x,y) -%>
+                <td class="black"><%= image_tag "black_box.png", :plugin => "redmine_equipment_status_viewer" %></td>
+              <% else -%>
+                <td class="white"><%= image_tag "white_box.png", :plugin => "redmine_equipment_status_viewer" %></td>
+              <% end -%>
+             <% end -%>
+             </tr>
+           <% end -%>
+          </table>
+        </div>
+
+        <p>
+          <b>Check in at:</b><br />
+          <%= split_check_in_url(@equipment_asset) %>
+        </p>
+      </div>
+      <div id="instructions">
+        <form><input type="button" value=" Print Label "onclick="window.print();return false;" /></form> 
+        <p>Print this page to make a label. Then paste it to the equipment.</p>
+        <p>For more information on how to use the above barcode with your smart phone please visit The <a href="http://www.asquare.org/networkresearch/resources/qrcode-help">help info</a> at Network Research.</p>
+        <p><%= link_to "Go Back", equipment_asset_path(@equipment_asset) %></p>
+      </div>
+    </div>
+  </body>
+</html>

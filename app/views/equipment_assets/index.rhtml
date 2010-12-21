@@ -1,0 +1,68 @@
+<% html_title "Equipment Assets" %>
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'style', :plugin => 'redmine_equipment_status_viewer' %>
+<% end %>
+
+<div class="contextual">
+  <%= link_to "Add Equipment", new_equipment_asset_path, :class => "icon icon-add" %>
+</div>
+
+<h2>Equipment Status</h2>
+
+<div id="list_top"> </div>
+<div id="list-left" class="splitcontentleft">
+  <div class="mypage-box">
+    <% if @equipment_assets.empty? %>
+      <p class="nodata">No data to display</p>
+    <% else %>
+      <table class="list">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Serial #</th>
+            <th>Location</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @equipment_assets.each_with_index do |e,index| %>
+          <%   oos_class = (e.oos) ? "outofservice" : "inservice" %>
+            <tr class="pluginESV_<%= oos_class %> <%= (index%2==1) ? "odd" : "even" %>">
+              <td class="pluginESV_<%= oos_class %>">
+                <%= link_to e.name.capitalize, equipment_asset_path(e) %>
+              <% if e.oos %>(Out Of Service)<% end %>
+              </td>
+              <td class="pluginESV_<%= oos_class %>"><%=h e.asset_type %></td>
+              <td class="pluginESV_<%= oos_class %>"><%=h e.serial_number %></td>
+              <td class="pluginESV_<%= oos_class %>"><%=h e.location %></td>
+              <td class="pluginESV_<%= oos_class %>"><%= link_to "", equipment_asset_check_in_path(e), :class => "icon icon-time-add", :title => "Check in #{e.name}" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+    <!--
+    <p class="small">
+      footnotes
+    </p>
+    -->
+  </div>
+</div>
+<div class="splitcontentright">
+  <div class="news box">
+    <h3>Check ins</h3>
+    <ul>
+    <% @asset_check_ins.each do |check_in| %>
+      <li>
+        <%= link_to check_in.equipment_asset.name.capitalize,
+          equipment_asset_path(check_in.equipment_asset) %>
+        (<%=h simple_date(check_in.created_at) %>)
+        <p>
+          <%= print_check_in(check_in, :except => [:name, :date]) %>
+        </p>
+      </li>
+    <% end %>
+    </ul>
+  <div>
+</div>

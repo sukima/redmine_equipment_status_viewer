@@ -1,2 +1,4 @@
 # English strings go here
+# This translation file doesn't seem to be used.
+# See config/locales/en.yml instead.
 my_label: "My label"
