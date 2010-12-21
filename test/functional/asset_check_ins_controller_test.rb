@@ -55,6 +55,10 @@ class AssetCheckInsControllerTest < ActionController::TestCase
       @e = EquipmentAsset.find(1)
       assert @e.oos
     end
+    should "set cookies for the submitted values" do
+      assert_equal "foo", cookies["asset_check_in_person"], "asset_check_in_person"
+      assert_equal "bar", cookies["asset_check_in_location"], "asset_check_in_location"
+    end
     should_set_the_flash_to /success/i
     should_redirect_to(":show") { equipment_asset_path(1) }
     context "with iPhone request" do

@@ -7,6 +7,8 @@ class AssetCheckInsController < ApplicationController
   def new
     @asset_check_in = @equipment_asset.asset_check_ins.new
     @asset_check_in.equipment_asset_oos = @equipment_asset.oos
+    @asset_check_in.person ||= cookies[:asset_check_in_person]
+    @asset_check_in.location ||= cookies[:asset_check_in_location]
   
     respond_to do |wants|
       wants.html { render_with_iphone_check }
@@ -20,6 +22,8 @@ class AssetCheckInsController < ApplicationController
     respond_to do |wants|
       if @asset_check_in.save && @equipment_asset.update_attributes({:oos => @asset_check_in.equipment_asset_oos})
         flash[:notice] = t(:asset_check_in_created)
+        cookies[:asset_check_in_person] = @asset_check_in.person
+        cookies[:asset_check_in_location] = @asset_check_in.location
         wants.html { render_with_iphone_check :template => 'create', :redirect => true }
         wants.xml  { render :xml => @asset_check_in, :status => :created, :location => @equipment_asset }
       else
