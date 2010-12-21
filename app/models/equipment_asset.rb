@@ -5,7 +5,7 @@ class EquipmentAsset < ActiveRecord::Base
 
   validates_presence_of :name
 
-  validates_uniqueness_of :serial_number
+  validates_uniqueness_of :serial_number, :allow_nil => true, :allow_blank => true
 
   def location
     if asset_check_ins && asset_check_ins.last
