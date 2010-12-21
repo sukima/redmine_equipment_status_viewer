@@ -1,7 +1,7 @@
 class EquipmentAsset < ActiveRecord::Base
   unloadable
 
-  has_many :asset_check_ins, :limit => 50
+  has_many :asset_check_ins, :limit => 50, :dependent => :destroy
 
   validates_presence_of :name
 
