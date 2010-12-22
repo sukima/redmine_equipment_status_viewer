@@ -3,6 +3,8 @@ require 'rqrcode'
 class EquipmentAssetsController < ApplicationController
   unloadable
 
+  before_filter :require_login, :except => [ :index, :show, :print ]
+
   def index
     @equipment_assets = EquipmentAsset.all
     @asset_check_ins = AssetCheckIn.find(:all, :order => "id desc", :limit => 20)

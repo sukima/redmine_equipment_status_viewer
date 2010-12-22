@@ -8,11 +8,14 @@ Redmine::Plugin.register :redmine_equipment_status_viewer do
   url 'http://github.com/sukima/RedmineEquipmentStatusPlugin'
   author_url 'http://github.com/sukima'
 
-  permission :equipment_assets, {:equipment_assets => [:destroy, :update, :create, :edit, :new]}
-  permission :equipment_assets, {:equipment_assets => [:index, :show]}, :public => true
-  permission :asset_check_ins, {:asset_check_ins => [:new, :create]}, :public => true
+  permission :manage_equipment_assets,
+    {:equipment_assets => [:destroy, :update, :create, :edit, :new]}
+  permission :view_equipment_assets,
+    {:equipment_assets => [:index, :show, :print]}, :public => :loggedin
+  permission :allow_equipment_check_ins,
+    {:asset_check_ins => [ :new, :create ]}, :public => true
 
-  menu :application_menu, :equipment_status_viewer,
+  menu :top_menu, :equipment_status_viewer,
     { :controller => 'equipment_assets', :action => 'index' },
-    :caption => 'Equipment'
+    :caption => 'Equipment', :after => :projects
 end
