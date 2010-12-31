@@ -8,10 +8,11 @@ class EquipmentAssetsControllerTest < ActionController::TestCase
   fixtures :equipment_assets, :asset_check_ins
 
   def setup
-    @controller = EquipmentAssetsController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
-    #User.current = nil
+    #@controller = EquipmentAssetsController.new
+    #@request    = ActionController::TestRequest.new
+    #@response   = ActionController::TestResponse.new
+    @user = User.generate_with_protected!(:admin => true)
+    @request.session[:user_id] = @user.id
   end
 
   should_route :get, "/equipment_assets", :action => :index
