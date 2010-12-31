@@ -35,8 +35,8 @@
       <td><%= @equipment_asset.location %></td>
     </tr>
   </table>
-  <% if !@equipment_asset.comment.empty? %>
-    <div><%=h @equipment_asset.comment %></div>
+  <% if @equipment_asset.comment %>
+    <p><%=h @equipment_asset.comment %></p>
   <% end %>
 </div>
 

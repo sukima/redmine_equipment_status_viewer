@@ -28,7 +28,9 @@
         <tbody>
           <% @equipment_assets.each_with_index do |e,index| %>
           <%   oos_class = (e.oos) ? "outofservice" : "inservice" %>
-            <tr class="pluginESV_<%= oos_class %> <%= (index%2==1) ? "odd" : "even" %>">
+          <%   evenodd = (index%2==1) ? "odd" : "even" %>
+          <tr title="<%=h e.comment %>"
+            class="<%= evenodd %> pluginESV_<%= oos_class %>">
               <td class="pluginESV_<%= oos_class %>">
                 <%= link_to e.name.capitalize, equipment_asset_path(e) %>
               <% if e.oos %>(Out Of Service)<% end %>
