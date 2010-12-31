@@ -35,6 +35,9 @@
       <td><%= @equipment_asset.location %></td>
     </tr>
   </table>
+  <% if @equipment_asset.comment %>
+    <p><%=h @equipment_asset.comment %></p>
+  <% end %>
 </div>
 
 <div class="pluginESV_asset_check_ins">

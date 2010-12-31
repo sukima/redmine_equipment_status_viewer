@@ -7,6 +7,12 @@
 <meta content="minimum-scale=1.0, width=device-width, maximum-scale=0.6667, user-scalable=no" name="viewport" />
 <%= stylesheet_link_tag 'iWebKitStyle', :plugin => 'redmine_equipment_status_viewer' %>
 <%= javascript_include_tag 'iWebKitFunctions', :plugin => 'redmine_equipment_status_viewer' %>
+<script type="text/javascript">
+  function showAssetComment() {
+    document.getElementById('comment').style.display='block';
+    document.getElementById('comment_menu').style.display='none';
+  }
+</script>
 <title>Check in for <%=h @equipment_asset.name.capitalize %></title>
 </head>
 
@@ -43,6 +49,14 @@
         </tbody>
       </table>
     </li>
+    <% if @equipment_asset.comment %>
+    <li id="comment_menu" class="menu">
+      <a id="comment_link" href="javascript:showAssetComment()"><span class="name">Show comment</span><span class="arrow"></span></a>
+    </li>
+    <li id="comment" class="textbox" style="display:none;">
+      <div><%=h @equipment_asset.comment %></div>
+    </li>
+    <% end %>
   </ul>
   <% if @asset_check_in.errors.empty? %>
     <div class="graytitle">Check In</div>
@@ -80,6 +94,5 @@
 <div id="footer">
 	<!-- Support iWebKit by sending us traffic; please keep this footer on your page, consider it a thank you for our work :-) -->
 	<a class="noeffect" href="http://iwebkit.net">Powered by iWebKit</a></div>
-
   </body>
 </html>
