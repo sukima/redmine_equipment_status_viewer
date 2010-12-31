@@ -1,4 +1,4 @@
-= equipment_status_viewer
+= Equipment Status Viewer
 Version 0.2.0
 
 Equipment Status Viewer is a Redmine plugin that tracks the location of
@@ -9,6 +9,3 @@ in quickly.
 * Package is dependent on rqrcode *
 see http://whomwah.github.com/rqrcode/
     gem install rqrcode
-
-Run in redmine root:
-    script/plugin install git://github.com/jamesgolick/resource_controller.git
