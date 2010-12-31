@@ -2,8 +2,9 @@ class AssetCheckInsController < ApplicationController
   unloadable
   helper :equipment_assets
 
-  #before_filter :authorize_global, :get_equipment_asset
-  before_filter :get_equipment_asset
+  # To avoid a login prompt on the iPhone set the 'Allow equipment check ins'
+  # for the non-member/anonymous roles.
+  before_filter :authorize_global, :get_equipment_asset
 
   def new
     @asset_check_in = @equipment_asset.asset_check_ins.new
