@@ -2,6 +2,7 @@ class AssetCheckInsController < ApplicationController
   unloadable
   helper :equipment_assets
 
+  #before_filter :authorize_global, :get_equipment_asset
   before_filter :get_equipment_asset
 
   def new
