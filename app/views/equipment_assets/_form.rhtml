@@ -16,6 +16,10 @@
     <%= f.label :oos, 'Out of service' %><br />
     <%= f.check_box :oos %>
   </div>
+  <div class="pluginESV_formfield">
+    <%= f.label :comment %><br />
+    <%= f.text_area :comment %>
+  </div>
   <div class="pluginESV_formactions">
     <%= f.submit "Submit" %>
     <%= link_to "Cancel", equipment_assets_path %>
