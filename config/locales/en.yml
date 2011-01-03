@@ -1,5 +1,6 @@
 # English strings go here for Rails i18n
 en:
+  field_equipment_asset: "Equipment Asset"
   field_asset_type: "Type"
   field_name: "Name"
   field_serial_number: "Serial Number"
