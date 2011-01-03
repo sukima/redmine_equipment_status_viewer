@@ -105,6 +105,19 @@ class EquipmentAssetsControllerTest < ActionController::TestCase
     should_redirect_to(":index") { equipment_assets_path }
   end
 
+  context "QRCode" do
+    should "not raise exception (data size 20)" do
+      assert_nothing_raised do
+        @controller.send :getQRCode, "http://tiny.url/c/1"
+      end
+    end
+    should "not raise exception (data size 100)" do
+      assert_nothing_raised do
+        @controller.send :getQRCode, "http://www.long1234567890url0987654321test12345678910.com/long_controller_name/1000/long_action_name"
+      end
+    end
+  end
+
   context "GET :print" do
     setup do
       get :print, :id => 1

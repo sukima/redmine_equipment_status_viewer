@@ -116,6 +116,6 @@ class EquipmentAssetsController < ApplicationController
 
   private
   def getQRCode(data)
-    RQRCode::QRCode.new(data, :size => 4, :level => :m)
+    RQRCode::QRCode.new(data, :size => 8, :level => :m)
   end
 end
