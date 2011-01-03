@@ -116,6 +116,14 @@ class EquipmentAssetsController < ApplicationController
 
   private
   def getQRCode(data)
-    RQRCode::QRCode.new(data, :size => 8, :level => :m)
+    size = 4
+    size += 1 if data.length > 46 # Max value for size 4 using EC level :q
+    size += 1 if data.length > 60 # Max value for size 5 using EC level :q
+    size += 2 if data.length > 74 # Max value for size 6 using EC level :q
+    # Skip size 7. Has bugs: https://github.com/whomwah/rqrcode/issues#issue/1
+    size += 1 if data.length > 118 # Max value for size 8 using EC level :q
+    size += 1 if data.length > 130 # Max value for size 9 using EC level :q
+    # Max size is 10. After that your URL data is too big. You'll get an exception.
+    RQRCode::QRCode.new(data, :size => size, :level => :q)
   end
 end
