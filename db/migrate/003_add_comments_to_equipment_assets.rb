@@ -15,8 +15,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-# Load the normal Rails helper
-require File.expand_path(File.dirname(__FILE__) + '/../../../../test/test_helper')
+class AddCommentsToEquipmentAssets < ActiveRecord::Migration
+  def self.up
+    change_table :equipment_assets do |t|
+      t.text :comment
+    end
+  end
 
-# Ensure that we are using the temporary fixture path
-Engines::Testing.set_fixture_path
+  def self.down
+    change_table :equipment_assets do |t|
+      t.remove :comment
+    end
+  end
+end
+

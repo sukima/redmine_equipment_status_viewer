@@ -1,3 +1,20 @@
+# Redmine Equipment Status Viewer - An equipment manager plugin
+# Copyright (C) 2010-2011  Devin Weaver
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 3
+# of the License, or (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
 require File.dirname(__FILE__) + '/../test_helper.rb'
 require 'asset_check_ins_controller'
 
@@ -8,10 +25,11 @@ class AssetCheckInsControllerTest < ActionController::TestCase
   fixtures :equipment_assets, :asset_check_ins
 
   def setup
-    @controller = AssetCheckInsController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
-    #User.current = nil
+    #@controller = AssetCheckInsController.new
+    #@request    = ActionController::TestRequest.new
+    #@response   = ActionController::TestResponse.new
+    @user = User.generate_with_protected!(:admin => true)
+    @request.session[:user_id] = @user.id
   end
 
   should_route :get, "/equipment_assets/1/asset_check_ins/new",
@@ -54,6 +72,10 @@ class AssetCheckInsControllerTest < ActionController::TestCase
     should "set equipment_asset :oos to true" do
       @e = EquipmentAsset.find(1)
       assert @e.oos
+    end
+    should "set cookies for the submitted values" do
+      assert_equal "foo", cookies["asset_check_in_person"], "asset_check_in_person"
+      assert_equal "bar", cookies["asset_check_in_location"], "asset_check_in_location"
     end
     should_set_the_flash_to /success/i
     should_redirect_to(":show") { equipment_asset_path(1) }

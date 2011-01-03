@@ -1,13 +1,33 @@
+# Redmine Equipment Status Viewer - An equipment manager plugin
+# Copyright (C) 2010-2011  Devin Weaver
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 3
+# of the License, or (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
 class AssetCheckInsController < ApplicationController
   unloadable
   helper :equipment_assets
 
-  #before_filter :authorize_global, :get_equipment_asset
-  before_filter :get_equipment_asset
+  # To avoid a login prompt on the iPhone set the 'Allow equipment check ins'
+  # for the non-member/anonymous roles.
+  before_filter :authorize_global, :get_equipment_asset
 
   def new
     @asset_check_in = @equipment_asset.asset_check_ins.new
     @asset_check_in.equipment_asset_oos = @equipment_asset.oos
+    @asset_check_in.person ||= cookies[:asset_check_in_person]
+    @asset_check_in.location ||= cookies[:asset_check_in_location]
   
     respond_to do |wants|
       wants.html { render_with_iphone_check }
@@ -21,6 +41,8 @@ class AssetCheckInsController < ApplicationController
     respond_to do |wants|
       if @asset_check_in.save && @equipment_asset.update_attributes({:oos => @asset_check_in.equipment_asset_oos})
         flash[:notice] = t(:asset_check_in_created)
+        cookies[:asset_check_in_person] = @asset_check_in.person
+        cookies[:asset_check_in_location] = @asset_check_in.location
         wants.html { render_with_iphone_check :template => 'create', :redirect => true }
         wants.xml  { render :xml => @asset_check_in, :status => :created, :location => @equipment_asset }
       else

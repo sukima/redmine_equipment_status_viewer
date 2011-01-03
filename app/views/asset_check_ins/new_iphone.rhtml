@@ -1,3 +1,4 @@
+<% comment_display_length = 140 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -7,6 +8,12 @@
 <meta content="minimum-scale=1.0, width=device-width, maximum-scale=0.6667, user-scalable=no" name="viewport" />
 <%= stylesheet_link_tag 'iWebKitStyle', :plugin => 'redmine_equipment_status_viewer' %>
 <%= javascript_include_tag 'iWebKitFunctions', :plugin => 'redmine_equipment_status_viewer' %>
+<script type="text/javascript">
+  function showAssetComment() {
+    document.getElementById('comment').style.display='block';
+    document.getElementById('comment_menu').style.display='none';
+  }
+</script>
 <title>Check in for <%=h @equipment_asset.name.capitalize %></title>
 </head>
 
@@ -43,6 +50,18 @@
         </tbody>
       </table>
     </li>
+    <% if @equipment_asset.comment %>
+      <% if @equipment_asset.comment.length > comment_display_length %>
+        <li id="comment_menu" class="menu">
+          <a id="comment_link" href="javascript:showAssetComment()"><span class="name">Show comment</span><span class="arrow"></span></a>
+        </li>
+        <li id="comment" class="textbox" style="display:none;">
+      <% else %>
+        <li id="comment" class="textbox">
+          <div><%=h @equipment_asset.comment %></div>
+        </li>
+      <% end %>
+    <% end %>
   </ul>
   <% if @asset_check_in.errors.empty? %>
     <div class="graytitle">Check In</div>
@@ -66,7 +85,7 @@
       <%= f.text_field :location, :placeholder => "Where are you?" %>
     </li>
     <li class="checkbox">
-      <span class="name"><%= f.label :equipment_asset_oos %></span>
+      <span class="name"><%= f.label :equipment_asset_oos, "Out of service?" %></span>
       <%= f.check_box :equipment_asset_oos %>
     </li>
   </ul>
@@ -80,6 +99,5 @@
 <div id="footer">
 	<!-- Support iWebKit by sending us traffic; please keep this footer on your page, consider it a thank you for our work :-) -->
 	<a class="noeffect" href="http://iwebkit.net">Powered by iWebKit</a></div>
-
   </body>
 </html>

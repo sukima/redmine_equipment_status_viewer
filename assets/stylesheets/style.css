@@ -1,3 +1,6 @@
+/* Redmine Equipment Status Viewer - An equipment manager plugin
+   Copyright (C) 2010-2011  Devin Weaver */
+
 .pluginESV_outofservice {
   text-decoration: line-through;
   color: gray;
