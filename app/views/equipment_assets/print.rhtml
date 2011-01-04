@@ -51,10 +51,12 @@
     <div id="container">
       <div id="asset-label">
         <h2><%= @equipment_asset.name %></h2>
-        <p>
-          <b>Serial Number:</b>
-          <%= @equipment_asset.serial_number %>
-        </p>
+        <% if !@equipment_asset.serial.empty? %>
+          <p>
+            <b>Serial Number:</b>
+            <%= @equipment_asset.serial_number %>
+          </p>
+        <% end %>
         <div id="qrcode">
           <table>
            <% @qrcode.modules.each_index do |x| -%>
