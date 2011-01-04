@@ -32,7 +32,7 @@
           <tr title="<%=h e.comment %>"
             class="<%= evenodd %> pluginESV_<%= oos_class %>">
               <td class="pluginESV_<%= oos_class %>">
-                <%= link_to e.name.capitalize, equipment_asset_path(e) %>
+                <%= link_to e.name, equipment_asset_path(e) %>
               <% if e.oos %>(Out Of Service)<% end %>
               </td>
               <td class="pluginESV_<%= oos_class %>"><%=h e.asset_type %></td>
@@ -57,7 +57,7 @@
     <ul>
     <% @asset_check_ins.each do |check_in| %>
       <li>
-        <%= link_to check_in.equipment_asset.name.capitalize,
+        <%= link_to check_in.equipment_asset.name,
           equipment_asset_path(check_in.equipment_asset) %>
         (<%=h simple_date(check_in.created_at) %>)
         <p>

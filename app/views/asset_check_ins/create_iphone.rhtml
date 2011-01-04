@@ -21,10 +21,10 @@
   <span class="graytitle">Checked in!</span>
   <ul class="pageitem">
     <li class="textbox">
-      <span class="header">Successfully checked in <%= @equipment_asset.name.capitalize %></span>
-      <p>You have checked in <%= @equipment_asset.name.capitalize %> to <%=h @asset_check_in.location %>.</p>
+      <span class="header">Successfully checked in <%= @equipment_asset.name %></span>
+      <p>You have checked in <%= @equipment_asset.name %> to <%=h @asset_check_in.location %>.</p>
       <% if @equipment_asset.oos %>
-        <p style="color: red;"><%=h @equipment_asset.name.capitalize %> is <strong>out of service</strong>!</p>
+        <p style="color: red;"><%=h @equipment_asset.name %> is <strong>out of service</strong>!</p>
       <% end %>
     </li>
   </ul>

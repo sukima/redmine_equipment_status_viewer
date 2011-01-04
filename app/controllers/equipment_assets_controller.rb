@@ -24,7 +24,7 @@ class EquipmentAssetsController < ApplicationController
   before_filter :authorize_global
 
   def index
-    @equipment_assets = EquipmentAsset.all
+    @equipment_assets = EquipmentAsset.find(:all, :group => "asset_type", :order => "name asc")
     @asset_check_ins = AssetCheckIn.find(:all, :order => "id desc", :limit => 20)
   end
 

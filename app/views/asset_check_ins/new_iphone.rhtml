@@ -14,7 +14,7 @@
     document.getElementById('comment_menu').style.display='none';
   }
 </script>
-<title>Check in for <%=h @equipment_asset.name.capitalize %></title>
+<title>Check in for <%=h @equipment_asset.name %></title>
 </head>
 
 <body>
@@ -32,7 +32,7 @@
     :header_tag => :span %>
   <ul class="pageitem">
     <li class="textbox">
-      <span class="header"><%=h @equipment_asset.name.capitalize %></span>
+      <span class="header"><%=h @equipment_asset.name %></span>
       <table>
         <tbody>
           <tr>

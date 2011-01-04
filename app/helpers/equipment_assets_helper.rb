@@ -27,7 +27,7 @@ module EquipmentAssetsHelper
   end
 
   def name_and_type(asset)
-    h "#{asset.name.capitalize} (#{asset.asset_type})"
+    h "#{asset.name} (#{asset.asset_type})"
   end
 
   def simple_date(time)
@@ -57,10 +57,10 @@ module EquipmentAssetsHelper
     str = ""
     if check_in.equipment_asset && details.include?(:name)
       if opt[:link]
-        str += link_to check_in.equipment_asset.name.capitalize,
+        str += link_to check_in.equipment_asset.name,
           equipment_asset_path(check_in.equipment_asset)
       else
-        str += h(check_in.equipment_asset.name.capitalize)
+        str += h(check_in.equipment_asset.name)
       end
       str += " was checked in"
     else

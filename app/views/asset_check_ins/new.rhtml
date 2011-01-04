@@ -1,4 +1,4 @@
-<% html_title "Check in for #{@equipment_asset.name.capitalize}" %>
+<% html_title "Check in for #{@equipment_asset.name}" %>
 <h2>Check in for <%= name_and_type @equipment_asset %></h2>
 
 <% form_for([@equipment_asset, @asset_check_in]) do |f| %>
