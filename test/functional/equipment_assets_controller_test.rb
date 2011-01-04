@@ -105,6 +105,17 @@ class EquipmentAssetsControllerTest < ActionController::TestCase
     should_redirect_to(":index") { equipment_assets_path }
   end
 
+  context "QRCode" do
+    ([ 20, 32, 48, 56, 64, 76, 96, 108, 118, 120, 130, 140 ]).each do |i|
+      should "not raise exception (data size #{i})" do
+        data = "http://test.url/c/1/x" + ("X" * (i - 20))
+        assert_nothing_raised "Failed data: '#{data}'" do
+          @controller.send :getQRCode, data
+        end
+      end
+    end
+  end
+
   context "GET :print" do
     setup do
       get :print, :id => 1

@@ -33,7 +33,7 @@
        border: thin dashed black;
      }
      #qrcode {
-       width: 132px;
+       width: <%= @qrcode.module_count * 4 %>px;
        margin: 0 auto;
      }
      #instructions {
@@ -55,7 +55,6 @@
           <b>Serial Number:</b>
           <%= @equipment_asset.serial_number %>
         </p>
-
         <div id="qrcode">
           <table>
            <% @qrcode.modules.each_index do |x| -%>
