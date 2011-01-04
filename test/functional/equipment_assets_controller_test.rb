@@ -106,14 +106,12 @@ class EquipmentAssetsControllerTest < ActionController::TestCase
   end
 
   context "QRCode" do
-    should "not raise exception (data size 20)" do
-      assert_nothing_raised do
-        @controller.send :getQRCode, "http://tiny.url/c/1"
-      end
-    end
-    should "not raise exception (data size 100)" do
-      assert_nothing_raised do
-        @controller.send :getQRCode, "http://www.long1234567890url0987654321test12345678910.com/long_controller_name/1000/long_action_name"
+    ([ 20, 32, 48, 56, 64, 76, 96, 108, 118, 120, 130, 140 ]).each do |i|
+      should "not raise exception (data size #{i})" do
+        data = "http://test.url/c/1/x" + ("X" * (i - 20))
+        assert_nothing_raised "Failed data: '#{data}'" do
+          @controller.send :getQRCode, data
+        end
       end
     end
   end

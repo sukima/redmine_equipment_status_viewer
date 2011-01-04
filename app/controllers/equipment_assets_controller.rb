@@ -116,14 +116,19 @@ class EquipmentAssetsController < ApplicationController
 
   private
   def getQRCode(data)
-    size = 4
+    # QRCode seems to bork with a nil pointer. Hunch is that the data byte
+    # count is odd not even. Add padding to compensate.
+    # See bug report: https://github.com/whomwah/rqrcode/issues#issue/1
+    data += "?" if (data.length % 2 == 1)
+    size = 4 # good default to start with
     size += 1 if data.length > 46 # Max value for size 4 using EC level :q
     size += 1 if data.length > 60 # Max value for size 5 using EC level :q
-    size += 2 if data.length > 74 # Max value for size 6 using EC level :q
-    # Skip size 7. Has bugs: https://github.com/whomwah/rqrcode/issues#issue/1
-    size += 1 if data.length > 118 # Max value for size 8 using EC level :q
+    size += 1 if data.length > 74 # Max value for size 6 using EC level :q
+    size += 1 if data.length > 86 # Max value for size 7 using EC level :q
+    size += 1 if data.length > 108 # Max value for size 8 using EC level :q
     size += 1 if data.length > 130 # Max value for size 9 using EC level :q
     # Max size is 10. After that your URL data is too big. You'll get an exception.
     RQRCode::QRCode.new(data, :size => size, :level => :q)
+    # TODO: shorten URL (bit.ly, tinyurl.com)
   end
 end
