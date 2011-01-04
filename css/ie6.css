@@ -1,0 +1,10 @@
+.triple li{ height:285px;}
+.triple li li{ height:2px;}
+
+.jcarousel-skin-tango .jcarousel-next-horizontal {
+    background-image: none; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='css/images/rarr.png', sizingMethod='image');
+}
+
+.jcarousel-skin-tango .jcarousel-prev-horizontal {
+    background-image: none; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='css/images/larr.png', sizingMethod='image');
+}
