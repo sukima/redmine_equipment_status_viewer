@@ -38,7 +38,10 @@
               <td class="pluginESV_<%= oos_class %>"><%=h e.asset_type %></td>
               <td class="pluginESV_<%= oos_class %>"><%=h e.serial_number %></td>
               <td class="pluginESV_<%= oos_class %>"><%=h e.location %></td>
-              <td class="pluginESV_<%= oos_class %>"><%= link_to "", equipment_asset_check_in_path(e), :class => "icon icon-time-add", :title => "Check in #{e.name}" %></td>
+              <td class="pluginESV_<%= oos_class %>">
+                <%= link_to "", print_equipment_asset_path(e), :class => "icon icon-report", :title => "Print label for #{e.name}" %>
+                <%= link_to "", equipment_asset_check_in_path(e), :class => "icon icon-time-add", :title => "Check in #{e.name}" %>
+              </td>
             </tr>
           <% end %>
         </tbody>
