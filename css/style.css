@@ -72,14 +72,16 @@ h1#logo span { font-size: 10px; text-align: right; line-height: 13px; color: #ff
 #footer p.copy { text-align: right; font-size: 10px; color:#828282; line-height:12px; padding-top:22px }
 #footer p.copy a { color:#828282; }
 
-#facebox .install {
-  width: 600px;
-  /* height: 300px; */
+#facebox .content {
   color: black;
   font-size: 1.1em;
 }
-#facebox .install p { padding: 10px; }
-#facebox .install pre {
+#facebox .install {
+  width: 600px;
+  /* height: 300px; */
+}
+#facebox .content p { padding: 10px; }
+#facebox .content pre {
   margin: 5px 20px;
   padding: 2px 5px;
   background-color: lightgray;
