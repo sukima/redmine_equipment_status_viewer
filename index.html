@@ -88,6 +88,7 @@
               <li>
                 <h3>About</h3>
                 <p>Equipment Status Viewer is a <a href="http://www.redmine.org/">Redmine</a> plugin that tracks equipment. It uses <a href="http://en.wikipedia.org/wiki/QR_Code">QR Code</a> to check in.</p>
+                <p>This plugin requires the rQRCode plugin.</p>
                 <a href="#downloadbox" rel="facebox[.install]" class="more">Install</a>
               </li>
               <li>
@@ -95,7 +96,7 @@
                 <ul>
                   <li><a href="http://www.redmine.org/">Redmine</a></li>
                   <li><a href="http://rubyonrails.org/">Ruby on Rails</a></li>
-                  <li><a href="http://rqrcode.rubyforge.org/">RQRCode</a></li>
+                  <li><a href="http://rqrcode.rubyforge.org/">rQRCode</a></li>
                   <li><a href="http://iwebkit.net/">iWebKit</a></li>
                 </ul>
               </li>
@@ -177,6 +178,31 @@
            />
       </span></p>
       <pre>script/install plugin git://github.com/sukima/redmine_equipment_status_viewer.git</pre>
+      <p>There is only one dependency which is <a href="http://rqrcode.rubyforge.org/">rQRCode</a>. Install it with the following:
+      <span class="clippy">
+        <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
+                   width="110"
+                   height="14"
+                   id="clippy" >
+           <param name="movie" value="js/clippy.swf"/>
+           <param name="allowScriptAccess" value="always" />
+           <param name="quality" value="high" />
+           <param name="scale" value="noscale" />
+           <param NAME="FlashVars" value="text=#{text}">
+           <param name="bgcolor" value="#{bgcolor}">
+           <embed src="js/clippy.swf"
+                  width="110"
+                  height="14"
+                  name="clippy"
+                  quality="high"
+                  allowScriptAccess="always"
+                  type="application/x-shockwave-flash"
+                  pluginspage="http://www.macromedia.com/go/getflashplayer"
+                  FlashVars="text=script/install plugin git://github.com/whomwah/rqrcode.git"
+                  bgcolor="#FFFFFF"
+           />
+      </span></p>
+      <pre>script/install plugin git://github.com/whomwah/rqrcode.git</pre>
     </div>
     <div id="demobox" style="display:none;">
       <p>This feature not available yet.</p>
