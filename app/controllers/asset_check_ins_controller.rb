@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-class AssetCheckInsController < PluginInterfaceController
+class AssetCheckInsController < ApplicationController
   unloadable
   helper :equipment_assets
 
@@ -55,6 +55,14 @@ class AssetCheckInsController < PluginInterfaceController
   private
   def get_equipment_asset
     @equipment_asset = EquipmentAsset.find(params[:equipment_asset_id])
+  end
+
+  def is_iphone_request?
+    # This is a kludge hack. Idea from:
+    # http://www.ibm.com/developerworks/opensource/library/os-eclipse-iphoneruby1/
+    # Modified due to home screen problem:
+    # http://kosmaczewski.net/2009/10/30/http-headers-web-apps-and-mobile-safari/
+    request.user_agent =~ /(AppleWebKit\/.+Mobile)/
   end
 
   def render_with_iphone_check(args = {})
