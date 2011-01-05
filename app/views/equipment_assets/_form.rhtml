@@ -13,8 +13,13 @@
     <%= f.text_field :serial_number %>
   </div>
   <div class="pluginESV_formfield">
-    <%= f.label :comment, "Comment (optional)" %><br />
+    <%= f.label :comment %><br />
     <%= f.text_area :comment, :size => "30x5" %>
+  </div>
+  <div>
+    <%= f.label :resource_url %><br />
+    <%= f.text_field :resource_url %>
+    <p>(optional URL that links to further resources such as a manual or notes)</p>
   </div>
   <div class="pluginESV_formfield">
     <%= f.label :oos, 'Out of service' %><br />

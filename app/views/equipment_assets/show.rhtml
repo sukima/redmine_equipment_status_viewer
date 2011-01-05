@@ -34,6 +34,12 @@
       <th>Current Location:</th>
       <td><%= @equipment_asset.location %></td>
     </tr>
+    <% if @equipment_asset.resource_url %>
+      <tr>
+      	<th>Additional Resource:</th>
+        <td><%= link_to @equipment_asset.resource_url %></td>
+      </tr>
+    <% end %>
   </table>
   <% if @equipment_asset.comment %>
     <p><%=h @equipment_asset.comment %></p>
