@@ -17,7 +17,7 @@
 
 require 'rqrcode'
 
-class EquipmentAssetsController < ApplicationController
+class EquipmentAssetsController < PluginInterfaceController
   unloadable
 
   #before_filter :require_login, :except => [ :index, :show, :print ]
