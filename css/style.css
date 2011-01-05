@@ -86,3 +86,12 @@ h1#logo span { font-size: 10px; text-align: right; line-height: 13px; color: #ff
   padding: 2px 5px;
   background-color: lightgray;
 }
+
+#version-tag {
+  font-size: 1.4em;
+  color: black;
+  font-weight: bold;
+  float: right;
+  text-transform: uppercase;
+  font-family: fantasy, sans-serif;
+}
