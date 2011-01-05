@@ -7,6 +7,8 @@ en:
   field_oos: "Out Of Service"
   field_person: "Person"
   field_location: "Location"
+  field_comment: "Comment"
+  field_resource_url: "Resource URL"
   equipment_asset_created: "Equipment added successfully."
   equipment_asset_updated: "Equipment updated successfully."
   asset_check_in_created: "Checked in successfully."

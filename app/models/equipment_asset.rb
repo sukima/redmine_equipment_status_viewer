@@ -26,7 +26,7 @@ class EquipmentAsset < ActiveRecord::Base
 
   # Not a perfect solution but good enough.
   validates_format_of :resource_url, :allow_nil => true, :allow_blank => true,
-    :with => URI::regexp(%w(http https file))
+    :with => URI::regexp(%w(http https file)), :message => 'does not appear to be valid'
 
   def location
     if asset_check_ins && asset_check_ins.last
