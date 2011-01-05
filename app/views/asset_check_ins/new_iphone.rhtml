@@ -50,6 +50,11 @@
         </tbody>
       </table>
     </li>
+    <% if @equipment_asset.resource_url %>
+      <li id="resource_menu" class="menu">
+        <a href="<%= @equipment_asset.resource_url %>"><span class="name">Additianal Resource</span><span class="arrow"></span></a>
+      </li>
+    <% end %>
     <% if @equipment_asset.comment %>
       <% if @equipment_asset.comment.length > comment_display_length %>
         <li id="comment_menu" class="menu">
