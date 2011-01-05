@@ -6,6 +6,7 @@ one:
   asset_type: "test"
   serial_number: "001"
   comment: "test comment"
+  resource_url: "http://foo.bar/"
 two:
   id: 2
   name: "Widget (not in Service)"
@@ -13,3 +14,4 @@ two:
   asset_type: "test"
   serial_number: "002"
   comment: "test comment"
+  resource_url: "http://foo.bar/"

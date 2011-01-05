@@ -5,34 +5,26 @@
 # modify it under the terms of the GNU General Public License
 # as published by the Free Software Foundation; either version 3
 # of the License, or (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-class EquipmentAsset < ActiveRecord::Base
-  unloadable
+class AddResourceUrlToEquipmentAssets < ActiveRecord::Migration
+  def self.up
+    change_table :equipment_assets do |t|
+      t.string :resource_url
+    end
+  end
 
-  has_many :asset_check_ins, :limit => 50, :dependent => :destroy
-
-  validates_presence_of :name
-
-  validates_uniqueness_of :serial_number, :allow_nil => true, :allow_blank => true
-
-  # Not a perfect solution but good enough.
-  validates_format_of :resource_url, :allow_nil => true, :allow_blank => true,
-    :with => URI::regexp(%w(http https file))
-
-  def location
-    if asset_check_ins && asset_check_ins.last
-      asset_check_ins.last.location
-    else
-      "Unknown"
+  def self.down
+    change_table :equipment_assets do |t|
+      t.remove :resource_url
     end
   end
 end
