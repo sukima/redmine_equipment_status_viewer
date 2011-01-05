@@ -32,6 +32,12 @@
        text-align: center;
        border: thin dashed black;
      }
+     #asset-label h2 {
+       margin-bottom: 0;
+     }
+     #asset-label .asset-type {
+       margin-top: 0;
+     }
      #qrcode {
        width: <%= @qrcode.module_count * 4 %>px;
        margin: 0 auto;
@@ -50,8 +56,9 @@
   <body>
     <div id="container">
       <div id="asset-label">
-        <h2><%= @equipment_asset.name %></h2>
-        <% if !@equipment_asset.serial.empty? %>
+        <h2><%=h @equipment_asset.name %></h2>
+        <p class="asset-type"><%=h @equipment_asset.asset_type %></p>
+        <% if !@equipment_asset.serial_number.empty? %>
           <p>
             <b>Serial Number:</b>
             <%= @equipment_asset.serial_number %>
