@@ -72,7 +72,6 @@ class AssetCheckInsControllerTest < ActionController::TestCase
     should_assign_to :equipment_asset
     should_assign_to :asset_check_in
     should_assign_to :locations
-    should_assign_to :query
   end
   context "GET :loclist autocomplete with bad request" do
     setup do
