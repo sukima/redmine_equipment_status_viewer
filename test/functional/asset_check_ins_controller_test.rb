@@ -58,6 +58,8 @@ class AssetCheckInsControllerTest < ActionController::TestCase
     end
     should_render_template :new_iphone
     should_render_without_layout
+    should_assign_to :equipment_asset
+    should_assign_to :asset_check_in
   end
 
   context "GET :loclist" do
@@ -70,6 +72,13 @@ class AssetCheckInsControllerTest < ActionController::TestCase
     should_assign_to :equipment_asset
     should_assign_to :asset_check_in
     should_assign_to :locations
+    should_assign_to :query
+  end
+  context "GET :loclist autocomplete with bad request" do
+    setup do
+      get :loclist, :format => 'js', :equipment_asset_id => 1
+    end
+    should_respond_with :bad_request
   end
   context "GET :loclist autocomplete" do
     setup do

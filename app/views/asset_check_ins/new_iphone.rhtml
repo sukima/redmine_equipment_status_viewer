@@ -81,13 +81,15 @@
     </ul>
   <% end %>
   <ul class="pageitem">
-    <li class="smallfield">
-      <span class="name"><%= f.label :person %></span>
-      <%= f.text_field :person, :placeholder => "Who are you?" %>
+    <li class="bigfield">
+      <%= f.text_field :person, :placeholder => "Name" %>
     </li>
-    <li class="smallfield">
-      <span class="name"><%= f.label :location %></span>
-      <%= f.text_field :location, :placeholder => "Where are you?" %>
+    <li class="menu">
+      <%= f.hidden_field :location %>
+      <% location = @asset_check_in.location %>
+      <% location ||= "Location" %>
+      <%= link_to "<span class=\"name\">#{location}</span>", loclist_equipment_asset_asset_check_ins_path([@equipment_asset, @asset_check_in]) %>
+      <span class="arrow"></span>
     </li>
     <li class="checkbox">
       <span class="name"><%= f.label :equipment_asset_oos, "Out of service?" %></span>
