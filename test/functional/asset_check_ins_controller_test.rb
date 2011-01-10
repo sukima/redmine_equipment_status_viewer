@@ -50,13 +50,14 @@ class AssetCheckInsControllerTest < ActionController::TestCase
     should_render_template :new
     should_assign_to :equipment_asset
     should_assign_to :asset_check_in
-    context "with iPhone request" do
-      setup do
-        @request.user_agent = iphone_user_agent
-        get :new, :equipment_asset_id => 1
-      end
-      should_render_template :new_iphone
+  end
+  context "GET :new with iPhone request" do
+    setup do
+      @request.user_agent = iphone_user_agent
+      get :new, :equipment_asset_id => 1, :test => true
     end
+    should_render_template :new_iphone
+    should_render_without_layout
   end
 
   context "GET :loclist" do
@@ -64,17 +65,21 @@ class AssetCheckInsControllerTest < ActionController::TestCase
       get :loclist, :equipment_asset_id => 1
     end
     should_respond_with :success
-    should_render_template :loclist
+    should_render_template :loclist_iphone
+    should_render_without_layout
     should_assign_to :equipment_asset
     should_assign_to :asset_check_in
     should_assign_to :locations
-    context "with iPhone request" do
-      setup do
-        @request.user_agent = iphone_user_agent
-        get :loclist, :equipment_asset_id => 1
-      end
-      should_render_template :loclist_iphone
+  end
+  context "GET :loclist autocomplete" do
+    setup do
+      get :loclist, :format => 'js', :equipment_asset_id => 1, :query => 'test_query'
     end
+    should_respond_with :success
+    should_respond_with_content_type /javascript/
+    should_assign_to :equipment_asset
+    should_assign_to :asset_check_in
+    should_assign_to :locations
   end
   
   context "POST :create" do
@@ -99,17 +104,18 @@ class AssetCheckInsControllerTest < ActionController::TestCase
     end
     should_set_the_flash_to /success/i
     should_redirect_to(":show") { equipment_asset_path(1) }
-    context "with iPhone request" do
-      setup do
-        @request.user_agent = iphone_user_agent
-        post :create, :equipment_asset_id => 1, :asset_check_in => {
-          :person => "foo",
-          :location => "bar",
-          :equipment_asset_oos => true
-        }
-      end
-      should_render_template :create_iphone
+  end
+  context "POST :create with iPhone request" do
+    setup do
+      @request.user_agent = iphone_user_agent
+      post :create, :equipment_asset_id => 1, :asset_check_in => {
+        :person => "foo",
+        :location => "bar",
+        :equipment_asset_oos => true
+      }
     end
+    should_render_template :create_iphone
+    should_render_without_layout
   end
 
   private

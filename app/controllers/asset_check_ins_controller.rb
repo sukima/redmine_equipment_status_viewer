@@ -37,11 +37,15 @@ class AssetCheckInsController < ApplicationController
 
   def loclist
     @asset_check_in = @equipment_asset.asset_check_ins.new(params[:asset_check_in])
-    @locations = [] #select_values("SELECT location from asset_check_ins SORT DESC");
-
     respond_to do |wants|
-      wants.html { render_with_iphone_check :template => 'loclist' }
-      #wants.js { render :json => @locations }
+      wants.html do
+        @locations = AssetCheckIn.find(:all).map(&:location)
+        render 'loclist_iphone', :layout => false
+      end
+      wants.js do
+        @locations = AssetCheckIn.find(:all, :conditions => ["location LIKE ?", "%#{params[:query]}%" ] ).map(&:location)
+        render :json => { :query => params[:query], :suggestions => @locations }
+      end
     end
   end
 
@@ -56,7 +60,7 @@ class AssetCheckInsController < ApplicationController
         wants.html { render_with_iphone_check :template => 'create', :redirect => true }
         wants.xml  { render :xml => @asset_check_in, :status => :created, :location => @equipment_asset }
       else
-        wants.html { render_with_iphone_check :action => "new" }
+        wants.html { render_with_iphone_check :template => "new" }
         wants.xml  { render :xml => @asset_check_in.errors, :status => :unprocessable_entity }
       end
     end
