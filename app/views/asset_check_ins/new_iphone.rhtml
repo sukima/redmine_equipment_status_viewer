@@ -8,12 +8,7 @@
 <meta content="minimum-scale=1.0, width=device-width, maximum-scale=0.6667, user-scalable=no" name="viewport" />
 <%= stylesheet_link_tag 'iWebKitStyle', :plugin => 'redmine_equipment_status_viewer' %>
 <%= javascript_include_tag 'iWebKitFunctions', :plugin => 'redmine_equipment_status_viewer' %>
-<script type="text/javascript">
-  function showAssetComment() {
-    document.getElementById('comment').style.display='block';
-    document.getElementById('comment_menu').style.display='none';
-  }
-</script>
+<%= iphone_comment_script %>
 <title>Check in for <%=h @equipment_asset.name %></title>
 </head>
 
@@ -30,43 +25,11 @@
     :header_message => "Oops - We couldn't check in!",
     :message => "The following fields were a bit of a problem:",
     :header_tag => :span %>
+  <span class="graytitle">Details</span>
   <ul class="pageitem">
-    <li class="textbox">
-      <span class="header"><%=h @equipment_asset.name %></span>
-      <table>
-        <tbody>
-          <tr>
-            <td><strong>Type:</strong></td>
-            <td><%=h @equipment_asset.asset_type %></td>
-          </tr>
-          <tr>
-            <td><strong>Serial #:</strong></td>
-            <td><%=h @equipment_asset.serial_number %></td>
-          </tr>
-          <tr>
-            <td><strong>Location:</strong></td>
-            <td><%=h @equipment_asset.location %></td>
-          </tr>
-        </tbody>
-      </table>
-    </li>
-    <% if @equipment_asset.resource_url %>
-      <li id="resource_menu" class="menu">
-        <a href="<%= @equipment_asset.resource_url %>"><span class="name">Additianal Resource</span><span class="arrow"></span></a>
-      </li>
-    <% end %>
-    <% if @equipment_asset.comment %>
-      <% if @equipment_asset.comment.length > comment_display_length %>
-        <li id="comment_menu" class="menu">
-          <a id="comment_link" href="javascript:showAssetComment()"><span class="name">Show comment</span><span class="arrow"></span></a>
-        </li>
-        <li id="comment" class="textbox" style="display:none;">
-      <% else %>
-        <li id="comment" class="textbox">
-          <div><%=h @equipment_asset.comment %></div>
-        </li>
-      <% end %>
-    <% end %>
+    <%= iphone_details_box(@equipment_asset) %>
+    <%= iphone_additional_resource_menu(@equipment_asset.resource_url) %>
+    <%= iphone_comment_menu(@equipment_asset.comment) %>
   </ul>
   <% if @asset_check_in.errors.empty? %>
     <div class="graytitle">Check In</div>
@@ -81,13 +44,15 @@
     </ul>
   <% end %>
   <ul class="pageitem">
-    <li class="smallfield">
-      <span class="name"><%= f.label :person %></span>
-      <%= f.text_field :person, :placeholder => "Who are you?" %>
+    <li class="bigfield">
+      <%= f.text_field :person, :placeholder => "Name" %>
     </li>
-    <li class="smallfield">
-      <span class="name"><%= f.label :location %></span>
-      <%= f.text_field :location, :placeholder => "Where are you?" %>
+    <li class="menu">
+      <%= f.hidden_field :location %>
+      <% location = @asset_check_in.location %>
+      <% location ||= "Location" %>
+      <%= link_to "<span class=\"name\">#{location}</span>", loclist_equipment_asset_asset_check_ins_path([@equipment_asset, @asset_check_in]) %>
+      <span class="arrow"></span>
     </li>
     <li class="checkbox">
       <span class="name"><%= f.label :equipment_asset_oos, "Out of service?" %></span>

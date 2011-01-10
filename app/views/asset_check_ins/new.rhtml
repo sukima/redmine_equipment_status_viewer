@@ -1,4 +1,8 @@
 <% html_title "Check in for #{@equipment_asset.name}" %>
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'autocomplete', :plugin => 'redmine_equipment_status_viewer' %>
+  <%= javascript_include_tag 'autocomplete', :plugin => 'redmine_equipment_status_viewer' %>
+<% end %>
 <h2>Check in for <%= name_and_type @equipment_asset %></h2>
 
 <% form_for([@equipment_asset, @asset_check_in]) do |f| %>
@@ -20,3 +24,7 @@
     <%= link_to "Cancel", equipment_asset_path(@equipment_asset) %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+  new Autocomplete('asset_check_in_location', { serviceUrl: '<%= loclist_equipment_asset_asset_check_ins_path([@equipment_asset, @asset_check_in]) %>' });
+</script>
