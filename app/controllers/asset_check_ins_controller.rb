@@ -35,6 +35,16 @@ class AssetCheckInsController < ApplicationController
     end
   end
 
+  def loclist
+    @asset_check_in = @equipment_asset.asset_check_ins.new(params[:asset_check_in])
+    @locations = [] #select_values("SELECT location from asset_check_ins SORT DESC");
+
+    respond_to do |wants|
+      wants.html { render_with_iphone_check :template => 'loclist' }
+      #wants.js { render :json => @locations }
+    end
+  end
+
   def create
     @asset_check_in = @equipment_asset.asset_check_ins.new(params[:asset_check_in])
 

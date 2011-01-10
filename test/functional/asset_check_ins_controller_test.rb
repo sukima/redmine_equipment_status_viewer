@@ -39,6 +39,8 @@ class AssetCheckInsControllerTest < ActionController::TestCase
   # This test will not pass. Due to redirect maybe?
   # should_route :get, "/equipment_assets/1/check_in",
   #   :action => :new, :equipment_asset_id => 1
+  should_route :get, "/equipment_assets/1/asset_check_ins/loclist",
+    :action => :loclist, :equipment_asset_id => 1
 
   context "GET :new" do
     setup do
@@ -54,6 +56,24 @@ class AssetCheckInsControllerTest < ActionController::TestCase
         get :new, :equipment_asset_id => 1
       end
       should_render_template :new_iphone
+    end
+  end
+
+  context "GET :loclist" do
+    setup do
+      get :loclist, :equipment_asset_id => 1
+    end
+    should_respond_with :success
+    should_render_template :loclist
+    should_assign_to :equipment_asset
+    should_assign_to :asset_check_in
+    should_assign_to :locations
+    context "with iPhone request" do
+      setup do
+        @request.user_agent = iphone_user_agent
+        get :loclist, :equipment_asset_id => 1
+      end
+      should_render_template :loclist_iphone
     end
   end
   
