@@ -1,4 +1,4 @@
-<% html_title "Equipment Details for #{@equipment_asset.name.capitalize}" %>
+<% html_title "Equipment Details for #{@equipment_asset.name}" %>
 <% content_for :header_tags do %>
   <%= stylesheet_link_tag 'style', :plugin => 'redmine_equipment_status_viewer' %>
 <% end %>
@@ -20,7 +20,7 @@
   <table class="attributes" id="pluginESV_attributes">
     <tr>
       <th>Name:</th>
-      <td><%=h @equipment_asset.name.capitalize %></td>
+      <td><%=h @equipment_asset.name %></td>
     </tr>
     <tr>
       <th>Type:</th>
@@ -34,6 +34,12 @@
       <th>Current Location:</th>
       <td><%= @equipment_asset.location %></td>
     </tr>
+    <% if @equipment_asset.resource_url %>
+      <tr>
+      	<th>Additional Resource:</th>
+        <td><%= link_to @equipment_asset.resource_url %></td>
+      </tr>
+    <% end %>
   </table>
   <% if @equipment_asset.comment %>
     <p><%=h @equipment_asset.comment %></p>

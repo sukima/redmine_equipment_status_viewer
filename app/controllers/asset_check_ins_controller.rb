@@ -24,14 +24,41 @@ class AssetCheckInsController < ApplicationController
   before_filter :authorize_global, :get_equipment_asset
 
   def new
-    @asset_check_in = @equipment_asset.asset_check_ins.new
+    @asset_check_in = @equipment_asset.asset_check_ins.new(params[:asset_check_in])
     @asset_check_in.equipment_asset_oos = @equipment_asset.oos
     @asset_check_in.person ||= cookies[:asset_check_in_person]
     @asset_check_in.location ||= cookies[:asset_check_in_location]
   
     respond_to do |wants|
-      wants.html { render_with_iphone_check }
+      wants.html do
+        @locations = AssetCheckIn.find(:all).map(&:location) if is_iphone_request?
+        render_with_iphone_check
+      end
       wants.xml  { render :xml => @asset_check_in }
+    end
+  end
+
+  def loclist
+    @asset_check_in = @equipment_asset.asset_check_ins.new(params[:asset_check_in])
+    @query = params[:query]
+    if @query && !@query.empty?
+      @locations = AssetCheckIn.find(:all, :conditions => ["location LIKE ?", "%#{@query}%" ] ).map(&:location)
+    else
+      @locations = AssetCheckIn.find(:all).map(&:location)
+    end
+
+    respond_to do |wants|
+      wants.html do
+        @locations.unshift(@query) if @query && !@query.empty?
+        render 'loclist_iphone', :layout => false
+      end
+      wants.js do
+        if @query
+          render :json => { :query => @query, :suggestions => @locations }
+        else
+          render :text => "No 'query' field given.", :status => :bad_request
+        end
+      end
     end
   end
 
@@ -46,7 +73,7 @@ class AssetCheckInsController < ApplicationController
         wants.html { render_with_iphone_check :template => 'create', :redirect => true }
         wants.xml  { render :xml => @asset_check_in, :status => :created, :location => @equipment_asset }
       else
-        wants.html { render_with_iphone_check :action => "new" }
+        wants.html { render_with_iphone_check :template => "new" }
         wants.xml  { render :xml => @asset_check_in.errors, :status => :unprocessable_entity }
       end
     end

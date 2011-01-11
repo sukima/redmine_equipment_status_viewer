@@ -19,26 +19,56 @@
         <thead>
           <tr>
             <th>Name</th>
-            <th>Type</th>
+            <% if !attribute_is_grouped?(:asset_type) %>
+              <th>Type</th>
+            <% end %>
             <th>Serial #</th>
-            <th>Location</th>
-            <th></th>
+            <% if !attribute_is_grouped?(:location) %>
+              <th>Location</th>
+            <% end %>
+            <th>&nbsp;</th>
           </tr>
         </thead>
         <tbody>
-          <% @equipment_assets.each_with_index do |e,index| %>
-          <%   oos_class = (e.oos) ? "outofservice" : "inservice" %>
-          <%   evenodd = (index%2==1) ? "odd" : "even" %>
+          <%-
+            group = nil
+            @equipment_assets.each_with_index do |e,index|
+              oos_class = (e.oos) ? "outofservice" : "inservice"
+              evenodd = (index%2==1) ? "odd" : "even"
+              if new_asset_group?(e, group)
+                group = asset_group(e)
+                -%>
+                <tr class="group open">
+                  <td colspan="4">
+                    <span onclick="toggleRowGroup(this); return false;" class="expander">&nbsp;</span>
+                    <%=h group %>
+                    <span class="count">(<%= @groups[group] %>)</span>
+                  </td>
+                </tr>
+                <%-
+              end
+          -%>
           <tr title="<%=h e.comment %>"
             class="<%= evenodd %> pluginESV_<%= oos_class %>">
               <td class="pluginESV_<%= oos_class %>">
-                <%= link_to e.name.capitalize, equipment_asset_path(e) %>
+                <%= link_to e.name, equipment_asset_path(e) %>
               <% if e.oos %>(Out Of Service)<% end %>
               </td>
-              <td class="pluginESV_<%= oos_class %>"><%=h e.asset_type %></td>
+              <% if !attribute_is_grouped?(:asset_type) %>
+                <td class="pluginESV_<%= oos_class %>"><%=h e.asset_type%></td>
+              <% end %>
               <td class="pluginESV_<%= oos_class %>"><%=h e.serial_number %></td>
-              <td class="pluginESV_<%= oos_class %>"><%=h e.location %></td>
-              <td class="pluginESV_<%= oos_class %>"><%= link_to "", equipment_asset_check_in_path(e), :class => "icon icon-time-add", :title => "Check in #{e.name}" %></td>
+              <% if !attribute_is_grouped?(:location) %>
+                <td class="pluginESV_<%= oos_class %>"><%=h e.location %></td>
+              <% end %>
+              <td class="pluginESV_<%= oos_class %>">
+                <%= link_to "", edit_equipment_asset_path(e), :class => "icon icon-edit", :title => "Edit #{e.name}" %>
+                <%= link_to "", print_equipment_asset_path(e), :class => "icon icon-report", :title => "Print label for #{e.name}" %>
+                <%= link_to "", equipment_asset_check_in_path(e), :class => "icon icon-time-add", :title => "Check in #{e.name}" %>
+                <% if !e.comment.empty? %>
+                  <span class="icon icon-comment" title="<%=h e.comment %>"> </span>
+                <% end %>
+              </td>
             </tr>
           <% end %>
         </tbody>
@@ -57,7 +87,7 @@
     <ul>
     <% @asset_check_ins.each do |check_in| %>
       <li>
-        <%= link_to check_in.equipment_asset.name.capitalize,
+        <%= link_to check_in.equipment_asset.name,
           equipment_asset_path(check_in.equipment_asset) %>
         (<%=h simple_date(check_in.created_at) %>)
         <p>

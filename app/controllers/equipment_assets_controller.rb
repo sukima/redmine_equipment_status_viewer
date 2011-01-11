@@ -20,11 +20,22 @@ require 'rqrcode'
 class EquipmentAssetsController < ApplicationController
   unloadable
 
+  helper :equipment_assets
+  include EquipmentAssetsHelper
+
   #before_filter :require_login, :except => [ :index, :show, :print ]
   before_filter :authorize_global
 
   def index
-    @equipment_assets = EquipmentAsset.all
+    @equipment_assets = EquipmentAsset.find(:all, :group => :asset_type, :order => "name asc")
+    # location is a method not a field that can be queried in SQL.
+    if assets_grouped_by == 'asset_type'
+      @groups =EquipmentAsset.count(:all, :group => 'asset_type')
+    elsif assets_grouped_by == 'location'
+      @groups = AssetCheckIn.count(:all, :group => 'location')
+    else
+      @groups = { }
+    end
     @asset_check_ins = AssetCheckIn.find(:all, :order => "id desc", :limit => 20)
   end
 
@@ -115,7 +126,7 @@ class EquipmentAssetsController < ApplicationController
   end
 
   private
-  def getQRCode(data)
+  def getQRCode(data, test = false)
     # QRCode seems to bork with a nil pointer. Hunch is that the data byte
     # count is odd not even. Add padding to compensate.
     # See bug report: https://github.com/whomwah/rqrcode/issues#issue/1
@@ -128,7 +139,11 @@ class EquipmentAssetsController < ApplicationController
     size += 1 if data.length > 108 # Max value for size 8 using EC level :q
     size += 1 if data.length > 130 # Max value for size 9 using EC level :q
     # Max size is 10. After that your URL data is too big. You'll get an exception.
-    RQRCode::QRCode.new(data, :size => size, :level => :q)
+    if test
+      size
+    else
+      RQRCode::QRCode.new(data, :size => size, :level => :q)
+    end
     # TODO: shorten URL (bit.ly, tinyurl.com)
   end
 end

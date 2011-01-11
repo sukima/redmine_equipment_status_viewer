@@ -29,13 +29,18 @@ Redmine::Plugin.register :redmine_equipment_status_viewer do
   name 'Redmine Equipment Status Viewer plugin'
   author 'Devin Weaver'
   description 'Allows admins to make a list of equipment and track if they are inservice or not'
-  version '0.2.2'
+  version '0.3.0'
   url 'http://github.com/sukima/redmine_equipment_status_viewer'
   author_url 'http://github.com/sukima'
 
   permission :view_equipment_assets, {:equipment_assets => [:index, :show, :print]}
   permission :manage_equipment_assets, {:equipment_assets => [:destroy, :update, :create, :edit, :new]}
-  permission :allow_equipment_check_ins, {:asset_check_ins => [ :new, :create ]}
+  permission :allow_equipment_check_ins, {:asset_check_ins => [ :new, :create, :loclist ]}
+
+  settings(:partial => 'equipment_status_viewer_settings',
+           :default => {
+             'assets_grouped_by' => 'asset_type'
+           })
 
   menu :top_menu, "Equipment",
     { :controller => 'equipment_assets', :action => 'index' },

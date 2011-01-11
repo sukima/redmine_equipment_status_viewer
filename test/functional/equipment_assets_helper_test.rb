@@ -71,6 +71,7 @@ class EquipmentAssetsHelperTest < ActionController::TestCase
     should "return a string" do
       assert simple_date(Time.now).kind_of? String
     end
+  end
 
   context "print_check_in" do
     setup do
@@ -92,5 +93,41 @@ class EquipmentAssetsHelperTest < ActionController::TestCase
       assert print_check_in(@check_in, :except => :none, :fuzzy_date => false).kind_of? String
     end
   end
+
+  context "assets_grouped_by" do
+    should "return a string" do
+      assert assets_grouped_by().kind_of? String
+    end
+  end
+
+  context "attribute_is_grouped?" do
+    should "return a boolean" do
+      assert attribute_is_grouped?('asset_type')
+      assert attribute_is_grouped?(:asset_type)
+    end
+  end
+
+  context "asset_group" do
+    setup do
+      @asset = EquipmentAsset.new(:asset_type => 'foobar')
+    end
+    should "return a string" do
+      assert asset_group(@asset).kind_of? String
+    end
+    should "match accessor value" do
+      assert_equal 'foobar', asset_group(@asset)
+    end
+  end
+
+  context "new_asset_group?" do
+    setup do
+      @asset = EquipmentAsset.new(:asset_type => 'foobar')
+    end
+    should "return false when not new" do
+      assert !new_asset_group?(@asset, 'foobar')
+    end
+    should "return true when new" do
+      assert new_asset_group?(@asset, 'barfoo')
+    end
   end
 end

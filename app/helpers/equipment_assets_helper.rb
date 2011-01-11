@@ -27,7 +27,7 @@ module EquipmentAssetsHelper
   end
 
   def name_and_type(asset)
-    h "#{asset.name.capitalize} (#{asset.asset_type})"
+    h "#{asset.name} (#{asset.asset_type})"
   end
 
   def simple_date(time)
@@ -57,10 +57,10 @@ module EquipmentAssetsHelper
     str = ""
     if check_in.equipment_asset && details.include?(:name)
       if opt[:link]
-        str += link_to check_in.equipment_asset.name.capitalize,
+        str += link_to check_in.equipment_asset.name,
           equipment_asset_path(check_in.equipment_asset)
       else
-        str += h(check_in.equipment_asset.name.capitalize)
+        str += h(check_in.equipment_asset.name)
       end
       str += " was checked in"
     else
@@ -80,5 +80,25 @@ module EquipmentAssetsHelper
       str += " by <em>#{h check_in.person}</em>"
     end
     str += "."
+  end
+  
+  def assets_grouped_by
+    if Setting.plugin_redmine_equipment_status_viewer['assets_grouped_by'].blank?
+      "asset_type" # Default value
+    else
+      Setting.plugin_redmine_equipment_status_viewer['assets_grouped_by']
+    end
+  end
+
+  def attribute_is_grouped?(group)
+    return assets_grouped_by == group.to_s
+  end
+
+  def asset_group(asset)
+    asset.send(assets_grouped_by)
+  end
+
+  def new_asset_group?(asset, group)
+    return assets_grouped_by != 'none' && group != asset_group(asset)
   end
 end

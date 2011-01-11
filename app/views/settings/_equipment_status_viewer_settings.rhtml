@@ -1,0 +1,8 @@
+<p>
+  <label><%=l :assets_grouped_by %></label>
+  <%= select_tag 'settings[assets_grouped_by]', options_for_select([
+    ["None", "none"],
+    ["Type", "asset_type"],
+    ["Location", "location"]
+  ], Setting.plugin_redmine_equipment_status_viewer['assets_grouped_by']) %>
+</p>
