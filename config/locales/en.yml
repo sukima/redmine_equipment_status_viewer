@@ -12,4 +12,4 @@ en:
   equipment_asset_created: "Equipment added successfully."
   equipment_asset_updated: "Equipment updated successfully."
   asset_check_in_created: "Checked in successfully."
-  assets_are_grouped: "Group asset list"
+  assets_grouped_by: "Group assets by"

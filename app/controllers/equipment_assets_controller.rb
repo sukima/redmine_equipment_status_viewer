@@ -20,12 +20,22 @@ require 'rqrcode'
 class EquipmentAssetsController < ApplicationController
   unloadable
 
+  helper :equipment_assets
+  include EquipmentAssetsHelper
+
   #before_filter :require_login, :except => [ :index, :show, :print ]
   before_filter :authorize_global
 
   def index
     @equipment_assets = EquipmentAsset.find(:all, :group => :asset_type, :order => "name asc")
-    @groups = EquipmentAsset.count(:all, :group => :asset_type)
+    # location is a method not a field that can be queried in SQL.
+    if assets_grouped_by == 'asset_type'
+      @groups =EquipmentAsset.count(:all, :group => 'asset_type')
+    elsif assets_grouped_by == 'location'
+      @groups = AssetCheckIn.count(:all, :group => 'location')
+    else
+      @groups = { }
+    end
     @asset_check_ins = AssetCheckIn.find(:all, :order => "id desc", :limit => 20)
   end
 

@@ -81,4 +81,24 @@ module EquipmentAssetsHelper
     end
     str += "."
   end
+  
+  def assets_grouped_by
+    if Setting.plugin_redmine_equipment_status_viewer['assets_grouped_by'].blank?
+      "asset_type" # Default value
+    else
+      Setting.plugin_redmine_equipment_status_viewer['assets_grouped_by']
+    end
+  end
+
+  def attribute_is_grouped?(group)
+    return assets_grouped_by == group.to_s
+  end
+
+  def asset_group(asset)
+    asset.send(assets_grouped_by)
+  end
+
+  def new_asset_group?(asset, group)
+    return assets_grouped_by != 'none' && group != asset_group(asset)
+  end
 end

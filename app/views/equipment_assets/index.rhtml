@@ -19,11 +19,13 @@
         <thead>
           <tr>
             <th>Name</th>
-            <% if Setting.plugin_redmine_equipment_status_viewer['group_assets'] == '0' %>
+            <% if !attribute_is_grouped?(:asset_type) %>
               <th>Type</th>
             <% end %>
             <th>Serial #</th>
-            <th>Location</th>
+            <% if !attribute_is_grouped?(:location) %>
+              <th>Location</th>
+            <% end %>
             <th>&nbsp;</th>
           </tr>
         </thead>
@@ -33,8 +35,8 @@
             @equipment_assets.each_with_index do |e,index|
               oos_class = (e.oos) ? "outofservice" : "inservice"
               evenodd = (index%2==1) ? "odd" : "even"
-              if Setting.plugin_redmine_equipment_status_viewer['group_assets'] != '0' && e.asset_type != group
-                group = e.asset_type
+              if new_asset_group?(e, group)
+                group = asset_group(e)
                 -%>
                 <tr class="group open">
                   <td colspan="4">
@@ -52,11 +54,13 @@
                 <%= link_to e.name, equipment_asset_path(e) %>
               <% if e.oos %>(Out Of Service)<% end %>
               </td>
-              <% if Setting.plugin_redmine_equipment_status_viewer['group_assets'] == '0' %>
+              <% if !attribute_is_grouped?(:asset_type) %>
                 <td class="pluginESV_<%= oos_class %>"><%=h e.asset_type%></td>
               <% end %>
               <td class="pluginESV_<%= oos_class %>"><%=h e.serial_number %></td>
-              <td class="pluginESV_<%= oos_class %>"><%=h e.location %></td>
+              <% if !attribute_is_grouped?(:location) %>
+                <td class="pluginESV_<%= oos_class %>"><%=h e.location %></td>
+              <% end %>
               <td class="pluginESV_<%= oos_class %>">
                 <%= link_to "", edit_equipment_asset_path(e), :class => "icon icon-edit", :title => "Edit #{e.name}" %>
                 <%= link_to "", print_equipment_asset_path(e), :class => "icon icon-report", :title => "Print label for #{e.name}" %>

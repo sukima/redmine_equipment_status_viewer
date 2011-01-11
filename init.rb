@@ -39,7 +39,7 @@ Redmine::Plugin.register :redmine_equipment_status_viewer do
 
   settings(:partial => 'equipment_status_viewer_settings',
            :default => {
-             'group_assets' => '1'
+             'assets_grouped_by' => 'asset_type'
            })
 
   menu :top_menu, "Equipment",
