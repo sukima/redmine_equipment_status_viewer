@@ -19,26 +19,40 @@
         <thead>
           <tr>
             <th>Name</th>
-            <th>Type</th>
             <th>Serial #</th>
             <th>Location</th>
-            <th></th>
+            <th>&nbsp;</th>
           </tr>
         </thead>
         <tbody>
-          <% @equipment_assets.each_with_index do |e,index| %>
-          <%   oos_class = (e.oos) ? "outofservice" : "inservice" %>
-          <%   evenodd = (index%2==1) ? "odd" : "even" %>
+          <%-
+            group = nil
+            @equipment_assets.each_with_index do |e,index|
+              oos_class = (e.oos) ? "outofservice" : "inservice"
+              evenodd = (index%2==1) ? "odd" : "even"
+              if e.asset_type != group
+                group = e.asset_type
+                -%>
+                <tr class="group open">
+                  <td colspan="4">
+                    <span onclick="toggleRowGroup(this); return false;" class="expander">&nbsp;</span>
+                    <%=h group %>
+                    <span class="count">(<%= @groups[group] %>)</span>
+                  </td>
+                </tr>
+                <%-
+              end
+          -%>
           <tr title="<%=h e.comment %>"
             class="<%= evenodd %> pluginESV_<%= oos_class %>">
               <td class="pluginESV_<%= oos_class %>">
                 <%= link_to e.name, equipment_asset_path(e) %>
               <% if e.oos %>(Out Of Service)<% end %>
               </td>
-              <td class="pluginESV_<%= oos_class %>"><%=h e.asset_type %></td>
               <td class="pluginESV_<%= oos_class %>"><%=h e.serial_number %></td>
               <td class="pluginESV_<%= oos_class %>"><%=h e.location %></td>
               <td class="pluginESV_<%= oos_class %>">
+                <%= link_to "", edit_equipment_asset_path(e), :class => "icon icon-edit", :title => "Edit #{e.name}" %>
                 <%= link_to "", print_equipment_asset_path(e), :class => "icon icon-report", :title => "Print label for #{e.name}" %>
                 <%= link_to "", equipment_asset_check_in_path(e), :class => "icon icon-time-add", :title => "Check in #{e.name}" %>
                 <% if !e.comment.empty? %>
