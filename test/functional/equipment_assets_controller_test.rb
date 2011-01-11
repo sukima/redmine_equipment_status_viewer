@@ -48,6 +48,7 @@ class EquipmentAssetsControllerTest < ActionController::TestCase
     should_respond_with :success
     should_assign_to :equipment_assets
     should_assign_to :asset_check_ins
+    should_assign_to :groups
     should_render_template :index
   end
 
