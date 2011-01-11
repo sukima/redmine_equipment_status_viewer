@@ -37,6 +37,11 @@ Redmine::Plugin.register :redmine_equipment_status_viewer do
   permission :manage_equipment_assets, {:equipment_assets => [:destroy, :update, :create, :edit, :new]}
   permission :allow_equipment_check_ins, {:asset_check_ins => [ :new, :create, :loclist ]}
 
+  settings(:partial => 'equipment_status_viewer_settings',
+           :default => {
+             'group_assets' => '1'
+           })
+
   menu :top_menu, "Equipment",
     { :controller => 'equipment_assets', :action => 'index' },
     :caption => "Equipment", :after => :projects,

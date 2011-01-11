@@ -19,6 +19,9 @@
         <thead>
           <tr>
             <th>Name</th>
+            <% if Setting.plugin_redmine_equipment_status_viewer['group_assets'] == '0' %>
+              <th>Type</th>
+            <% end %>
             <th>Serial #</th>
             <th>Location</th>
             <th>&nbsp;</th>
@@ -30,7 +33,7 @@
             @equipment_assets.each_with_index do |e,index|
               oos_class = (e.oos) ? "outofservice" : "inservice"
               evenodd = (index%2==1) ? "odd" : "even"
-              if e.asset_type != group
+              if Setting.plugin_redmine_equipment_status_viewer['group_assets'] != '0' && e.asset_type != group
                 group = e.asset_type
                 -%>
                 <tr class="group open">
@@ -49,6 +52,9 @@
                 <%= link_to e.name, equipment_asset_path(e) %>
               <% if e.oos %>(Out Of Service)<% end %>
               </td>
+              <% if Setting.plugin_redmine_equipment_status_viewer['group_assets'] == '0' %>
+                <td class="pluginESV_<%= oos_class %>"><%=h e.asset_type%></td>
+              <% end %>
               <td class="pluginESV_<%= oos_class %>"><%=h e.serial_number %></td>
               <td class="pluginESV_<%= oos_class %>"><%=h e.location %></td>
               <td class="pluginESV_<%= oos_class %>">

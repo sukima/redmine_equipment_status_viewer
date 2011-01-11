@@ -1,0 +1,5 @@
+<p>
+  <label><%=l :assets_are_grouped %></label>
+  <%= hidden_field_tag 'settings[group_assets]', 0 %>
+  <%= check_box_tag 'settings[group_assets]', 1, @settings['group_assets'].to_i == 1 %>
+</p>
