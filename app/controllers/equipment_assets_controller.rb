@@ -27,12 +27,9 @@ class EquipmentAssetsController < ApplicationController
   before_filter :authorize_global
 
   def index
-    @equipment_assets = EquipmentAsset.find(:all, :order => "asset_type, name asc")
-    # location is a method not a field that can be queried in SQL.
-    if assets_grouped_by == 'asset_type'
-      @groups =EquipmentAsset.count(:all, :group => 'asset_type')
-    elsif assets_grouped_by == 'location'
-      @groups = AssetCheckIn.count(:all, :group => 'location')
+    if assets_grouped_by != 'none'
+      @equipment_assets = EquipmentAsset.find(:all, :order => "#{assets_grouped_by}, name asc")
+      @groups =EquipmentAsset.count(:all, :group => "#{assets_grouped_by}")
     else
       @groups = { }
     end
