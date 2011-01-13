@@ -27,10 +27,15 @@ class EquipmentAssetsController < ApplicationController
   before_filter :authorize_global
 
   def index
-    if assets_grouped_by != 'none'
+    # location is not a SQL query-able variable. Make a concession here.
+    if assets_grouped_by != 'none' && assets_grouped_by == 'location'
+      @equipment_assets = EquipmentAsset.find(:all, :order => "name asc")
+      @groups = AssetCheckIn.count(:all, :group => 'location')
+    elsif assets_grouped_by != 'none'
       @equipment_assets = EquipmentAsset.find(:all, :order => "#{assets_grouped_by}, name asc")
-      @groups =EquipmentAsset.count(:all, :group => "#{assets_grouped_by}")
+      @groups = EquipmentAsset.count(:all, :group => "#{assets_grouped_by}")
     else
+      @equipment_assets = EquipmentAsset.find(:all, :order => "name asc")
       @groups = { }
     end
     @asset_check_ins = AssetCheckIn.find(:all, :order => "id desc", :limit => 20)

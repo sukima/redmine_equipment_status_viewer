@@ -27,6 +27,7 @@ class AssetCheckInsController < ApplicationController
     @asset_check_in = @equipment_asset.asset_check_ins.new(params[:asset_check_in])
     @asset_check_in.equipment_asset_oos = @equipment_asset.oos
     @asset_check_in.person ||= cookies[:asset_check_in_person]
+    @asset_check_in.location ||= @equipment_asset.location if !@equipment_asset.asset_check_ins.empty?
     @asset_check_in.location ||= cookies[:asset_check_in_location]
   
     respond_to do |wants|
@@ -41,15 +42,17 @@ class AssetCheckInsController < ApplicationController
   def loclist
     @asset_check_in = @equipment_asset.asset_check_ins.new(params[:asset_check_in])
     @query = params[:query]
-    if @query && !@query.empty?
-      @locations = AssetCheckIn.find(:all, :conditions => ["location LIKE ?", "%#{@query}%" ] ).map(&:location)
+    if @query.blank?
+      @locations = AssetCheckIn.find(:all, :group => 'location').map(&:location)
     else
-      @locations = AssetCheckIn.find(:all).map(&:location)
+      @locations = AssetCheckIn.find(:all, :group => 'location', :conditions => ["location LIKE ?", "%#{@query}%"] ).map(&:location)
+      @asset_check_in.location ||= @query
     end
 
     respond_to do |wants|
+      # Only iPhone uses this action
       wants.html do
-        @locations.unshift(@query) if @query && !@query.empty?
+        @locations.unshift(@query) if !@query.blank? && !@locations.include?(@query)
         render 'loclist_iphone', :layout => false
       end
       wants.js do

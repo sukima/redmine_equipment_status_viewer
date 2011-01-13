@@ -51,7 +51,7 @@
       <%= f.hidden_field :location %>
       <% location = @asset_check_in.location %>
       <% location ||= "Location" %>
-      <%= link_to "<span class=\"name\">#{location}</span>", loclist_equipment_asset_asset_check_ins_path([@equipment_asset, @asset_check_in]) %>
+      <%= link_to "<span class=\"name\">#{location}</span>", loclist_equipment_asset_asset_check_ins_path([@equipment_asset]) %>
       <span class="arrow"></span>
     </li>
     <li class="checkbox">
