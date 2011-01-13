@@ -41,15 +41,28 @@ class EquipmentAssetsControllerTest < ActionController::TestCase
   should_route :delete, "/equipment_assets/1", :action => :destroy, :id => 1
   should_route :get, "/equipment_assets/1/print", :action => :print, :id => 1
 
-  context "GET :index" do
-    setup do
-      get :index
+  %(none asset_type location).each do |test_setting|
+    context "When asset_grouped_by == none" do
+      setup do
+        # Re-define the method to stub out the
+        # Setting.plugin_redmine_equipment_status_viewer logic
+        module EquipmentAssetsHelper
+          def asset_grouped_by
+            "#{test_setting}"
+          end
+        end
+      end
+      context "GET :index" do
+        setup do
+          get :index
+        end
+        should_respond_with :success
+        should_assign_to :equipment_assets
+        should_assign_to :asset_check_ins
+        should_assign_to :groups
+        should_render_template :index
+      end
     end
-    should_respond_with :success
-    should_assign_to :equipment_assets
-    should_assign_to :asset_check_ins
-    should_assign_to :groups
-    should_render_template :index
   end
 
   context "GET :new" do
