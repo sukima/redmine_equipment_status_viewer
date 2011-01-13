@@ -31,6 +31,7 @@ class EquipmentAssetsController < ApplicationController
       @equipment_assets = EquipmentAsset.find(:all, :order => "#{assets_grouped_by}, name asc")
       @groups =EquipmentAsset.count(:all, :group => "#{assets_grouped_by}")
     else
+      @equipment_assets = EquipmentAsset.find(:all, :order => "name asc")
       @groups = { }
     end
     @asset_check_ins = AssetCheckIn.find(:all, :order => "id desc", :limit => 20)
