@@ -20,7 +20,7 @@ require 'rqrcode'
 class EquipmentAssetsController < ApplicationController
   unloadable
 
-  helper :equipment_assets
+  helper :equipment_assets, :iphone
   include EquipmentAssetsHelper
 
   #before_filter :require_login, :except => [ :index, :show, :print ]
@@ -52,6 +52,7 @@ class EquipmentAssetsController < ApplicationController
 
   def edit
     @equipment_asset = EquipmentAsset.find(params[:id])
+    render "edit_iphone", :layout => false if @template.is_iphone_request?(request)
   end
 
   def new
@@ -84,7 +85,13 @@ class EquipmentAssetsController < ApplicationController
     respond_to do |wants|
       if @equipment_asset.update_attributes(params[:equipment_asset])
         flash[:notice] = t(:equipment_asset_updated)
-        wants.html { redirect_to(@equipment_asset) }
+        wants.html do
+          if @template.is_iphone_request?(request)
+            redirect_to :controller => 'asset_check_ins', :action => 'new', :equipment_asset_id => @equipment_asset.id
+          else
+            redirect_to(@equipment_asset)
+          end
+        end
         wants.xml  { head :ok }
       else
         wants.html { render :action => "edit" }

@@ -13,11 +13,13 @@
 
 <body>
 
-<!--
 <div id="topbar">
-  <div id="title">Checked in <%#=h @equipment_asset.name %></div>
+  <div id="title"><%=h @equipment_asset.name %></div>
+  <div id="rightbutton">
+    <%= link_to "Edit", edit_equipment_asset_path(@equipment_asset) %>
+  </div>
 </div>
--->
+
 <div id="content">
   <span class="graytitle">Checked in!</span>
   <ul class="pageitem">
@@ -28,7 +30,7 @@
   </ul>
   <span class="graytitle">Details</span>
   <ul class="pageitem">
-    <%= iphone_details_box(@equipment_asset) %>
+    <%= iphone_details_box(@equipment_asset, false) %>
     <%= iphone_additional_resource_menu(@equipment_asset.resource_url) %>
     <%= iphone_comment_menu(@equipment_asset.comment) %>
   </ul>
