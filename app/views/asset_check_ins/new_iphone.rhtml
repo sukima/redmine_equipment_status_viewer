@@ -13,11 +13,13 @@
 
 <body>
 
-<!--
 <div id="topbar">
-  <div id="title">Check In</div>
+  <div id="title"><%=h @equipment_asset.name %></div>
+  <div id="leftbutton">
+    <%= link_to "Edit", edit_equipment_asset_path(@equipment_asset) %>
+  </div>
 </div>
--->
+
 <div id="content">
 <% form_for([@equipment_asset, @asset_check_in]) do |f| %>
   <%#= f.error_messages :class => 'graytitle',
@@ -26,7 +28,7 @@
     :header_tag => :span %>
   <span class="graytitle">Details</span>
   <ul class="pageitem">
-    <%= iphone_details_box(@equipment_asset) %>
+    <%= iphone_details_box(@equipment_asset, false) %>
     <%= iphone_additional_resource_menu(@equipment_asset.resource_url) %>
     <%= iphone_comment_menu(@equipment_asset.comment) %>
   </ul>
