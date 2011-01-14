@@ -1,24 +1,25 @@
-<% comment_display_length = 140 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
+<title>Check in for <%=h @equipment_asset.name %></title>
 <!-- <meta content="yes" name="apple-mobile-web-app-capable" /> -->
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 <meta content="minimum-scale=1.0, width=device-width, maximum-scale=0.6667, user-scalable=no" name="viewport" />
 <%= stylesheet_link_tag 'iWebKitStyle', :plugin => 'redmine_equipment_status_viewer' %>
 <%= javascript_include_tag 'iWebKitFunctions', :plugin => 'redmine_equipment_status_viewer' %>
 <%= iphone_comment_script %>
-<title>Check in for <%=h @equipment_asset.name %></title>
 </head>
 
 <body>
 
-<!--
 <div id="topbar">
-  <div id="title">Check In</div>
+  <div id="title"><%=h @equipment_asset.name %></div>
+  <div id="leftbutton">
+    <%= link_to "Edit", edit_equipment_asset_path(@equipment_asset) %>
+  </div>
 </div>
--->
+
 <div id="content">
 <% form_for([@equipment_asset, @asset_check_in]) do |f| %>
   <%#= f.error_messages :class => 'graytitle',
@@ -27,7 +28,7 @@
     :header_tag => :span %>
   <span class="graytitle">Details</span>
   <ul class="pageitem">
-    <%= iphone_details_box(@equipment_asset) %>
+    <%= iphone_details_box(@equipment_asset, false) %>
     <%= iphone_additional_resource_menu(@equipment_asset.resource_url) %>
     <%= iphone_comment_menu(@equipment_asset.comment) %>
   </ul>
@@ -44,15 +45,15 @@
     </ul>
   <% end %>
   <ul class="pageitem">
-    <li class="bigfield">
-      <%= f.text_field :person, :placeholder => "Name" %>
-    </li>
     <li class="menu">
       <%= f.hidden_field :location %>
       <% location = @asset_check_in.location %>
-      <% location ||= "Location" %>
-      <%= link_to "<span class=\"name\">#{location}</span>", loclist_equipment_asset_asset_check_ins_path([@equipment_asset]) %>
-      <span class="arrow"></span>
+      <% location ||= @equipment_asset.location %>
+      <%= link_to "<span class=\"name\">#{location}</span><span class=\"arrow\"></span>",
+        loclist_equipment_asset_asset_check_ins_path(@equipment_asset, :person => @asset_check_in.person, :location => location) %>
+    </li>
+    <li class="bigfield">
+      <%= f.text_field :person, :placeholder => "Person" %>
     </li>
     <li class="checkbox">
       <span class="name"><%= f.label :equipment_asset_oos, "Out of service?" %></span>

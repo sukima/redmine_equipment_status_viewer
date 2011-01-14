@@ -17,7 +17,7 @@
 
 class AssetCheckInsController < ApplicationController
   unloadable
-  helper :equipment_assets
+  helper :equipment_assets, :iphone
 
   # To avoid a login prompt on the iPhone set the 'Allow equipment check ins'
   # for the non-member/anonymous roles.
@@ -32,7 +32,7 @@ class AssetCheckInsController < ApplicationController
   
     respond_to do |wants|
       wants.html do
-        @locations = AssetCheckIn.find(:all).map(&:location) if is_iphone_request?
+        @locations = AssetCheckIn.find(:all).map(&:location) if @template.is_iphone_request?(request)
         render_with_iphone_check
       end
       wants.xml  { render :xml => @asset_check_in }
@@ -40,7 +40,9 @@ class AssetCheckInsController < ApplicationController
   end
 
   def loclist
-    @asset_check_in = @equipment_asset.asset_check_ins.new(params[:asset_check_in])
+    @asset_check_in = @equipment_asset.asset_check_ins.new
+    @asset_check_in.person = params[:person]
+    @asset_check_in.location = params[:location]
     @query = params[:query]
     if @query.blank?
       @locations = AssetCheckIn.find(:all, :group => 'location').map(&:location)
@@ -87,19 +89,11 @@ class AssetCheckInsController < ApplicationController
     @equipment_asset = EquipmentAsset.find(params[:equipment_asset_id])
   end
 
-  def is_iphone_request?
-    # This is a kludge hack. Idea from:
-    # http://www.ibm.com/developerworks/opensource/library/os-eclipse-iphoneruby1/
-    # Modified due to home screen problem:
-    # http://kosmaczewski.net/2009/10/30/http-headers-web-apps-and-mobile-safari/
-    request.user_agent =~ /(AppleWebKit\/.+Mobile)/
-  end
-
   def render_with_iphone_check(args = {})
     args[:redirect] || false
     args[:template] ||= "new"
 
-    if is_iphone_request?
+    if @template.is_iphone_request?(request)
       render "#{args[:template]}_iphone", :layout => false
     elsif !args[:action].nil?
       render :action => args[:action]

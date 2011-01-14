@@ -43,7 +43,7 @@ module AssetCheckInsHelper
       EOF
     end
     str = <<-EOF
-        <div><%=h @equipment_asset.comment %></div>
+        <div>#{comment}</div>
       </li>
     EOF
 
@@ -60,10 +60,10 @@ module AssetCheckInsHelper
     EOF
   end
 
-  def iphone_details_box(equipment_asset)
-    str = <<-EOF
-      <li class="textbox">
-        <span class="header">#{h equipment_asset.name }</span>
+  def iphone_details_box(equipment_asset, use_header = true)
+    str = "<li class=\"textbox\">"
+    str += "  <span class=\"header\">#{h equipment_asset.name }</span>" if use_header
+    str += <<-EOF
         <table>
           <tbody>
             <tr>

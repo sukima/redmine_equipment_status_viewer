@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Edit <%=h @equipment_asset.name %></title>
+<!-- <meta content="yes" name="apple-mobile-web-app-capable" /> -->
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta content="minimum-scale=1.0, width=device-width, maximum-scale=0.6667, user-scalable=no" name="viewport" />
+<%= stylesheet_link_tag 'iWebKitStyle', :plugin => 'redmine_equipment_status_viewer' %>
+<%= javascript_include_tag 'iWebKitFunctions', :plugin => 'redmine_equipment_status_viewer' %>
+<script type="text/javascript">
+  function doneButtonClicked() {
+    document.getElementById("edit_equipment_asset_<%= @equipment_asset.id %>").submit();
+    return false;
+  }
+</script>
+</head>
+
+<body>
+
+<div id="topbar">
+  <div id="title"><%=h @equipment_asset.name %></div>
+  <div id="leftnav">
+    <%= link_to "Check In", equipment_asset_check_in_path(@equipment_asset) %>
+  </div>
+  <div id="bluerightbutton">
+    <a href="javascript:doneButtonClicked();">Save</a>
+  </div>
+</div>
+
+<div id="content">
+<% form_for(@equipment_asset) do |f| %>
+  <% @equipment_asset.errors.each do |attr,err| %>
+    <p style="color: red;"><strong><%=h attr %></strong> <%=h err %></p>
+  <% end %>
+  <span class="graytitle">Details</span>
+  <ul class="pageitem">
+    <li class="smallfield">
+      <span class="name"><%= f.label :name %></span><%= f.text_field :name %>
+    </li>
+    <li class="smallfield">
+      <span class="name"><%= f.label :asset_type %></span><%= f.text_field :asset_type %>
+    </li>
+    <li class="smallfield">
+      <span class="name"><%= f.label :serial_number%></span><%= f.text_field :serial_number%>
+    </li>
+    <li class="checkbox">
+      <span class="name"><%= f.label :oos, "Out of service?" %></span>
+      <%= f.check_box :oos %>
+    </li>
+  </ul>
+  <ul class="pageitem">
+    <li class="textbox">
+      <span class="header"><%= f.label :resource_url%></span>
+      <%= f.text_field :resource_url%>
+    </li>
+    <li class="textbox">
+      <span class="header"><%= f.label :comment%></span>
+      <%= f.text_area :comment%>
+    </li>
+  </ul>
+  <ul class="pageitem">
+    <li class="button">
+      <%= f.submit "Save" %>
+    </li>
+  </ul>
+<% end %>
+</div>
+<div id="footer">
+	<!-- Support iWebKit by sending us traffic; please keep this footer on your page, consider it a thank you for our work :-) -->
+	<a class="noeffect" href="http://iwebkit.net">Powered by iWebKit</a></div>
+  </body>
+</html>
+
