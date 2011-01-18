@@ -11,6 +11,8 @@
       /* border-color: #0000ff; */
       border-collapse: collapse;
      }
+     h2 { margin-bottom: 5px; }
+     p { margin: 5px auto; }
      td {
        border-width: 0;
        border-style: none;
@@ -28,13 +30,13 @@
        width: 500px;
      }
      #asset-label {
-       width: 300px;
+       width: <%= (@qrcode.module_count * 2) + 175 %>px;
        text-align: center;
        border: thin dashed black;
      }
      #qrcode {
        width: <%= @qrcode.module_count * 2 %>px;
-       margin: 0 auto;
+       margin: 15px auto;
      }
      #instructions {
        margin-top: 10px;
@@ -50,12 +52,12 @@
   <body>
     <div id="container">
       <div id="asset-label">
-        <h2><%= @equipment_asset.name %></h2>
-        <% if !@equipment_asset.serial_number.empty? %>
-          <p>
-            <b>Serial Number:</b>
-            <%= @equipment_asset.serial_number %>
-          </p>
+        <h2><%=h @equipment_asset.name %></h2>
+        <% if !@equipment_asset.asset_type.blank? %>
+          <p><%=h @equipment_asset.asset_type %></p>
+        <% end %>
+        <% if !@equipment_asset.serial_number.blank? %>
+          <p><%= @equipment_asset.serial_number %></p>
         <% end %>
         <div id="qrcode">
           <table>
