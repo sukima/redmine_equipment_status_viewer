@@ -37,7 +37,7 @@
     <% if @equipment_asset.resource_url %>
       <tr>
       	<th>Additional Resource:</th>
-        <td><%= link_to @equipment_asset.resource_url %></td>
+        <td><a href="<%=h @equipment_asset.resource_url %>"><%=h @equipment_asset.resource_url %></a></td>
       </tr>
     <% end %>
   </table>
