@@ -53,7 +53,7 @@
                 </div>
                 <div class="info">
                   <h2>Running list of locations</h2>
-                  <p>Keeps track of the last know location and who had the equipment last using easy check in system. Each time the equipment is moved a user checks it in. Check ins can be available to anyone publicly if configured to do so.</p>
+                  <p>Keeps track of the last known location and who had the equipment last using easy check in system. Each time the equipment is moved a user checks it in. Check ins can be available to anyone publicly if configured to do so.</p>
                   <a href="#downloadbox" rel="facebox[.install]" class="download">Download Now</a>
                 </div>
               </li>
@@ -153,56 +153,13 @@
     </div>
     <div id="downloadbox" style="display:none;">
       <h2>This is a Redmine plugin</h2>
-      <p>Run the following in your <strong>Redmine</strong> application directory:
-      <span class="clippy">
-        <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
-                   width="110"
-                   height="14"
-                   id="clippy" >
-           <param name="movie" value="js/clippy.swf"/>
-           <param name="allowScriptAccess" value="always" />
-           <param name="quality" value="high" />
-           <param name="scale" value="noscale" />
-           <param NAME="FlashVars" value="text=#{text}">
-           <param name="bgcolor" value="#{bgcolor}">
-           <embed src="js/clippy.swf"
-                  width="110"
-                  height="14"
-                  name="clippy"
-                  quality="high"
-                  allowScriptAccess="always"
-                  type="application/x-shockwave-flash"
-                  pluginspage="http://www.macromedia.com/go/getflashplayer"
-                  FlashVars="text=script/install plugin git://github.com/sukima/redmine_equipment_status_viewer.git"
-                  bgcolor="#FFFFFF"
-           />
-      </span></p>
-      <pre>script/install plugin git://github.com/sukima/redmine_equipment_status_viewer.git</pre>
-      <p>There is only one dependency which is <a href="http://rqrcode.rubyforge.org/">rQRCode</a>. Install it with the following:
-      <span class="clippy">
-        <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
-                   width="110"
-                   height="14"
-                   id="clippy" >
-           <param name="movie" value="js/clippy.swf"/>
-           <param name="allowScriptAccess" value="always" />
-           <param name="quality" value="high" />
-           <param name="scale" value="noscale" />
-           <param NAME="FlashVars" value="text=#{text}">
-           <param name="bgcolor" value="#{bgcolor}">
-           <embed src="js/clippy.swf"
-                  width="110"
-                  height="14"
-                  name="clippy"
-                  quality="high"
-                  allowScriptAccess="always"
-                  type="application/x-shockwave-flash"
-                  pluginspage="http://www.macromedia.com/go/getflashplayer"
-                  FlashVars="text=script/install plugin git://github.com/whomwah/rqrcode.git"
-                  bgcolor="#FFFFFF"
-           />
-      </span></p>
-      <pre>script/install plugin git://github.com/whomwah/rqrcode.git</pre>
+      <p>There is only one dependency which is <a href="http://rqrcode.rubyforge.org/">rQRCode</a>. Install it with the following:</p>
+      <pre>script/plugin install git://github.com/whomwah/rqrcode.git</pre>
+      <p>Then run the following in your <strong>Redmine</strong> application directory:</p>
+      <pre>script/plugin install git://github.com/sukima/redmine_equipment_status_viewer.git</pre>
+      <p>Finally migrate your database:</p>
+      <pre>rake db:migrate:plugins RAILS_ENV=production</pre>
+      <p>You may need to prepend <code>sudo</code> to gain root access on some systems.</p>
     </div>
     <div id="demobox" style="display:none;">
       <p>This feature not available yet.</p>
