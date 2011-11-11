@@ -59,7 +59,7 @@
               <% end %>
               <td class="pluginESV_<%= oos_class %>"><%=h e.serial_number %></td>
               <% if !attribute_is_grouped?(:location) %>
-                <td class="pluginESV_<%= oos_class %>"><%=h e.location %></td>
+              <td class="pluginESV_<%= oos_class %>"><%=h e.location %> (by <%=h e.last_checkin_by %>)</td>
               <% end %>
               <td class="pluginESV_<%= oos_class %>">
                 <%= link_to "", edit_equipment_asset_path(e), :class => "icon icon-edit", :title => "Edit #{e.name}" %>
