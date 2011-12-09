@@ -31,15 +31,29 @@ class EquipmentAssetsHelperTest < ActionController::TestCase
   default_url_options[:host] = "test.host"
 
   context "split_path" do
-    setup do
-      @path = split_path("http://test.host/path/id")
+    context "for http url" do
+      setup do
+        @path = split_path("http://test.host/path/id")
+      end
+      should "return a proper hash" do
+        assert_not_nil @path[:host]
+        assert_not_nil @path[:path]
+      end
+      should "remove leading slash" do
+        assert @path[:path][1] != '/'
+      end
     end
-    should "return a proper hash" do
-      assert_not_nil @path[:host]
-      assert_not_nil @path[:path]
-    end
-    should "remove leading slash" do
-      assert @path[:path][1] != '/'
+    context "for https url" do
+      setup do
+        @path = split_path("https://test.host/path/id")
+      end
+      should "return a proper hash" do
+        assert_not_nil @path[:host]
+        assert_not_nil @path[:path]
+      end
+      should "remove leading slash" do
+        assert @path[:path][1] != '/'
+      end
     end
   end
 

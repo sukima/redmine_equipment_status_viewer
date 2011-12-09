@@ -35,4 +35,12 @@ class EquipmentAsset < ActiveRecord::Base
       "Unknown"
     end
   end
+
+  def last_checkin_by
+    if asset_check_ins && asset_check_ins.last
+      asset_check_ins.last.name
+    else
+      "Unknown"
+    end
+  end
 end

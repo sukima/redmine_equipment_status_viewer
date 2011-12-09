@@ -17,7 +17,7 @@
 
 module EquipmentAssetsHelper
   def split_path(path)
-    m = path.match('^(http://[^/]+/)(.*)$')
+    m = path.match('^(http[s]?://[^/]+/)(.*)$')
     { :host => m[1], :path => m[2] }
   end
 
