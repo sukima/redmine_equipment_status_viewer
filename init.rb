@@ -17,14 +17,6 @@
 
 require 'redmine'
 
-# Equipment Status Viewer requires the RQRCode plugin
-begin
-  require 'rqrcode' unless Object.const_defined?('QRCode')
-rescue LoadError
-  # rate_plugin is not installed
-  raise Exception.new("ERROR: The RQRCode plugin is not installed. Please install the RQRCode plugin from http://rqrcode.rubyforge.org/index.html")
-end
-
 Redmine::Plugin.register :redmine_equipment_status_viewer do
   name 'Redmine Equipment Status Viewer plugin'
   author 'Devin Weaver'
