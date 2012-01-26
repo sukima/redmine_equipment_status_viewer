@@ -13,3 +13,4 @@ en:
   equipment_asset_updated: "Equipment updated successfully."
   asset_check_in_created: "Checked in successfully."
   assets_grouped_by: "Group assets by"
+  use_bitly: "Use Bit.ly URL Shortening"

@@ -6,3 +6,7 @@
     ["Location", "location"]
   ], Setting.plugin_redmine_equipment_status_viewer['assets_grouped_by']) %>
 </p>
+<p>
+  <label><%=l :use_bitly %></label>
+  <%= checkbox_tag 'settings[use_bitly]', Setting.plugin_redmine_equipment_status_viewer('use_bitly') %>
+</p>
