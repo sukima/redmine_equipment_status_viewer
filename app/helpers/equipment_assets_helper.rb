@@ -26,15 +26,6 @@ module EquipmentAssetsHelper
     "#{h path[:host]}<br />#{h path[:path]}"
   end
 
-  def ci_url(asset, opt = {})
-    opt[:bitly] ||= Setting.plugin_redmine_equipment_status_viewer('use_bitly')
-    if opt[:bitly]
-      
-    else
-      return equipment_asset_check_in_url(asset)
-    end
-  end
-
   def name_and_type(asset)
     h "#{asset.name} (#{asset.asset_type})"
   end
