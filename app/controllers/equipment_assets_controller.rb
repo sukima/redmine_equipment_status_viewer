@@ -130,7 +130,6 @@ class EquipmentAssetsController < ApplicationController
 
   def print
     @equipment_asset = EquipmentAsset.find(params[:id])
-    @qrcode_url = qr_url(@equipment_asset)
     render :layout => false
   end
 
