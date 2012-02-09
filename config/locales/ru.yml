@@ -1,0 +1,15 @@
+# Russian strings go here for Rails i18n
+en:
+  field_equipment_asset: "Оборудование"
+  field_asset_type: "Тип"
+  field_name: "Имя"
+  field_serial_number: "Серийный номер"
+  field_oos: "Не обслуживается"
+  field_person: "Сотрудник"
+  field_location: "Место"
+  field_comment: "Коментарий"
+  field_resource_url: "Ссылка"
+  equipment_asset_created: "Оборудование добавлено успешно."
+  equipment_asset_updated: "Оборудование обновлено успешно."
+  asset_check_in_created: "Проверка успешна."
+  assets_grouped_by: "Группировать по"
