@@ -44,7 +44,7 @@ Redmine::Plugin.register :redmine_equipment_status_viewer do
 
   menu :top_menu, "Equipment",
     { :controller => 'equipment_assets', :action => 'index' },
-    :caption => "Equipment", :after => :projects,
+    :caption => "Оборудование", :after => :projects,
     :if => Proc.new {
       User.current.allowed_to?(:view_equipment_assets, nil, :global => true)
     }
