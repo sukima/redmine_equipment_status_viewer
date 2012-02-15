@@ -1,6 +1,6 @@
 <% html_title "Equipment Assets" %> <% content_for :header_tags do %>
   <%= stylesheet_link_tag 'style', :plugin => 'redmine_equipment_status_viewer' %> <% end %> <div class="contextual">
-  <%= link_to "Add Equipment", new_equipment_asset_path, :class => "icon icon-add" %> </div> <h2><%=t :lable_equipment_status %></h2> <div id="list_top"> </div> 
+  <%= link_to t(:field_new_equipment_asset), new_equipment_asset_path, :class => "icon icon-add" %> </div> <h2><%=t :lable_equipment_status %></h2> <div id="list_top"> </div> 
 <div id="list-left" class="splitcontentleft">
   <div class="mypage-box">
     <% if @equipment_assets.empty? %>

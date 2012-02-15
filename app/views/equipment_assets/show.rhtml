@@ -4,11 +4,11 @@
 <% end %>
 
 <div class="contextual">
-  <span><%= link_to "Add Equipment", new_equipment_asset_path, :class => "icon icon-add" %></span>
-  <span><%= link_to "Check In", equipment_asset_check_in_path(@equipment_asset), :class => "icon icon-time-add" %></span>
-  <span><%= link_to "Print Label", print_equipment_asset_path(@equipment_asset), :class => "icon icon-report" %></span>
-  <span><%= link_to "Edit", edit_equipment_asset_path(@equipment_asset), :class => "icon icon-edit" %></span>
-  <span><%= link_to "Delete", equipment_asset_path(@equipment_asset), :confirm => "Are you sure?", :method => :delete, :class => "icon icon-del" %></span>
+  <span><%= link_to t(:field_new_equipment_asset), new_equipment_asset_path, :class => "icon icon-add" %></span>
+  <span><%= link_to t(:lable_chek), equipment_asset_check_in_path(@equipment_asset), :class => "icon icon-time-add" %></span>
+  <span><%= link_to t(:lable_rtintqr), print_equipment_asset_path(@equipment_asset), :class => "icon icon-report" %></span>
+  <span><%= link_to t(:lable_edit), edit_equipment_asset_path(@equipment_asset), :class => "icon icon-edit" %></span>
+  <span><%= link_to t(:lable_del), equipment_asset_path(@equipment_asset), :confirm => "Are you sure?", :method => :delete, :class => "icon icon-del" %></span>
 </div>
 
 <h2><%= name_and_type @equipment_asset %></h2>

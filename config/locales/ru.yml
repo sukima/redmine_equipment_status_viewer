@@ -18,6 +18,8 @@ ru:
   assets_grouped_by: "Группировать по"
   lable_edit: "Редактировать"
   lable_equipment_status: "Статус Оборудования"
+  lable_rtintqr: "Напечатать наклейку"
+  lable_del: "Удалить"
   ch_by: " сотрудником "
   lable_chek: "Проверки"
   ch_in: "Проверено "
