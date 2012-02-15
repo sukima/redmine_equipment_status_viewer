@@ -18,6 +18,8 @@ en:
   assets_grouped_by: "Group assets by"
   lable_edit: "Edit"
   lable_equipment_status: "Equipment Status"
+  lable_rtintqr: "Print lable"
+  lable_del: "Delete"
   ch_by: "by"
   lable_chek: "Check ins"
   ch_in: "Checked in"
