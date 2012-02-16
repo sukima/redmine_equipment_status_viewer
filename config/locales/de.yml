@@ -1,5 +1,5 @@
-# English strings go here for Rails i18n
-en:
+# German strings go here for Rails i18n
+de:
   alert_oos: "Dieser Gegenstand ist außer Dienst!"
   field_new_equipment_asset: "Neuen Gegenstand"
   field_equipment_asset: "Gegenstand"
@@ -15,7 +15,7 @@ en:
   equipment_asset_created: "Gegenstand erfolgreich hinzugefügt."
   equipment_asset_updated: "Gegenstand erfolgreich aktualisiert."
   asset_check_in_created: "Check-in erfolgreich."
-  assets_grouped_by: "Gegenstande sortieren nach"
+  assets_grouped_by: "Gegenstände sortieren nach"
   lable_edit: "Editieren"
   lable_equipment_status: "Status"
   lable_rtintqr: "Label drucken"
