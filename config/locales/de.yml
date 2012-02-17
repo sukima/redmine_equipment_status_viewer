@@ -1,7 +1,7 @@
 # German strings go here for Rails i18n
 de:
   alert_oos: "Dieser Gegenstand ist außer Dienst!"
-  field_new_equipment_asset: "Neuen Gegenstand"
+  field_new_equipment_asset: "Neuer Gegenstand"
   field_equipment_asset: "Gegenstand"
   field_asset_type: "Typ"
   field_name: "Name"
@@ -16,7 +16,7 @@ de:
   equipment_asset_updated: "Gegenstand erfolgreich aktualisiert."
   asset_check_in_created: "Check-in erfolgreich."
   assets_grouped_by: "Gegenstände sortieren nach"
-  lable_edit: "Editieren"
+  lable_edit: "editieren"
   lable_equipment_status: "Status"
   lable_rtintqr: "Label drucken"
   lable_del: "löschen"
