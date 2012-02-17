@@ -1,15 +1,6 @@
-<% html_title "Equipment Assets" %>
-<% content_for :header_tags do %>
-  <%= stylesheet_link_tag 'style', :plugin => 'redmine_equipment_status_viewer' %>
-<% end %>
-
-<div class="contextual">
-  <%= link_to "Add Equipment", new_equipment_asset_path, :class => "icon icon-add" %>
-</div>
-
-<h2>Equipment Status</h2>
-
-<div id="list_top"> </div>
+<% html_title "Equipment Assets" %> <% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'style', :plugin => 'redmine_equipment_status_viewer' %> <% end %> <div class="contextual">
+  <%= link_to t(:field_new_equipment_asset), new_equipment_asset_path, :class => "icon icon-add" %> </div> <h2><%=t :lable_equipment_status %></h2> <div id="list_top"> </div> 
 <div id="list-left" class="splitcontentleft">
   <div class="mypage-box">
     <% if @equipment_assets.empty? %>
@@ -18,13 +9,13 @@
       <table class="list">
         <thead>
           <tr>
-            <th>Name</th>
+            <th><%=t :field_name %></th>
             <% if !attribute_is_grouped?(:asset_type) %>
-              <th>Type</th>
+              <th><%=t :field_asset_type %></th>
             <% end %>
-            <th>Serial #</th>
+            <th><%=t :field_serial_number %> #</th>
             <% if !attribute_is_grouped?(:location) %>
-              <th>Location</th>
+              <th><%=t field_location %></th>
             <% end %>
             <th>&nbsp;</th>
           </tr>
@@ -59,7 +50,7 @@
               <% end %>
               <td class="pluginESV_<%= oos_class %>"><%=h e.serial_number %></td>
               <% if !attribute_is_grouped?(:location) %>
-              <td class="pluginESV_<%= oos_class %>"><%=h e.location %> (by <%=h e.last_checkin_by %>)</td>
+              <td class="pluginESV_<%= oos_class %>"><%=h e.location %> (<%=t :ch_by %> <%=h e.last_checkin_by %>)</td>
               <% end %>
               <td class="pluginESV_<%= oos_class %>">
                 <%= link_to "", edit_equipment_asset_path(e), :class => "icon icon-edit", :title => "Edit #{e.name}" %>
@@ -79,11 +70,9 @@
       footnotes
     </p>
     -->
-  </div>
-</div>
-<div class="splitcontentright">
+  </div> </div> <div class="splitcontentright">
   <div class="news box">
-    <h3>Check ins</h3>
+    <h3><%=t :lable_chek %></h3>
     <ul>
     <% @asset_check_ins.each do |check_in| %>
       <li>
@@ -96,5 +85,4 @@
       </li>
     <% end %>
     </ul>
-  <div>
-</div>
+  <div> </div>
