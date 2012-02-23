@@ -21,7 +21,7 @@ Redmine::Plugin.register :redmine_equipment_status_viewer do
   name 'Redmine Equipment Status Viewer plugin'
   author 'Devin Weaver'
   description 'Allows admins to make a list of equipment and track if they are inservice or not'
-  version '0.3.5'
+  version '0.3.6'
   url 'http://sukima.github.com/redmine_equipment_status_viewer'
   author_url 'http://github.com/sukima'
 
@@ -36,7 +36,7 @@ Redmine::Plugin.register :redmine_equipment_status_viewer do
 
   menu :top_menu, "Equipment",
     { :controller => 'equipment_assets', :action => 'index' },
-    :caption => "Equipment", :after => :projects,
+    :caption => :equipment_label, :after => :projects,
     :if => Proc.new {
       User.current.allowed_to?(:view_equipment_assets, nil, :global => true)
     }
