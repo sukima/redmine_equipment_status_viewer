@@ -1,5 +1,6 @@
 # German strings go here for Rails i18n
 de:
+  equipment_label: "Ausrüstung"
   alert_oos: "Dieser Gegenstand ist außer Dienst!"
   field_new_equipment_asset: "Neuer Gegenstand"
   field_equipment_asset: "Gegenstand"

@@ -1,5 +1,6 @@
 # Russian strings go here for Rails i18n
 ru:
+  equipment_label: "оборудование"
   alert_oos: "Это оборудование не работает!"
   field_new_equipment_asset: "Новое Оборудование"
   field_equipment_asset: "Оборудование"

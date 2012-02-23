@@ -1,5 +1,6 @@
 # English strings go here for Rails i18n
 en:
+  equipment_label: "Equipment"
   alert_oos: "This equipment is out of service!"
   field_new_equipment_asset: "New Equipment Asset"
   field_equipment_asset: "Equipment Asset"
