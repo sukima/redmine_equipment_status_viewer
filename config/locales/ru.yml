@@ -29,3 +29,7 @@ ru:
   on1: "в "
   ago: " назад "
   no_data: "Нет Данных"
+  label_for_asset: "Этикетка для $asset"
+  label_for_assets: "Этикетки для оборудования активов"
+  go_back: "возвращаться"
+  check_in_at: "Размещение в:"
