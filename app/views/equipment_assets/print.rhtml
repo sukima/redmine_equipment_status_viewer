@@ -60,12 +60,12 @@
         <p><%= link_to "Go Back", equipment_asset_path(@equipment_asset) %></p>
       </div>
     </div>
-    <%= javascript_include_tag 'jquery.min', :plugin => 'redmine_equipment_status_viewer' %>
-    <%= javascript_include_tag 'jquery.qrcode.min', :plugin => 'redmine_equipment_status_viewer' %>
+    <%= javascript_include_tag 'jquery.min.js', :plugin => 'redmine_equipment_status_viewer' %>
+    <%= javascript_include_tag 'jquery.qrcode.min.js', :plugin => 'redmine_equipment_status_viewer' %>
     <script type="text/javascript">
         // <![CDATA[
         $(function() {
-            $("#qrcode").qrcode({width:64,text:"<%= ci_url(@equipment_asset) %>"});
+            $("#qrcode").qrcode({width:80,height:80,text:"<%= ci_url(@equipment_asset) %>"});
         });
         // ]]>
     </script>
