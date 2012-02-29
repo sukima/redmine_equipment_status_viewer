@@ -41,6 +41,7 @@ class AssetCheckInsControllerTest < ActionController::TestCase
   #   :action => :new, :equipment_asset_id => 1
   should_route :get, "/equipment_assets/1/asset_check_ins/loclist",
     :action => :loclist, :equipment_asset_id => 1
+  should_route :get, "/ci/1", :action => :new, :equipment_asset_id => 1
 
   context "GET :new" do
     setup do

@@ -7,7 +7,3 @@ print out a QRCode label that your iPhone or Andriod phone can snap and check
 in quickly.
 
 Licensed under GPL v3 or earlier.
-
-* Package is dependent on rqrcode *
-see http://whomwah.github.com/rqrcode/
-    gem install rqrcode

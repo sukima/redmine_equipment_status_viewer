@@ -15,8 +15,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-require 'rqrcode'
-
 class EquipmentAssetsController < ApplicationController
   unloadable
 
@@ -130,29 +128,28 @@ class EquipmentAssetsController < ApplicationController
 
   def print
     @equipment_asset = EquipmentAsset.find(params[:id])
-    @qrcode = getQRCode(equipment_asset_check_in_url(@equipment_asset))
     render :layout => false
   end
 
-  private
-  def getQRCode(data, test = false)
-    # QRCode seems to bork with a nil pointer. Hunch is that the data byte
-    # count is odd not even. Add padding to compensate.
-    # See bug report: https://github.com/whomwah/rqrcode/issues#issue/1
-    data += "?" if (data.length % 2 == 1)
-    size = 4 # good default to start with
-    size += 1 if data.length > 46 # Max value for size 4 using EC level :q
-    size += 1 if data.length > 60 # Max value for size 5 using EC level :q
-    size += 1 if data.length > 74 # Max value for size 6 using EC level :q
-    size += 1 if data.length > 86 # Max value for size 7 using EC level :q
-    size += 1 if data.length > 108 # Max value for size 8 using EC level :q
-    size += 1 if data.length > 130 # Max value for size 9 using EC level :q
-    # Max size is 10. After that your URL data is too big. You'll get an exception.
-    if test
-      size
-    else
-      RQRCode::QRCode.new(data, :size => size, :level => :q)
-    end
-    # TODO: shorten URL (bit.ly, tinyurl.com)
-  end
+  # private
+  # def getQRCode(data, test = false)
+    # # QRCode seems to bork with a nil pointer. Hunch is that the data byte
+    # # count is odd not even. Add padding to compensate.
+    # # See bug report: https://github.com/whomwah/rqrcode/issues#issue/1
+    # data += "?" if (data.length % 2 == 1)
+    # size = 4 # good default to start with
+    # size += 1 if data.length > 46 # Max value for size 4 using EC level :q
+    # size += 1 if data.length > 60 # Max value for size 5 using EC level :q
+    # size += 1 if data.length > 74 # Max value for size 6 using EC level :q
+    # size += 1 if data.length > 86 # Max value for size 7 using EC level :q
+    # size += 1 if data.length > 108 # Max value for size 8 using EC level :q
+    # size += 1 if data.length > 130 # Max value for size 9 using EC level :q
+    # # Max size is 10. After that your URL data is too big. You'll get an exception.
+    # if test
+      # size
+    # else
+      # RQRCode::QRCode.new(data, :size => size, :level => :q)
+    # end
+    # # TODO: shorten URL (bit.ly, tinyurl.com)
+  # end
 end

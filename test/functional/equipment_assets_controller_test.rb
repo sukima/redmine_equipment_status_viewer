@@ -119,25 +119,12 @@ class EquipmentAssetsControllerTest < ActionController::TestCase
     should_redirect_to(":index") { equipment_assets_path }
   end
 
-  context "QRCode size" do
-    sizes        = [ 4,  4,  5,  5,  6,  7,  8,  8,   9,   9,   9,   10 ]
-    data_lengths = [ 20, 32, 48, 56, 64, 76, 96, 108, 118, 120, 130, 140 ]
-    data_lengths.each_with_index do |data, index|
-      should "be #{sizes[index]} for data length of #{data})" do
-        test_url = "http://test.url/c/1/" + ("X" * (data - 20))
-        size = @controller.send :getQRCode, test_url, true
-        assert_equal sizes[index], size, "Failed data: '#{test_url}'"
-      end
-    end
-  end
-
   context "GET :print" do
     setup do
       get :print, :id => 1
     end
     should_respond_with :success
     should_assign_to :equipment_asset
-    should_assign_to :qrcode
     should_render_template :print
   end
 end
