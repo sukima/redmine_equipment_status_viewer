@@ -69,6 +69,36 @@ class EquipmentAssetsHelperTest < ActionController::TestCase
     end
   end
 
+  # context "ci_url" do
+    # setup do
+      # @asset = EquipmentAsset.find(1)
+    # end
+    # context "without bit.ly option" do
+      # setup do
+        # assert @url = ci_url(@asset)
+      # end
+      # should "have well formed url" do
+        # assert_match 'http://', @url
+        # assert_match 'check_in', @url
+      # end
+      # should_not "have bit.ly in the url" do
+        # assert_match 'bit.ly', @url
+      # end
+    # end
+    # context "with bit.ly option" do
+      # setup do
+        # assert @url = ci_url(@asset, :bitly => true)
+      # end
+      # should "have well formed url" do
+        # assert_match 'http://', @url
+        # assert_match 'check_in', @url
+      # end
+      # should "have bit.ly in the url" do
+        # assert_match 'bit.ly', @url
+      # end
+    # end
+  # end
+
   context "name_and_type" do
     setup do
       @asset = EquipmentAsset.new(

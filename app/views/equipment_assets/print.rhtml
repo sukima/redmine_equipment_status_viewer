@@ -13,29 +13,16 @@
      }
      h2 { margin-bottom: 5px; }
      p { margin: 5px auto; }
-     td {
-       border-width: 0;
-       border-style: none;
-       /* border-color: #0000ff; */
-       border-collapse: collapse;
-       padding: 0;
-       margin: 0;
-       width: 2px;
-       height: 2px;
-       font-size: 0px;
-     }
-     td.black { background-color: #000; }
-     td.white { background-color: #fff; }
      #container {
        width: 500px;
      }
      #asset-label {
-       width: <%= (@qrcode.module_count * 2) + 175 %>px;
+       width: 303px; /* 128 + 175 */
        text-align: center;
        border: thin dashed black;
      }
      #qrcode {
-       width: <%= @qrcode.module_count * 2 %>px;
+       width: 128px;
        margin: 15px auto;
      }
      #instructions {
@@ -59,25 +46,11 @@
         <% if !@equipment_asset.serial_number.blank? %>
           <p><%= @equipment_asset.serial_number %></p>
         <% end %>
-        <div id="qrcode">
-          <table>
-           <% @qrcode.modules.each_index do |x| -%>
-             <tr>
-             <% @qrcode.modules.each_index do |y| -%>
-              <% if @qrcode.is_dark(x,y) -%>
-                <td class="black"><%= image_tag "black_box.png", :plugin => "redmine_equipment_status_viewer" %></td>
-              <% else -%>
-                <td class="white"><%= image_tag "white_box.png", :plugin => "redmine_equipment_status_viewer" %></td>
-              <% end -%>
-             <% end -%>
-             </tr>
-           <% end -%>
-          </table>
-        </div>
+        <div id="qrcode"></div>
 
         <p>
           <b>Check in at:</b><br />
-          <%= split_check_in_url(@equipment_asset) %>
+          <%= ci_url(@equipment_asset) %>
         </p>
       </div>
       <div id="instructions">
@@ -87,5 +60,14 @@
         <p><%= link_to "Go Back", equipment_asset_path(@equipment_asset) %></p>
       </div>
     </div>
+    <%= javascript_include_tag 'jquery.min.js', :plugin => 'redmine_equipment_status_viewer' %>
+    <%= javascript_include_tag 'jquery.qrcode.min.js', :plugin => 'redmine_equipment_status_viewer' %>
+    <script type="text/javascript">
+        // <![CDATA[
+        $(function() {
+            $("#qrcode").qrcode({width:80,height:80,text:"<%= ci_url(@equipment_asset) %>"});
+        });
+        // ]]>
+    </script>
   </body>
 </html>
