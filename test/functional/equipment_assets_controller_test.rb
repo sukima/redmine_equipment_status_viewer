@@ -40,6 +40,7 @@ class EquipmentAssetsControllerTest < ActionController::TestCase
   should_route :put, "/equipment_assets/1", :action => :update, :id => 1
   should_route :delete, "/equipment_assets/1", :action => :destroy, :id => 1
   should_route :get, "/equipment_assets/1/print", :action => :print, :id => 1
+  should_route :put, "/equipment_assets/print", :action => :print
 
   %(none asset_type location).each do |test_setting|
     context "When asset_grouped_by == none" do
@@ -126,5 +127,14 @@ class EquipmentAssetsControllerTest < ActionController::TestCase
     should_respond_with :success
     should_assign_to :equipment_asset
     should_render_template :print
+  end
+
+  context "POST :printm" do
+    setup do
+      post :printm, :ids => [1,2,3,5]
+    end
+    should_respond_with :success
+    should_render_template :printm
+    should_assign_to :equipment_assets
   end
 end
