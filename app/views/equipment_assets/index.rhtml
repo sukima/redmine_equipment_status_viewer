@@ -1,6 +1,15 @@
 <% html_title "Equipment Assets" %> <% content_for :header_tags do %>
   <%= stylesheet_link_tag 'style', :plugin => 'redmine_equipment_status_viewer' %> <% end %> <div class="contextual">
   <%= link_to t(:field_new_equipment_asset), new_equipment_asset_path, :class => "icon icon-add" %> </div> <h2><%=t :lable_equipment_status %></h2> <div id="list_top"> </div> 
+<!-- Placing this in a @media print {...} in the style.css file was not working in Chrome -->
+<style type="text/css" media="print">
+  .pluginESV_print-buttons,
+  .pluginESV_action-buttons,
+  .pluginESV_checkbox,
+  .splitcontentright { display: none; }
+  #list-left { width: 100%; }
+  #content a { color: black; }
+</style>
 <div id="list-left" class="splitcontentleft">
   <div class="mypage-box">
     <% if @equipment_assets.empty? %>
@@ -9,7 +18,8 @@
       <% form_tag print_equipment_assets_path, :method => :put do %>
         <div class="pluginESV_print-buttons">
           <%= submit_tag t(:print_all_checked) %>
-          <%= link_to t(:print_all_labels), print_equipment_asset_path("all") %>
+          <%= link_to t(:print_all_labels), print_equipment_asset_path("all") %> |
+          <a href="#" onClick="window.print();return false;"><%=t :print_list %></a>
         </div>
         <table class="list">
           <thead>
@@ -22,7 +32,7 @@
               <% if !attribute_is_grouped?(:location) %>
                 <th><%=t :field_location %></th>
               <% end %>
-              <th>&nbsp;</th>
+              <th class="pluginESV_action-buttons">&nbsp;</th>
             </tr>
           </thead>
           <tbody>
@@ -47,7 +57,7 @@
             <tr title="<%=h e.comment %>"
               class="<%= evenodd %> pluginESV_<%= oos_class %>">
                 <td class="pluginESV_<%= oos_class %>">
-                  <%= check_box_tag "asset_ids[]", e.id %>
+                  <%= check_box_tag "asset_ids[]", e.id, false, :class => "pluginESV_checkbox" %>
                   <%= link_to e.name, equipment_asset_path(e) %>
                 <% if e.oos %>(<%=t :out_of_service %>)<% end %>
                 </td>
@@ -58,7 +68,7 @@
                 <% if !attribute_is_grouped?(:location) %>
                 <td class="pluginESV_<%= oos_class %>"><%=h e.location %> (<%=t :ch_by %> <%=h e.last_checkin_by %>)</td>
                 <% end %>
-                <td class="pluginESV_<%= oos_class %>">
+                <td class="pluginESV_<%= oos_class %> pluginESV_action-buttons">
                   <%= link_to "", edit_equipment_asset_path(e), :class => "icon icon-edit", :title => "Edit #{e.name}" %>
                   <%= link_to "", print_equipment_asset_path(e), :class => "icon icon-report", :title => "Print label for #{e.name}" %>
                   <%= link_to "", equipment_asset_check_in_path(e), :class => "icon icon-time-add", :title => "Check in #{e.name}" %>
