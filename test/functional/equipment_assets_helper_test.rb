@@ -19,6 +19,11 @@ require File.dirname(__FILE__) + '/../test_helper.rb'
 require 'equipment_assets_helper'
 
 class EquipmentAssetsHelperTest < ActionController::TestCase
+  def t(name, opt=nil)
+    # When testing a helper the translation method is missing.
+    # Alias the full name here.
+    I18n.t(name, opt)
+  end
   fixtures :equipment_assets, :asset_check_ins
 
   include ActionView::Helpers::TextHelper

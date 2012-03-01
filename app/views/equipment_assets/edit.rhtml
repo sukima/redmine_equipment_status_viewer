@@ -1,4 +1,4 @@
-<% html_title "Edit #{@equipment_asset.name}" %>
-<h1><%=t :lable_edit %><%= name_and_type @equipment_asset %></h1>
+<% html_title "#{t(:lable_edit)} #{@equipment_asset.name}" %>
+<h1><%=t :lable_edit %> <%= name_and_type @equipment_asset %></h1>
 
 <%= render :partial => 'form' %>

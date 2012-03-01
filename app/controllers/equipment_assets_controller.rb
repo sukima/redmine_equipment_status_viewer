@@ -127,8 +127,16 @@ class EquipmentAssetsController < ApplicationController
   # end
 
   def print
-    @equipment_asset = EquipmentAsset.find(params[:id])
-    render :layout => false
+    if request.put?
+      @equipment_assets = EquipmentAsset.find(params[:asset_ids])
+      render "printm", :layout => false
+    elsif params[:id] == "all"
+      @equipment_assets = EquipmentAsset.find(:all)
+      render "printm", :layout => false
+    else
+      @equipment_asset = EquipmentAsset.find(params[:id])
+      render :layout => false
+    end
   end
 
   # private

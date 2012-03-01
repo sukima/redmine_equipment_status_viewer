@@ -1,73 +1,20 @@
-<% html_title "Label for #{@equipment_asset.name}" %>
+<% html_title h(t(:label_for_asset, :asset => @equipment_asset.name)) %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
-    <title>Label for <%=h @equipment_asset.name %></title>
+    <title><%=h t(:label_for_asset, :asset => @equipment_asset.name) %></title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <style type="text/css">
-     table {
-      border-width: 0;
-      border-style: none;
-      /* border-color: #0000ff; */
-      border-collapse: collapse;
-     }
-     h2 { margin-bottom: 5px; }
-     p { margin: 5px auto; }
-     #container {
-       width: 500px;
-     }
-     #asset-label {
-       width: 303px; /* 128 + 175 */
-       text-align: center;
-       border: thin dashed black;
-     }
-     #qrcode {
-       width: 128px;
-       margin: 15px auto;
-     }
-     #instructions {
-       margin-top: 10px;
-       text-align: left;
-     }
-    </style>
-    <style type="text/css" media="print">
-      #instructions {
-        display: none;
-      }
-    </style>
+    <%= render :partial => 'print_style' %>
   </head>
   <body>
     <div id="container">
-      <div id="asset-label">
-        <h2><%=h @equipment_asset.name %></h2>
-        <% if !@equipment_asset.asset_type.blank? %>
-          <p><%=h @equipment_asset.asset_type %></p>
-        <% end %>
-        <% if !@equipment_asset.serial_number.blank? %>
-          <p><%= @equipment_asset.serial_number %></p>
-        <% end %>
-        <div id="qrcode"></div>
-
-        <p>
-          <b>Check in at:</b><br />
-          <%= ci_url(@equipment_asset) %>
-        </p>
-      </div>
+      <%= render :partial => 'print_label', :locals => {:asset => @equipment_asset} %>
       <div id="instructions">
-        <form><input type="button" value=" Print Label "onclick="window.print();return false;" /></form> 
-        <p>Print this page to make a label. Then paste it to the equipment.</p>
-        <p>For more information on how to use the above barcode with your smart phone please visit The <a href="http://www.asquare.org/networkresearch/resources/qrcode-help">help info</a> at Network Research.</p>
-        <p><%= link_to "Go Back", equipment_asset_path(@equipment_asset) %></p>
+        <form><input type="button" value=" <%=t(:print_label) %> " onclick="window.print();return false;" /></form> 
+        <%= render :partial => "print_help" %>
+        <p><%= link_to t(:go_back), equipment_asset_path(@equipment_asset) %></p>
       </div>
     </div>
-    <%= javascript_include_tag 'jquery.min.js', :plugin => 'redmine_equipment_status_viewer' %>
-    <%= javascript_include_tag 'jquery.qrcode.min.js', :plugin => 'redmine_equipment_status_viewer' %>
-    <script type="text/javascript">
-        // <![CDATA[
-        $(function() {
-            $("#qrcode").qrcode({width:80,height:80,text:"<%= ci_url(@equipment_asset) %>"});
-        });
-        // ]]>
-    </script>
+    <%= render :partial => 'print_javascript' %>
   </body>
 </html>

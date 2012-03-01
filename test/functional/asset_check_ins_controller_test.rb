@@ -36,12 +36,14 @@ class AssetCheckInsControllerTest < ActionController::TestCase
     :action => :new, :equipment_asset_id => 1
   should_route :post, "/equipment_assets/1/asset_check_ins",
     :action => :create, :equipment_asset_id => 1
-  # This test will not pass. Due to redirect maybe?
-  # should_route :get, "/equipment_assets/1/check_in",
-  #   :action => :new, :equipment_asset_id => 1
   should_route :get, "/equipment_assets/1/asset_check_ins/loclist",
     :action => :loclist, :equipment_asset_id => 1
-  should_route :get, "/ci/1", :action => :new, :equipment_asset_id => 1
+  should "route '/equipment_assets/1/check_in' to new" do
+    assert_recognizes({:controller => "asset_check_ins", :action => "new", :equipment_asset_id => "1"}, "/equipment_assets/1/check_in")
+  end
+  should "route '/ci/1' to new" do
+    assert_recognizes({:controller => "asset_check_ins", :action => "new", :equipment_asset_id => "1"}, "/ci/1")
+  end
 
   context "GET :new" do
     setup do
