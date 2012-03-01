@@ -4,69 +4,26 @@
   <head>
     <title><%=h t(:label_for_assets) %></title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <style type="text/css">
-     table {
-      border-width: 0;
-      border-style: none;
-      /* border-color: #0000ff; */
-      border-collapse: collapse;
-     }
-     h2 { margin-bottom: 5px; }
-     p { margin: 5px auto; }
-     #container {
-       width: 500px;
-     }
-     #asset-label {
-       width: 303px; /* 128 + 175 */
-       text-align: center;
-       border: thin dashed black;
-     }
-     #qrcode {
-       width: 128px;
-       margin: 15px auto;
-     }
-     #instructions {
-       margin-top: 10px;
-       text-align: left;
-     }
-    </style>
-    <style type="text/css" media="print">
-      #instructions {
-        display: none;
-      }
-    </style>
+    <%= render :partial => 'print_style' %>
   </head>
   <body>
     <div id="container">
-      <div id="asset-label">
-        <h2><%=h @equipment_asset.name %></h2>
-        <% if !@equipment_asset.asset_type.blank? %>
-          <p><%=h @equipment_asset.asset_type %></p>
-        <% end %>
-        <% if !@equipment_asset.serial_number.blank? %>
-          <p><%= @equipment_asset.serial_number %></p>
-        <% end %>
-        <div id="qrcode"></div>
-
-        <p>
-          <b><%=t(:check_in_at) %></b><br />
-          <%= ci_url(@equipment_asset) %>
-        </p>
-      </div>
       <div id="instructions">
-        <form><input type="button" value=" Print Label "onclick="window.print();return false;" /></form> 
+        <form><input type="button" value=" <%=t(:print_labels) %> " onclick="window.print();return false;" /></form> 
         <%= render :partial => "print_help" %>
-        <p><%= link_to t(:go_back), equipment_asset_path(@equipment_asset) %></p>
+        <p><%= link_to t(:go_back), equipment_assets_path %></p>
+      </div>
+      <div class="label-row">
+        <%- @equipment_assets.each_with_index do |asset,i| -%>
+          <% if i>0 && i%3==0  %>
+            </div>
+            <% if i>0 && i%15==0 %><div class="page-break"></div><% end %>
+            <div class="label-row">
+          <% end %>
+          <%= render :partial => 'print_label', :locals => {:asset => asset} %>
+        <%- end -%>
       </div>
     </div>
-    <%= javascript_include_tag 'jquery.min.js', :plugin => 'redmine_equipment_status_viewer' %>
-    <%= javascript_include_tag 'jquery.qrcode.min.js', :plugin => 'redmine_equipment_status_viewer' %>
-    <script type="text/javascript">
-        // <![CDATA[
-        $(function() {
-            $("#qrcode").qrcode({width:80,height:80,text:"<%= ci_url(@equipment_asset) %>"});
-        });
-        // ]]>
-    </script>
+    <%= render :partial => 'print_javascript' %>
   </body>
 </html>

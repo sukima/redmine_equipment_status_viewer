@@ -1,0 +1,39 @@
+    <style type="text/css">
+      table {
+       border-width: 0;
+       border-style: none;
+       /* border-color: #0000ff; */
+       border-collapse: collapse;
+      }
+      h2 { margin-bottom: 5px; }
+      p { margin: 5px auto; }
+      #container {
+        width: 8.5in;
+      }
+      .asset-label {
+        width: 255px; /* 80 + 175 */
+        text-align: center;
+        border: thin dashed black;
+        float: left;
+      }
+      .label-row {
+        clear: both;
+      }
+      .qrcode {
+        width: 80px;
+        margin: 15px auto;
+      }
+      #instructions {
+        width: 500px;
+        margin-top: 10px;
+        text-align: left;
+      }
+      .page-break { display: none; }
+      @media print {
+        #instructions { display: none; }
+        .page-break {
+          display: block;
+          page-break-before: always;
+        }
+      }
+    </style>

@@ -1,0 +1,14 @@
+      <div class="asset-label">
+        <h2><%=h asset.name %></h2>
+        <% if !asset.asset_type.blank? %>
+          <p><%=h asset.asset_type %></p>
+        <% end %>
+        <% if !asset.serial_number.blank? %>
+          <p><%= asset.serial_number %></p>
+        <% end %>
+        <div class="qrcode" title="<%= ci_url(asset) %>"></div>
+        <p>
+          <b><%=t(:check_in_at) %></b><br />
+          <%= ci_url(asset) %>
+        </p>
+      </div>
