@@ -38,3 +38,5 @@ en:
   print_label: "Print Label"
   print_labels: "Print Labels"
   print_all_checked: "Print labels for checked equipment"
+  print_all_labels: "Print all labels"
+  print_list: "Print List"
