@@ -10,8 +10,32 @@ one:
 two:
   id: 2
   name: "Widget (not in Service)"
-  oos: false
+  oos: true
   asset_type: "test"
   serial_number: "002"
+  comment: "test comment"
+  resource_url: "http://foo.bar/"
+three:
+  id: 3
+  name: "Widget (in Service)"
+  oos: false
+  asset_type: "test"
+  serial_number: "003"
+  comment: "test comment"
+  resource_url: "http://foo.bar/"
+four:
+  id: 4
+  name: "Widget (in Service)"
+  oos: false
+  asset_type: "test"
+  serial_number: "004"
+  comment: "test comment"
+  resource_url: "http://foo.bar/"
+five:
+  id: 5
+  name: "Widget (in Service)"
+  oos: false
+  asset_type: "test"
+  serial_number: "005"
   comment: "test comment"
   resource_url: "http://foo.bar/"

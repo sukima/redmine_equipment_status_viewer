@@ -39,10 +39,14 @@ class EquipmentAssetsControllerTest < ActionController::TestCase
   should_route :get, "/equipment_assets/1/edit", :action => :edit, :id => 1
   should_route :put, "/equipment_assets/1", :action => :update, :id => 1
   should_route :delete, "/equipment_assets/1", :action => :destroy, :id => 1
-  should_route :get, "/equipment_assets/1/print", :action => :print, :id => 1
+  should "route '/equipment_assets/1/print' to print" do
+    assert_recognizes({:controller => "equipment_assets", :action => "print", :id => "1"}, "/equipment_assets/1/print")
+  end
   should_route :put, "/equipment_assets/print", :action => :print
-  should_route :get, "/equipment_assets/all/print", :action => :print, :id => "all"
   should_route :get, "/equipment_assets/print/all", :action => :print, :id => "all"
+  should "route '/equipment_assets/print/all' to print" do
+    assert_recognizes({:controller => "equipment_assets", :action => "print", :id => "all"}, "/equipment_assets/all/print")
+  end
 
   %(none asset_type location).each do |test_setting|
     context "When asset_grouped_by == none" do
