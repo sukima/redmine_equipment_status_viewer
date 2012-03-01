@@ -34,3 +34,5 @@ de:
   label_for_assets: "Etiketten für Ausrüstung Assets"
   go_back: "zurückgehen"
   check_in_at: "Check-in an:"
+  print_label: "Etikett drucken"
+  print_labels: "Etiketten drucken"
