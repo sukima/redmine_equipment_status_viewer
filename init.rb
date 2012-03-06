@@ -17,6 +17,8 @@
 
 require 'redmine'
 
+require 'quick_jump_equipment_patch'
+
 Redmine::Plugin.register :redmine_equipment_status_viewer do
   name 'Redmine Equipment Status Viewer plugin'
   author 'Devin Weaver'
