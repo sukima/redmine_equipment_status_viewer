@@ -62,25 +62,26 @@ module EquipmentAssetsHelper
       else
         str += h(check_in.equipment_asset.name)
       end
-      str += t :ch_in_old
+      str += " #{t(:ch_in_old)}"
     else
-      str += t :ch_in
+      str += " #{t(:ch_in)}"
     end
     if details.include?(:date)
       if opt[:fuzzy_date]
         str += " <acronym title=\"#{h simple_date(check_in.created_at)}\">#{distance_of_time_in_words(Time.now, check_in.created_at)}</acronym>"
-	str += t :ago
+	str += " #{t(:ago)}"
       else
-        str += t :on  #{h simple_date(check_in.created_at)}
+        str += " #{t(:on)}"
+        str += " #{h(simple_date(check_in.created_at))}"
       end
     end
     if details.include?(:location)
-      str += t :on1
-      str += "<strong>#{h check_in.location}</strong>"
+      str += " #{t(:on1)}"
+      str += " <strong>#{h check_in.location}</strong>"
     end
     if details.include?(:person)
-      str +=  t :ch_by 
-      str += "<em>#{h check_in.person}</em>"
+      str += " #{t(:ch_by)}"
+      str += " <em>#{h check_in.person}</em>"
     end
     str += "."
   end
