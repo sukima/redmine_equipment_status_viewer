@@ -18,7 +18,7 @@ module QuickJumpEquipmentPatch
         if tmp_question.match(/^e(quip|quipment)?\s*(\d+)$/i) && EquipmentAsset.find_by_id($2.to_i)
           redirect_to :controller => "equipment_assets", :action => "show", :id => $2
           return
-        elsif tmp_question.match(/^c(heck[_\s]*in)?\s*(\d+)$/i) && EquipmentAsset.find_by_id($2.to_i)
+        elsif tmp_question.match(/^c(i|heck[_\s]*in)?\s*(\d+)$/i) && EquipmentAsset.find_by_id($2.to_i)
           redirect_to :controller => "asset_check_ins", :action => "new", :equipment_asset_id => $2
           return
         end
