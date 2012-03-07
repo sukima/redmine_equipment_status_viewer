@@ -12,13 +12,13 @@ module QuickJumpEquipmentPatch
   module InstanceMethods
     # Adds an easy way to jump to an equipment view based on id
     def index_with_quick_jump_equipment
-      if User.current.allowed_to?(:view_equipment_assets)
+      if User.current.allowed_to?(:view_equipment_assets, nil, {:global => true})
         tmp_question = params[:q] || ""
         tmp_question.strip!
-        if tmp_question.match(/^e(quipment)?\s*(\d+)$/i) && EquipmentAsset.find_by_id($2.to_i)
+        if tmp_question.match(/^e(quip|quipment)?\s*(\d+)$/i) && EquipmentAsset.find_by_id($2.to_i)
           redirect_to :controller => "equipment_assets", :action => "show", :id => $2
           return
-        elsif tmp_question.match(/^c(heck[_\s]in)?\s*(\d+)$/i) && EquipmentAsset.find_by_id($2.to_i)
+        elsif tmp_question.match(/^c(heck[_\s]*in)?\s*(\d+)$/i) && EquipmentAsset.find_by_id($2.to_i)
           redirect_to :controller => "asset_check_ins", :action => "new", :id => $2
           return
         end
