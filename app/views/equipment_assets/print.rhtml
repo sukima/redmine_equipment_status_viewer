@@ -8,7 +8,9 @@
   </head>
   <body>
     <div id="container">
-      <%= render :partial => 'print_label', :locals => {:asset => @equipment_asset} %>
+      <div class="label-row">
+        <%= render :partial => 'print_label', :locals => {:asset => @equipment_asset} %>
+      </div>
       <div id="instructions">
         <form><input type="button" value=" <%=t(:print_label) %> " onclick="window.print();return false;" /></form> 
         <%= render :partial => "print_help" %>
