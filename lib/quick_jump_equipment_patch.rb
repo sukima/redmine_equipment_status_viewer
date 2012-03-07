@@ -15,8 +15,11 @@ module QuickJumpEquipmentPatch
       if User.current.allowed_to?(:view_equipment_assets)
         tmp_question = params[:q] || ""
         tmp_question.strip!
-        if tmp_question.match(/^!\s*(\d+)$/) && Issue.visible.find_by_id($1.to_i)
-          redirect_to :controller => "equipment_assets", :action => "show", :id => $1
+        if tmp_question.match(/^e(quipment)?\s*(\d+)$/i) && EquipmentAsset.find_by_id($2.to_i)
+          redirect_to :controller => "equipment_assets", :action => "show", :id => $2
+          return
+        elsif tmp_question.match(/^c(heck[_\s]in)?\s*(\d+)$/i) && EquipmentAsset.find_by_id($2.to_i)
+          redirect_to :controller => "asset_check_ins", :action => "new", :id => $2
           return
         end
       end
