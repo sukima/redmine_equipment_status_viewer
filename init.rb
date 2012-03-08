@@ -41,3 +41,5 @@ Redmine::Plugin.register :redmine_equipment_status_viewer do
       User.current.allowed_to?(:view_equipment_assets, nil, :global => true)
     }
 end
+
+Redmine::Search.register :equipment_assets
