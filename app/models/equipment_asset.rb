@@ -25,7 +25,7 @@ class EquipmentAsset < ActiveRecord::Base
                 :url => Proc.new {|o| {:controller => 'equipment_assets', :action => 'show', :id => o}},
                 :author => Proc.new {|o| o.last_checkin_by},
                 :datetime => Proc.new {|o| o.last_checkin_on},
-                :description => Proc.new {|o| "#{o.asset_type}; #{I18n.t(:field_serial_number)}: #{o.serial_number}"},
+                :description => Proc.new {|o| "#{o.asset_type} #{I18n.t(:field_serial_number)}: #{o.serial_number} #{o.comment}"},
                 :type => I18n.t(:field_equipment_asset)
 
   validates_presence_of :name
