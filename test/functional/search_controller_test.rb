@@ -16,15 +16,9 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 require File.expand_path('../../test_helper', __FILE__)
-require 'search_controller'
-require 'quick_jump_equipment_patch'
 
 # Re-raise errors caught by the controller.
 class SearchController; def rescue_action(e) raise e end; end
-
-# alias_method_chain is ignored in the above require
-# 'quick_jump_equipment_patch' during testing.
-SearchController.send(:include, QuickJumpEquipmentPatch)
 
 # Overide any permissions needed for testing.
 class User; def allowed_to?(a,b,c) return true end; end
