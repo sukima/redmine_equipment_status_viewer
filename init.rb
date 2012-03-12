@@ -45,6 +45,10 @@ end
 
 Redmine::Search.register :equipment_assets
 
+# Hooks
+require 'redmine_equipment_status_viewer/hooks/attach_to_issue_hooks'
+
+# Patches
 require 'dispatcher'
 Dispatcher.to_prepare :redmine_equipment_status_viewer do
   require_dependency 'search_controller'
