@@ -19,6 +19,7 @@ class EquipmentAsset < ActiveRecord::Base
   unloadable
 
   has_many :asset_check_ins, :limit => 50, :dependent => :destroy
+  has_and_belongs_to_many :issues
 
   acts_as_searchable :columns => [:name, :serial_number, :comment], :order_column => :name
   acts_as_event :title => :name,

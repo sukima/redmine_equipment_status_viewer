@@ -51,6 +51,11 @@ require 'redmine_equipment_status_viewer/hooks/attach_to_issue_hooks'
 # Patches
 require 'dispatcher'
 Dispatcher.to_prepare :redmine_equipment_status_viewer do
+
   require_dependency 'search_controller'
   SearchController.send(:include, RedmineEquipmentStatusViewer::Patches::SearchControllerPatch)
+
+  require_dependency 'issue'
+  Issue.send(:include, RedmineEquipmentStatusViewer::Patches::IssuePatch)
+
 end

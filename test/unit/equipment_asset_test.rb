@@ -19,8 +19,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 require 'equipment_asset'
 
 class EquipmentAssetTest < ActiveSupport::TestCase
-  fixtures :equipment_assets, :asset_check_ins
+  fixtures :equipment_assets, :asset_check_ins, :issues
   should_have_many :asset_check_ins
+  should_have_and_belong_to_many :issues
   should_validate_presence_of :name
   should_validate_uniqueness_of :serial_number
 
