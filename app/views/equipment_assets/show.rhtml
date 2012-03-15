@@ -40,6 +40,12 @@
         <td><a href="<%=h @equipment_asset.resource_url %>"><%=h @equipment_asset.resource_url %></a></td>
       </tr>
     <% end %>
+    <% @equipment_asset.custom_values.each do |value| %>
+      <tr>
+        <th><%=h value.custom_field.name %></th>
+        <td><%=h show_value(value) %></td>
+      </tr>
+    <% end %>
   </table>
   <% if @equipment_asset.comment %>
     <p><%=h @equipment_asset.comment %></p>

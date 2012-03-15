@@ -18,8 +18,9 @@
 class EquipmentAssetsController < ApplicationController
   unloadable
 
-  helper :equipment_assets, :iphone
+  helper :equipment_assets, :custom_fields, :iphone
   include EquipmentAssetsHelper
+  include CustomFieldsHelper
 
   #before_filter :require_login, :except => [ :index, :show, :print ]
   before_filter :authorize_global

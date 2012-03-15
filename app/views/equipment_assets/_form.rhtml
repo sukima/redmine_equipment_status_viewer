@@ -12,6 +12,11 @@
     <%= f.label :serial_number %><br />
     <%= f.text_field :serial_number %>
   </div>
+  <% @equipment_asset.custom_field_values.each do |value| %>
+    <div class="pluginESV_formfield">
+      <%= custom_field_tag_with_label :equipment_asset, value %>
+    </div>
+  <% end %>
   <div class="pluginESV_formfield">
     <%= f.label :comment %><br />
     <%= f.text_area :comment, :size => "30x5" %>
