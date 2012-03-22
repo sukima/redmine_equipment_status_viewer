@@ -18,7 +18,7 @@
 module RedmineEquipmentStatusViewer
   module Patches
     module CustomFieldsHelperPatch
-      def self.include(base) # :nodoc:
+      def self.included(base) # :nodoc:
         base.extend(ClassMethods)
 
         base.send(:include, InstanceMethods)
