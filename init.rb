@@ -44,6 +44,7 @@ end
 
 require 'dispatcher'
 Dispatcher.to_prepare :redmine_equipment_status_viewer do
+  require_dependency 'principal'
   require_dependency 'user'
   unless User.included_modules.include? RedmineEquipmentStatusViewer::Patches::UserPatch
     User.send(:include, RedmineEquipmentStatusViewer::Patches::UserPatch)

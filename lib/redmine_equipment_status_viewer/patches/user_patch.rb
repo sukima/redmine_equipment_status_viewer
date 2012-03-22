@@ -4,7 +4,7 @@ module RedmineEquipmentStatusViewer
       def self.included(base) # :nodoc:
         base.extend(ClassMethods)
 
-        base.send(:include, InstanceMethods)o
+        base.send(:include, InstanceMethods)
 
         base.class_eval do
           alias_method_chain :to_s, :foobar
