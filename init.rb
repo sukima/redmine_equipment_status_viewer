@@ -41,3 +41,11 @@ Redmine::Plugin.register :redmine_equipment_status_viewer do
       User.current.allowed_to?(:view_equipment_assets, nil, :global => true)
     }
 end
+
+require 'dispatcher'
+Dispatcher.to_prepare :redmine_equipment_status_viewer do
+  require_dependency 'user'
+  unless User.included_modules.include? RedmineEquipmentStatusViewer::Patches::UserPatch
+    User.send(:include, RedmineEquipmentStatusViewer::Patches::UserPatch)
+  end
+end
