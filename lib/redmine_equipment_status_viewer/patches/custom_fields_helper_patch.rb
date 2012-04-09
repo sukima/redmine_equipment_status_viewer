@@ -1,5 +1,5 @@
 # Redmine Equipment Status Viewer - An equipment manager plugin
-# Copyright (C) 2010-2011  Devin Weaver
+# Copyright (C) 2012  Devin Weaver
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -15,34 +15,28 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-class EquipmentAsset < ActiveRecord::Base
-  unloadable
+module RedmineEquipmentStatusViewer
+  module Patches
+    module CustomFieldsHelperPatch
+      def self.included(base) # :nodoc:
+        base.extend(ClassMethods)
 
-  acts_as_customizable
+        base.send(:include, InstanceMethods)
+        base.class_eval do
+          alias_method_chain :custom_fields_tabs, :equipment_assets_tab
+        end
+      end
 
-  has_many :asset_check_ins, :limit => 50, :dependent => :destroy
+      module ClassMethods
+      end
 
-  validates_presence_of :name
-
-  validates_uniqueness_of :serial_number, :allow_nil => true, :allow_blank => true
-
-  # Not a perfect solution but good enough.
-  validates_format_of :resource_url, :allow_nil => true, :allow_blank => true,
-    :with => URI::regexp(%w(http https file)), :message => 'does not appear to be valid'
-
-  def location
-    if asset_check_ins && asset_check_ins.last
-      asset_check_ins.last.location
-    else
-      "Unknown"
-    end
-  end
-
-  def last_checkin_by
-    if asset_check_ins && asset_check_ins.last
-      asset_check_ins.last.person
-    else
-      "Unknown"
+      module InstanceMethods
+        def custom_fields_tabs_with_equipment_assets_tab
+          tabs = custom_fields_tabs_without_equipment_assets_tab
+          tabs << {:name => 'EquipmentAssetCustomField', :partial => 'custom_fields/index', :label => :equipment_assets}
+          return tabs
+        end
+      end
     end
   end
 end

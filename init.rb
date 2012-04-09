@@ -41,3 +41,9 @@ Redmine::Plugin.register :redmine_equipment_status_viewer do
       User.current.allowed_to?(:view_equipment_assets, nil, :global => true)
     }
 end
+
+require 'dispatcher'
+Dispatcher.to_prepare :redmine_equipment_status_viewer do
+  require_dependency 'custom_fields_helper'
+  CustomFieldsHelper.send(:include, RedmineEquipmentStatusViewer::Patches::CustomFieldsHelperPatch)
+end
