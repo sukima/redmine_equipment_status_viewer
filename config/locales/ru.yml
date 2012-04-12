@@ -18,6 +18,7 @@ ru:
   equipment_asset_updated: "Оборудование обновлено успешно."
   asset_check_in_created: "Проверка успешна."
   assets_grouped_by: "Группировать по"
+  print_label_custom_field: "Пользовательский текст для печати этикетки"
   out_of_service: "Не работает"
   lable_edit: "Редактировать"
   lable_equipment_status: "Статус Оборудования"

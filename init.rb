@@ -31,7 +31,8 @@ Redmine::Plugin.register :redmine_equipment_status_viewer do
 
   settings(:partial => 'equipment_status_viewer_settings',
            :default => {
-             'assets_grouped_by' => 'asset_type'
+             'assets_grouped_by' => 'asset_type',
+             'print_label_custom_text' => ''
            })
 
   menu :top_menu, "Equipment",
