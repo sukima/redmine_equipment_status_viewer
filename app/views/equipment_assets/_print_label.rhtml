@@ -1,4 +1,7 @@
       <div class="asset-label">
+        <% if !Settings.plugin_redmine_equipment_status_viewer['print_label_custom_field'].blank? %>
+          <p class="custom-label"><%= Settings.plugin_redmine_equipment_status_viewer['print_label_custom_field'] %></p>
+        <% end %>
         <h2><%=h asset.name %></h2>
         <% if !asset.asset_type.blank? %>
           <p><%=h asset.asset_type %></p>
