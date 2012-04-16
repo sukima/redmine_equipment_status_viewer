@@ -44,3 +44,9 @@ Redmine::Plugin.register :redmine_equipment_status_viewer do
 end
 
 Redmine::Search.register :equipment_assets
+
+require 'dispatcher'
+Dispatcher.to_prepare :redmine_equipment_status_viewer do
+  require_dependency 'search_controller'
+  SearchController.send(:include, RedmineEquipmentStatusViewer::Patches::SearchControllerPatch)
+end
