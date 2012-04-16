@@ -22,6 +22,7 @@ de:
   out_of_service: "Außer Betrieb"
   lable_edit: "editieren"
   lable_equipment_status: "Status"
+  label_equipment_asset_type: "Ausstattung Asset-Typ"
   lable_rtintqr: "Label drucken"
   lable_del: "löschen"
   ch_by: "von"

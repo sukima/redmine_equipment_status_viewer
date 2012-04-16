@@ -22,6 +22,7 @@ ru:
   out_of_service: "Не работает"
   lable_edit: "Редактировать"
   lable_equipment_status: "Статус Оборудования"
+  label_equipment_asset_type: "Тип оборудования активами"
   lable_rtintqr: "Напечатать наклейку"
   lable_del: "Удалить"
   ch_by: " сотрудником "
