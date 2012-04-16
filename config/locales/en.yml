@@ -32,7 +32,7 @@ en:
   on1: "at"
   ago: " ago "
   no_data: "No data to display"
-  label_for_asset: "Label for $asset"
+  label_for_asset: "Label for %{asset}"
   label_for_assets: "Labels for Equipment Assets"
   go_back: "Go back"
   check_in_at: "Check in at:"

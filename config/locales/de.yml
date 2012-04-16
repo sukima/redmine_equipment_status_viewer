@@ -32,7 +32,7 @@ de:
   on1: "um"
   ago: " vor "
   no_data: "Keine Daten zum anzeigen vorhanden"
-  label_for_asset: "Label für $asset"
+  label_for_asset: "Label für %{asset}"
   label_for_assets: "Etiketten für Ausrüstung Assets"
   go_back: "zurückgehen"
   check_in_at: "Check-in an:"
