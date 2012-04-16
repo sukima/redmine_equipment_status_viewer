@@ -1,4 +1,5 @@
 <% html_title "Equipment Assets" %> <% content_for :header_tags do %>
+  <%= javascript_include_tag 'jquery.min.js', :plugin => 'redmine_equipment_status_viewer' %>
   <%= stylesheet_link_tag 'style', :plugin => 'redmine_equipment_status_viewer' %> <% end %> <div class="contextual">
   <%= link_to t(:field_new_equipment_asset), new_equipment_asset_path, :class => "icon icon-add" %> </div> <h2><%=t :lable_equipment_status %></h2> <div id="list_top"> </div> 
 <!-- Placing this in a @media print {...} in the style.css file was not working in Chrome -->
@@ -47,15 +48,16 @@
                   <tr class="group open">
                     <td colspan="4">
                       <span onclick="toggleRowGroup(this); return false;" class="expander">&nbsp;</span>
-                      <span onClick="return false;"><%=h group %></span>
+                      <span><%=h group %></span>
                       <span class="count">(<%= @groups[group] %>)</span>
+                      <%= check_box_tag "", e.id, false, :class => "pluginESV_group_checkbox" %>
                     </td>
                   </tr>
                   <%-
                 end
             -%>
             <tr title="<%=h e.comment %>"
-              class="<%= evenodd %> pluginESV_<%= oos_class %>">
+              class="<%= evenodd %> pluginESV_<%= oos_class %> pluginESV_asset_row">
                 <td class="pluginESV_<%= oos_class %>">
                   <%= check_box_tag "asset_ids[]", e.id, false, :class => "pluginESV_checkbox" %>
                   <%= link_to e.name, equipment_asset_path(e) %>
@@ -92,7 +94,9 @@
       footnotes
     </p>
     -->
-  </div> </div> <div class="splitcontentright">
+  </div>
+</div>
+<div class="splitcontentright">
   <div class="news box">
     <h3><%=t :lable_chek %></h3>
     <ul>
@@ -107,4 +111,21 @@
       </li>
     <% end %>
     </ul>
-  <div> </div>
+  </div>
+</div>
+<script type="text/javascript">
+  // <![CDATA[
+  $(function() {
+    $(":checkbox.pluginESV_group_checkbox").click(function() {
+      var group_box = $(this);
+      group_box.closest("tr.group")
+        .nextUntil("tr.group", ".pluginESV_asset_row")
+        .find(":checkbox.pluginESV_checkbox")
+        .each(function() {
+          var value = (group_box.attr("checked") == "checked");
+          $(this).attr("checked", value);
+        });
+    });
+  });
+  // ]]>
+</script>
