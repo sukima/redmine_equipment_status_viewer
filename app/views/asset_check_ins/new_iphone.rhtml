@@ -22,10 +22,6 @@
 
 <div id="content">
 <% form_for([@equipment_asset, @asset_check_in]) do |f| %>
-  <%#= f.error_messages :class => 'graytitle',
-    :header_message => "Oops - We couldn't check in!",
-    :message => "The following fields were a bit of a problem:",
-    :header_tag => :span %>
   <span class="graytitle">Details</span>
   <ul class="pageitem">
     <%= iphone_details_box(@equipment_asset, false) %>
