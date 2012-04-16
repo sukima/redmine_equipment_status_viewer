@@ -11,4 +11,7 @@
           <b><%=t(:check_in_at) %></b><br />
           <%= ci_url(asset) %>
         </p>
+        <% if !Setting.plugin_redmine_equipment_status_viewer['print_label_custom_field'].blank? %>
+          <p class="custom-label"><%= Setting.plugin_redmine_equipment_status_viewer['print_label_custom_field'] %></p>
+        <% end %>
       </div>

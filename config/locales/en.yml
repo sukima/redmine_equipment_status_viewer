@@ -18,6 +18,7 @@ en:
   equipment_asset_updated: "Equipment updated successfully."
   asset_check_in_created: "Checked in successfully."
   assets_grouped_by: "Group assets by"
+  print_label_custom_field: "Custom text for print label"
   out_of_service: "Out Of Service"
   lable_edit: "Edit"
   lable_equipment_status: "Equipment Status"
