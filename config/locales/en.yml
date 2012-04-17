@@ -37,6 +37,7 @@ en:
   label_for_assets: "Labels for Equipment Assets"
   go_back: "Go back"
   check_in_at: "Check in at:"
+  last_checked_in_by: "Last checked in by %{name} on %{date}"
   print_label: "Print Label"
   print_labels: "Print Labels"
   print_all_checked: "Print labels for checked equipment"

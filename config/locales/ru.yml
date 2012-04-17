@@ -37,6 +37,7 @@ ru:
   label_for_assets: "Этикетки для оборудования активов"
   go_back: "возвращаться"
   check_in_at: "Размещение в:"
+  last_checked_in_by: "Последняя проверка в по %{name} на %{date}"
   print_label: "Печать этикетки"
   print_labels: "Печать этикетки"
   print_all_checked: "Печать этикеток для проверили оборудование"
