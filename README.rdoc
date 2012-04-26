@@ -1,5 +1,5 @@
 = Equipment Status Viewer
-Version 0.4.2
+Version 0.4.3
 
 Equipment Status Viewer is a Redmine plugin that tracks the location of
 equipment. It uses a check in system to track where each item is. It can also
