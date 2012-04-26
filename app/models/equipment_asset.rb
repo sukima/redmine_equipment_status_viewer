@@ -72,6 +72,11 @@ class EquipmentAsset < ActiveRecord::Base
     ""
   end
 
+  def project_id
+    # Hack to placate the use of project_id in search view
+    nil
+  end
+
   def self.allowed_to_condition(user)
     # This is a major SQL hack to get around the archaic search permissions
     # which rely on a project or custom SQL code.
