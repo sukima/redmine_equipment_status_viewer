@@ -1,5 +1,5 @@
 <% form_for(@equipment_asset) do |f| %>
-  <%= f.error_messages %>
+  <%= error_messages_for 'equipment_asset' %>
   <div class="pluginESV_formfield">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
