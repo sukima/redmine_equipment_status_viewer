@@ -40,7 +40,7 @@ class EquipmentAsset < ActiveRecord::Base
 
   # Returns true if the query is visible to +user+ or the current user.
   def visible?(user=User.current)
-    user.allowed_to?(:view_equipment_assets, nil, {:global => true})
+    EquipmentAsset.allowed?(user)
   end
 
   def location
@@ -67,19 +67,34 @@ class EquipmentAsset < ActiveRecord::Base
     end
   end
 
-  def project
-    # Hack to placate the use of project in search view
-    ""
-  end
-
   def project_id
     # Hack to placate the use of project_id in search view
     nil
   end
 
+  def self.search(tokens, projects=nil, options={})
+    # When a search is done while in a project view it only searches for items
+    # associated to that project. Since equipment_assets are not associated to
+    # projects we override the default search method to do our own search only
+    # if no projects are assigned (ie from the index page)
+    if !projects.nil?
+      # no results
+      return [[], 0]
+    end
+
+    # EquipmentAsset is not associated with a project. Always nil.
+    super(tokens, nil, options)
+  end
+
   def self.allowed_to_condition(user)
-    # This is a major SQL hack to get around the archaic search permissions
-    # which rely on a project or custom SQL code.
-    user.allowed_to?(:view_equipment_assets, nil, {:global => true}) ? "" : "serial_number = 'do_not_search_access_denied'"
+    # Return requires a valid SQL expression. Typically used to test a column
+    # value in a normal WHERE clase. But since we are testing visiblity we need
+    # an IF / THEN that will return rows or an empty set (no rows).
+    EquipmentAsset.allowed?(user) ? "1 = 1" : "1 = 0"
+  end
+
+  private
+  def self.allowed?(user)
+    user.allowed_to?(:view_equipment_assets, nil, {:global => true})
   end
 end
