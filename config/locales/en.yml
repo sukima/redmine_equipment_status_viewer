@@ -42,3 +42,4 @@ en:
   print_all_checked: "Print labels for checked equipment"
   print_all_labels: "Print all labels"
   print_list: "Print List"
+  unknown: "Unknown"

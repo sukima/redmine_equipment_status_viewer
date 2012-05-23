@@ -47,7 +47,7 @@ class EquipmentAsset < ActiveRecord::Base
     if asset_check_ins && asset_check_ins.last
       asset_check_ins.last.location
     else
-      "Unknown"
+      I18n.t(:unknown)
     end
   end
 
@@ -63,13 +63,13 @@ class EquipmentAsset < ActiveRecord::Base
     if asset_check_ins && asset_check_ins.last
       asset_check_ins.last.person
     else
-      "Unknown"
+      I18n.t(:unknown)
     end
   end
 
   def project
     # Hack to placate the use of project in search view
-    ""
+    I18n.t(:field_equipment_asset)
   end
 
   def project_id
