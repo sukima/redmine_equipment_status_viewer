@@ -21,7 +21,7 @@ Redmine::Plugin.register :redmine_equipment_status_viewer do
   name 'Redmine Equipment Status Viewer plugin'
   author 'Devin Weaver'
   description 'Allows admins to make a list of equipment and track if they are inservice or not'
-  version '0.4.4'
+  version '0.4.5'
   url 'http://sukima.github.com/redmine_equipment_status_viewer'
   author_url 'http://github.com/sukima'
 
