@@ -72,7 +72,6 @@ class AssetCheckInsController < ApplicationController
 
     respond_to do |wants|
       if @asset_check_in.save && @equipment_asset.update_attributes({:oos => @asset_check_in.equipment_asset_oos})
-          puts "1--------------------"
         flash[:notice] = t(:asset_check_in_created)
         cookies[:asset_check_in_person] = @asset_check_in.person
         cookies[:asset_check_in_location] = @asset_check_in.location
