@@ -26,7 +26,7 @@ class EquipmentAsset < ActiveRecord::Base
                 :author => Proc.new {|o| o.last_checkin_by},
                 :datetime => Proc.new {|o| o.last_checkin_on},
                 :description => Proc.new {|o| "#{I18n.t(:label_equipment_asset_type)}: #{o.asset_type}, #{I18n.t(:field_serial_number)}: #{o.serial_number} #{o.comment}"},
-                :type => I18n.t(:field_equipment_asset)
+                :type => "project" # Fake an existing type for pretty icon
 
   validates_presence_of :name
 
