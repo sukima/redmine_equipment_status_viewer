@@ -67,6 +67,11 @@ class EquipmentAsset < ActiveRecord::Base
     end
   end
 
+  def project
+    # Hack to placate the use of project in search view
+    ""
+  end
+
   def project_id
     # Hack to placate the use of project_id in search view
     nil
