@@ -49,13 +49,22 @@ class EquipmentAssetsControllerTest < ActionController::TestCase
   end
 
   %(none asset_type location).each do |test_setting|
-    context "When asset_grouped_by == none" do
+    context "When asset_grouped_by == #{test_setting}" do
       setup do
         # Re-define the method to stub out the
         # Setting.plugin_redmine_equipment_status_viewer logic
         module EquipmentAssetsHelper
           def asset_grouped_by
             "#{test_setting}"
+          end
+        end
+        # Create a sorted_by check for arrays
+        class Array
+          def sorted_by?(method)
+            self.each_cons(2) do |a|
+              return false if a[0].send(method) > a[1].send(method)
+            end
+            true
           end
         end
       end
@@ -65,6 +74,13 @@ class EquipmentAssetsControllerTest < ActionController::TestCase
         end
         should_respond_with :success
         should_assign_to :equipment_assets
+        # Can't even tell if this is working code due to issue #39
+        # I f*cking hate Ruby versions! Dear God will someone help me?!
+        if test_setting != 'none'
+          should "sort :equipment_assets by #{test_setting}" do
+            assert @equipment_assets.sorted_by?(test_setting.to_sym)
+          end
+        end
         should_assign_to :asset_check_ins
         should_assign_to :groups
         should_render_template :index
