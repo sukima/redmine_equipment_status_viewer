@@ -27,7 +27,10 @@ class EquipmentAssetsController < ApplicationController
   def index
     # location is not a SQL query-able variable. Make a concession here.
     if assets_grouped_by != 'none' && assets_grouped_by == 'location'
-      @equipment_assets = EquipmentAsset.find(:all, :order => "name asc")
+      # location is a calculated attribute. Find can not sort this correctly.
+      # Make our own sort.
+      @equipment_assets = EquipmentAsset.find(:all, :order => "name asc").
+        sort!{|t1,t2| t1.location <=> t2.location}
       @groups = AssetCheckIn.count(:all, :group => 'location')
     elsif assets_grouped_by != 'none'
       @equipment_assets = EquipmentAsset.find(:all, :order => "#{assets_grouped_by}, name asc")
