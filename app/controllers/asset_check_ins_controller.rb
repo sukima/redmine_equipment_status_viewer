@@ -17,7 +17,8 @@
 
 class AssetCheckInsController < ApplicationController
   unloadable
-  helper :equipment_assets, :iphone
+  include RedmineEquipmentStatusViewer::ControllerHelper
+  helper :equipment_assets
 
   # To avoid a login prompt on the iPhone set the 'Allow equipment check ins'
   # for the non-member/anonymous roles.
@@ -32,7 +33,7 @@ class AssetCheckInsController < ApplicationController
   
     respond_to do |wants|
       wants.html do
-        @locations = AssetCheckIn.find(:all).map(&:location) if @template.is_iphone_request?(request)
+        @locations = AssetCheckIn.find(:all).map(&:location) if mobile_device?
         render_with_iphone_check
       end
       wants.xml  { render :xml => @asset_check_in }
@@ -93,7 +94,7 @@ class AssetCheckInsController < ApplicationController
     args[:redirect] || false
     args[:template] ||= "new"
 
-    if @template.is_iphone_request?(request)
+    if mobile_device?
       render "#{args[:template]}_iphone", :layout => false
     elsif !args[:action].nil?
       render :action => args[:action]

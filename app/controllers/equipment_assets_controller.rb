@@ -17,8 +17,9 @@
 
 class EquipmentAssetsController < ApplicationController
   unloadable
+  include RedmineEquipmentStatusViewer::ControllerHelper
 
-  helper :equipment_assets, :iphone
+  helper :equipment_assets
   include EquipmentAssetsHelper
 
   #before_filter :require_login, :except => [ :index, :show, :print ]
@@ -53,7 +54,7 @@ class EquipmentAssetsController < ApplicationController
 
   def edit
     @equipment_asset = EquipmentAsset.find(params[:id])
-    render "edit_iphone", :layout => false if @template.is_iphone_request?(request)
+    render "edit_iphone", :layout => false if mobile_request?
   end
 
   def new
@@ -87,7 +88,7 @@ class EquipmentAssetsController < ApplicationController
       if @equipment_asset.update_attributes(params[:equipment_asset])
         flash[:notice] = t(:equipment_asset_updated)
         wants.html do
-          if @template.is_iphone_request?(request)
+          if mobile_request?
             redirect_to :controller => 'asset_check_ins', :action => 'new', :equipment_asset_id => @equipment_asset.id
           else
             redirect_to(@equipment_asset)
