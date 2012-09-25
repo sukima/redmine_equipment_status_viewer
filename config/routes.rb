@@ -17,5 +17,5 @@ RedmineApp::Application.routes.draw do
       # match "check_in", :to => "asset_check_ins#new", :as => "check_in"
     end
   end
-  match "/ci/:equipment_assets", :to => "asset_check_ins#new", :as => "equipment_asset_check_in"
+  match "/ci/:equipment_asset_id", :to => "asset_check_ins#new", :as => "equipment_asset_check_in"
 end
