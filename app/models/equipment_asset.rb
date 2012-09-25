@@ -36,7 +36,9 @@ class EquipmentAsset < ActiveRecord::Base
   validates_format_of :resource_url, :allow_nil => true, :allow_blank => true,
     :with => URI::regexp(%w(http https file)), :message => 'does not appear to be valid'
 
-  named_scope :visible, lambda {|*args| { :conditions => EquipmentAsset.allowed_to_condition(args.first || User.current) } }
+  # Rails 3 uses scope not named_scope per
+  # http://stackoverflow.com/questions/4025010/convert-named-scope-for-rails-3#4025360
+  scope :visible, lambda {|*args| { :conditions => EquipmentAsset.allowed_to_condition(args.first || User.current) } }
 
   # Returns true if the query is visible to +user+ or the current user.
   def visible?(user=User.current)
