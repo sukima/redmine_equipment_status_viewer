@@ -42,24 +42,32 @@
     </ul>
   <% end %>
   <ul class="pageitem">
-    <li class="menu">
-      <%= f.hidden_field :location %>
-      <% location = @asset_check_in.location %>
-      <% location ||= @equipment_asset.location %>
-      <%#= link_to "<span class=\"name\">#{location}</span><span class=\"arrow\"></span>",
-        loclist_path(@equipment_asset, :person => @asset_check_in.person, :location => location) %>
+    <% if false %>
+      <!-- This has some design problems when using iWebKit (non-dynamic page
+      loads) Instead we will default to a simple text field and prepare for a
+      more useful JavaScript app in the near future. -->
+      <li class="menu">
+        <%= f.hidden_field :location %>
+        <% location = @asset_check_in.location %>
+        <% location ||= @equipment_asset.location %>
+        <%= link_to "<span class=\"name\">#{location}</span><span class=\"arrow\"></span>",
+          loclist_path(@equipment_asset, :person => @asset_check_in.person, :location => location) %>
+      </li>
+    <% end %>
+    <li class="bigfield">
+      <%= f.text_field :location, :placeholder => t(:field_location) %>
     </li>
     <li class="bigfield">
-      <%= f.text_field :person, :placeholder => "Person" %>
+      <%= f.text_field :person, :placeholder => t(:field_person) %>
     </li>
     <li class="checkbox">
-      <span class="name"><%= f.label :equipment_asset_oos, "Out of service?" %></span>
+      <span class="name"><%= f.label :equipment_asset_oos, t(:field_oss) %></span>
       <%= f.check_box :equipment_asset_oos %>
     </li>
   </ul>
   <ul class="pageitem">
     <li class="button">
-      <%= f.submit "Check In" %>
+      <%= f.submit t(:lable_chek) %>
     </li>
   </ul>
 <% end %>
