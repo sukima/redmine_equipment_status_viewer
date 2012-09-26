@@ -12,10 +12,10 @@ RedmineApp::Application.routes.draw do
     resources :asset_check_ins, :only => [:new, :create] do
       member do
         post :new
-        get :loclist
       end
       # match "check_in", :to => "asset_check_ins#new", :as => "check_in"
     end
   end
-  match "/ci/:equipment_asset_id", :to => "asset_check_ins#new", :as => "equipment_asset_check_in"
+  match "ci/:equipment_asset_id", :to => "asset_check_ins#new", :as => "equipment_asset_check_in"
+  match "asset_check_ins/loclist", :to => "asset_check_ins#loclist", :as => "loclist"
 end

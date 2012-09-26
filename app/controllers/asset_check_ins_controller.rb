@@ -22,7 +22,8 @@ class AssetCheckInsController < ApplicationController
 
   # To avoid a login prompt on the iPhone set the 'Allow equipment check ins'
   # for the non-member/anonymous roles.
-  before_filter :authorize_global, :get_equipment_asset
+  before_filter :authorize_global
+  before_filter :get_equipment_asset, :except => [:loclist]
 
   def new
     @asset_check_in = @equipment_asset.asset_check_ins.new(params[:asset_check_in])
@@ -41,9 +42,9 @@ class AssetCheckInsController < ApplicationController
   end
 
   def loclist
-    @asset_check_in = @equipment_asset.asset_check_ins.new
-    @asset_check_in.person = params[:person]
-    @asset_check_in.location = params[:location]
+    # @asset_check_in = @equipment_asset.asset_check_ins.new
+    # @asset_check_in.person = params[:person]
+    # @asset_check_in.location = params[:location]
     @query = params[:query]
     if @query.blank?
       @locations = AssetCheckIn.find(:all, :group => 'location').map(&:location)

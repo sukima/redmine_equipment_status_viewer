@@ -46,8 +46,8 @@
       <%= f.hidden_field :location %>
       <% location = @asset_check_in.location %>
       <% location ||= @equipment_asset.location %>
-      <%= link_to "<span class=\"name\">#{location}</span><span class=\"arrow\"></span>",
-        loclist_equipment_asset_asset_check_ins_path(@equipment_asset, :person => @asset_check_in.person, :location => location) %>
+      <%#= link_to "<span class=\"name\">#{location}</span><span class=\"arrow\"></span>",
+        loclist_path(@equipment_asset, :person => @asset_check_in.person, :location => location) %>
     </li>
     <li class="bigfield">
       <%= f.text_field :person, :placeholder => "Person" %>

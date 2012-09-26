@@ -26,7 +26,7 @@
 </div>
 
 <div class="searchbox">
-  <%= form_tag(loclist_equipment_asset_asset_check_ins_path(@equipment_asset), :method => :get) do %>
+  <%= form_tag(loclist_equipment_asset_asset_check_in_path(@equipment_asset), :method => :get) do %>
     <%= hidden_field_tag :person, @asset_check_in.person %>
     <%= hidden_field_tag :location, @asset_check_in.location %>
     <%= text_field_tag :query, @query, :placeholder => "Search / New Location" %>
