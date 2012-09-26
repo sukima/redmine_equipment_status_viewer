@@ -5,7 +5,7 @@
 <% end %>
 <h2>Check in for <%= name_and_type @equipment_asset %></h2>
 
-<% form_for([@equipment_asset, @asset_check_in]) do |f| %>
+<%= form_for([@equipment_asset, @asset_check_in]) do |f| %>
   <%= error_messages_for 'equipment_asset', 'asset_check_in' %>
   <div class="pluginESV_formfield">
     <%= f.label :person %><br />
