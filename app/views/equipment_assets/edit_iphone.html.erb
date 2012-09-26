@@ -29,7 +29,7 @@
 </div>
 
 <div id="content">
-<% form_for(@equipment_asset) do |f| %>
+<%= form_for(@equipment_asset) do |f| %>
   <% @equipment_asset.errors.each do |attr,err| %>
     <p style="color: red;"><strong><%=h attr %></strong> <%=h err %></p>
   <% end %>

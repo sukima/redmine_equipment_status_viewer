@@ -1,5 +1,5 @@
 # Redmine Equipment Status Viewer - An equipment manager plugin
-# Copyright (C) 2010-2011  Devin Weaver
+# Copyright (C) 2012  Devin Weaver
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -15,12 +15,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-module IphoneHelper
-  def is_iphone_request?(request)
-    # This is a kludge hack. Idea from:
-    # http://www.ibm.com/developerworks/opensource/library/os-eclipse-iphoneruby1/
-    # Modified due to home screen problem:
-    # http://kosmaczewski.net/2009/10/30/http-headers-web-apps-and-mobile-safari/
-    request.user_agent =~ /(AppleWebKit\/.+Mobile)/
+module RedmineEquipmentStatusViewer
+  module ControllerHelper
+    def mobile_device?
+      # Check a session variable for override (Future use)
+      if session[:mobile_param]
+        session[:mobile_param] == "1"
+      else
+        request.user_agent =~ /Mobile|Blackberry|Android/
+      end
+    end
   end
 end

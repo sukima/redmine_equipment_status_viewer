@@ -16,7 +16,7 @@
     <% if @equipment_assets.empty? %>
       <p class="nodata">No data to display</p>
     <% else %>
-      <% form_tag print_equipment_assets_path, :method => :put do %>
+      <%= form_tag print_equipment_assets_path, :method => :put do %>
         <div class="pluginESV_print-buttons">
           <%= submit_tag t(:print_all_checked) %>
           <%= link_to t(:print_all_labels), print_equipment_asset_path("all") %> |

@@ -21,7 +21,7 @@
 </div>
 
 <div id="content">
-<% form_for([@equipment_asset, @asset_check_in]) do |f| %>
+<%= form_for([@equipment_asset, @asset_check_in]) do |f| %>
   <%= error_messages_for 'equipment_asset', 'asset_check_in' %>
   <span class="graytitle">Details</span>
   <ul class="pageitem">

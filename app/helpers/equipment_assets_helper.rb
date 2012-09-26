@@ -84,6 +84,7 @@ module EquipmentAssetsHelper
       str += " <em>#{h check_in.person}</em>"
     end
     str += "."
+    str.html_safe
   end
   
   def assets_grouped_by
