@@ -27,7 +27,11 @@ module EquipmentAssetsHelper
   end
 
   def name_and_type(asset)
-    h "#{asset.name} (#{asset.asset_type})"
+    if asset.asset_type.blank?
+      asset.name
+    else
+      "#{asset.name} (#{asset.asset_type})"
+    end
   end
 
   def simple_date(time)
