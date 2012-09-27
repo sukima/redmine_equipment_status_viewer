@@ -22,7 +22,7 @@ class AssetCheckInsController < ApplicationController
 
   # To avoid a login prompt on the iPhone set the 'Allow equipment check ins'
   # for the non-member/anonymous roles.
-  before_filter :authorize_global
+  before_filter :authorize_global, :save_mobile_param
   before_filter :get_equipment_asset, :except => [:loclist]
 
   def new

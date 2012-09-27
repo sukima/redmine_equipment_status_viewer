@@ -25,5 +25,11 @@ module RedmineEquipmentStatusViewer
         request.user_agent =~ /Mobile|Blackberry|Android/
       end
     end
+
+    def save_mobile_param
+      unless params[:mobile].blank?
+        session[:mobile_param] = params[:mobile]
+      end
+    end
   end
 end

@@ -23,7 +23,7 @@ class EquipmentAssetsController < ApplicationController
   include EquipmentAssetsHelper
 
   #before_filter :require_login, :except => [ :index, :show, :print ]
-  before_filter :authorize_global
+  before_filter :authorize_global, :save_mobile_param
 
   def index
     # location is not a SQL query-able variable. Make a concession here.
