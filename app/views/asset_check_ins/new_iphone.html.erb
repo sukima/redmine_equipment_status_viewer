@@ -2,24 +2,35 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-<title>Check in for <%=h @equipment_asset.name %></title>
+<title><%= t :check_in_for, :asset => h(@equipment_asset.name) %></title>
 <!-- <meta content="yes" name="apple-mobile-web-app-capable" /> -->
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 <meta content="minimum-scale=1.0, width=device-width, maximum-scale=0.6667, user-scalable=no" name="viewport" />
-<%= stylesheet_link_tag 'iWebKitStyle', :plugin => 'redmine_equipment_status_viewer' %>
-<%= javascript_include_tag 'iWebKitFunctions', :plugin => 'redmine_equipment_status_viewer' %>
+<%= stylesheet_link_tag 'jquery.mobile.min.css', :plugin => 'redmine_equipment_status_viewer' %>
+<%= javascript_include_tag 'jquery.min.js', :plugin => 'redmine_equipment_status_viewer' %>
+<%= javascript_include_tag 'jquery.mobile.min.js', :plugin => 'redmine_equipment_status_viewer' %>
 <%= iphone_comment_script %>
 </head>
 
 <body>
+<div data-role="page" data-add-back-btn="true" data-theme="b">
+  <div data-role="header" data-theme="b">
+    <h1><%= t :check_in_for, :asset => h(@equipment_asset.name) %></h1>
+    <a href="<%= edit_equipment_asset_path(@equipment_asset) %>" data-icon="gear" class="ui-btn-right">Edit</a>
+  </div>
 
-<div id="topbar">
-  <div id="title"><%=h @equipment_asset.name %></div>
-  <div id="leftbutton">
-    <%= link_to "Edit", edit_equipment_asset_path(@equipment_asset) %>
+  <div data-role="content">
+    <h3><%= t :details %></h3>
+    <%= iphone_details_box(@equipment_asset, false) %>
+    <%= iphone_additional_resource_menu(@equipment_asset.resource_url) %>
+    <%= iphone_comment_menu(@equipment_asset.comment) %>
+  </div>
+
+  <div data-role="footer">
   </div>
 </div>
 
+<% if false %>
 <div id="content">
 <%= form_for([@equipment_asset, @asset_check_in]) do |f| %>
   <%= error_messages_for 'equipment_asset', 'asset_check_in' %>
@@ -75,5 +86,6 @@
 <div id="footer">
 	<!-- Support iWebKit by sending us traffic; please keep this footer on your page, consider it a thank you for our work :-) -->
 	<a class="noeffect" href="http://iwebkit.net">Powered by iWebKit</a></div>
-  </body>
+<% end %>
+</body>
 </html>
