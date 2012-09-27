@@ -17,7 +17,7 @@
 
 module AssetCheckInsHelper
   def iphone_comment_script
-    return <<-EOF
+    str = <<-EOF
       <script type="text/javascript">
         function showAssetComment() {
           document.getElementById('comment').style.display='block';
@@ -25,6 +25,7 @@ module AssetCheckInsHelper
         }
       </script>
     EOF
+    str.html_safe
   end
 
   def iphone_comment_menu(comment)
@@ -47,17 +48,19 @@ module AssetCheckInsHelper
       </li>
     EOF
 
-    return prestr + str
+    prestr += str
+    prestr.html_safe
   end
 
   def iphone_additional_resource_menu(resource_url)
     return "" if !resource_url || resource_url.empty?
 
-    return <<-EOF
+    str = <<-EOF
       <li id="resource_menu" class="menu">
         <a href="#{resource_url}"><span class="name">Additianal Resource</span><span class="arrow"></span></a>
       </li>
     EOF
+    str.html_safe
   end
 
   def iphone_details_box(equipment_asset, use_header = true)
@@ -91,6 +94,6 @@ module AssetCheckInsHelper
         </table>
       </li>
     EOF
-    return str
+    str.html_safe
   end
 end
