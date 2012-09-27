@@ -31,6 +31,7 @@ zh:
   ch_by: "by"
   lable_chek: "签入"
   lable_chek_plural: "签入"
+  check_in_for: "入住 %{asset}"
   ch_in: "已签入"
   ch_in_old: " 已签入"
   on: "于"
