@@ -28,6 +28,7 @@ ru:
   ch_by: " сотрудником "
   lable_chek: "Проверка"
   lable_chek_plural: "Проверки"
+  check_in_for: "Заезд на %{asset}"
   ch_in: "Проверено "
   ch_in_old: " был проверен"
   on: "в "

@@ -28,6 +28,7 @@ de:
   ch_by: "von"
   lable_chek: "Check-in"
   lable_chek_plural: "Check-ins"
+  check_in_for: "Check-in für %{asset}"
   ch_in: "Checked in"
   ch_in_old: " wurde eingecheckt am"
   on: "am"
