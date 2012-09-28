@@ -48,3 +48,6 @@ zh:
   print_all_labels: "打印所有标签"
   print_list: "打印列表"
   unknown: "未知"
+  details: "详细信息"
+  edit: "编辑"
+  asset_is_out_of_service: "%{asset} 服务"
