@@ -45,3 +45,6 @@ de:
   print_all_labels: "Drucken Sie alle Etiketten"
   print_list: "Liste drucken"
   unknown: "unbekannt"
+  details: "Details"
+  edit: "bearbeiten"
+  asset_is_out_of_service: "%{asset} ist außer Betrieb"

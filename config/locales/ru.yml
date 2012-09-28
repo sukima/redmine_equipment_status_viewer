@@ -45,3 +45,6 @@ ru:
   print_all_labels: "Печать всех этикетках"
   print_list: "Печать списка"
   unknown: "неизвестный"
+  details: "детали"
+  edit: "редактировать"
+  asset_is_out_of_service: "%{asset} не работает"

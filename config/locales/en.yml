@@ -48,3 +48,4 @@ en:
   details: "Details"
   edit: "Edit"
   asset_is_out_of_service: "%{asset} is out of service"
+  view_additional_resource: "View additional resource"
