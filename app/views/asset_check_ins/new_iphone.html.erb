@@ -11,9 +11,10 @@
 <%= javascript_include_tag 'jquery.mobile.min.js', :plugin => 'redmine_equipment_status_viewer' %>
 <style type="text/css">
   .box {
+    display: inline-block;
+    background-color: white;
     border: solid thin black;
-    padding: 5px;
-    width: 250px;
+    padding: 10px;
     border-radius: 6px;
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
@@ -26,6 +27,7 @@
     font-weight: bold;
     border-bottom: solid thin black;
   }
+  .oos { color: red; }
 </style>
 </head>
 
@@ -55,11 +57,19 @@
           </tr>
         </tbody>
         <% if @equipment_asset.oos %>
-          <tfoot><%= t :asset_is_out_of_service, :asset => @equipment_asset.name %></tfoot>
+          <tfoot>
+            <tr>
+              <td colspan="2">
+                <span class="oos"><%= t :asset_is_out_of_service, :asset => @equipment_asset.name %></span>
+              </td>
+            </tr>
+          </tfoot>
         <% end %>
       </table>
+      <% unless @equipment_asset.resource_url.blank? %>
+        <a href="<%= @equipment_asset.resource_url %>" data-role="button" data-mini="true" data-icon="arrow-r" data-theme="c" data-iconpos="right"><%= t :view_additional_resource %></a>
+      <% end %>
     </div>
-    <%#= iphone_additional_resource_menu(@equipment_asset.resource_url) %>
     <%#= iphone_comment_menu(@equipment_asset.comment) %>
   </div>
 

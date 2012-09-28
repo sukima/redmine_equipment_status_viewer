@@ -54,7 +54,7 @@ class EquipmentAssetsController < ApplicationController
 
   def edit
     @equipment_asset = EquipmentAsset.find(params[:id])
-    render "edit_iphone", :layout => false if mobile_request?
+    render "edit_iphone", :layout => false if mobile_device?
   end
 
   def new
@@ -88,7 +88,7 @@ class EquipmentAssetsController < ApplicationController
       if @equipment_asset.update_attributes(params[:equipment_asset])
         flash[:notice] = t(:equipment_asset_updated)
         wants.html do
-          if mobile_request?
+          if mobile_device?
             redirect_to :controller => 'asset_check_ins', :action => 'new', :equipment_asset_id => @equipment_asset.id
           else
             redirect_to(@equipment_asset)
