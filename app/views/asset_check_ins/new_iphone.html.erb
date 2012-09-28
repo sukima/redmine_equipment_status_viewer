@@ -11,7 +11,7 @@
 <%= javascript_include_tag 'jquery.mobile.min.js', :plugin => 'redmine_equipment_status_viewer' %>
 <style type="text/css">
   .box {
-    display: inline-block;
+    /* display: inline-block; */
     background-color: white;
     border: solid thin black;
     padding: 10px;
@@ -19,6 +19,7 @@
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
   }
+  table { width: 100%; }
   th {
     text-align: right;
   }
@@ -27,112 +28,90 @@
     font-weight: bold;
     border-bottom: solid thin black;
   }
-  .oos { color: red; }
+  .oos {
+    color: red;
+    text-align: center;
+    font-weight: bold;
+  }
 </style>
 </head>
 
 <body>
-<div data-role="page" data-add-back-btn="true" data-theme="b">
+<div data-role="page" data-add-back-btn="true" data-theme="c">
   <div data-role="header" data-theme="b">
-    <h1><%= t :check_in_for, :asset => @equipment_asset.name %></h1>
+    <h1><%= t :lable_chek_plural %></h1>
     <a href="<%= edit_equipment_asset_path(@equipment_asset) %>" data-icon="gear" class="ui-btn-right"><%= t :edit %></a>
   </div>
 
   <div data-role="content">
-    <div class="box">
-      <table>
-        <caption><%= t :details %></caption>
-        <tbody>
-          <tr>
-            <th scope="row"><%= t :field_asset_type %>:</th>
-            <td><%= @equipment_asset.asset_type %></td>
-          </tr>
-          <tr>
-            <th scope="row"><%= t :field_serial_number %>:</th>
-            <td><%= @equipment_asset.serial_number %></td>
-          </tr>
-          <tr>
-            <th scope="row"><%= t :field_location %>:</th>
-            <td><%= @equipment_asset.location %></td>
-          </tr>
-        </tbody>
-        <% if @equipment_asset.oos %>
-          <tfoot>
-            <tr>
-              <td colspan="2">
-                <span class="oos"><%= t :asset_is_out_of_service, :asset => @equipment_asset.name %></span>
-              </td>
-            </tr>
-          </tfoot>
-        <% end %>
-      </table>
-      <% unless @equipment_asset.resource_url.blank? %>
-        <a href="<%= @equipment_asset.resource_url %>" data-role="button" data-mini="true" data-icon="arrow-r" data-theme="c" data-iconpos="right"><%= t :view_additional_resource %></a>
-      <% end %>
-    </div>
-    <%#= iphone_comment_menu(@equipment_asset.comment) %>
-  </div>
-
-  <div data-role="footer">
-  </div>
-</div>
-
-<% if false %>
-<div id="content">
-<%= form_for([@equipment_asset, @asset_check_in]) do |f| %>
-  <%= error_messages_for 'equipment_asset', 'asset_check_in' %>
-  <span class="graytitle">Details</span>
-  <ul class="pageitem">
-    <%= iphone_details_box(@equipment_asset, false) %>
-    <%= iphone_additional_resource_menu(@equipment_asset.resource_url) %>
-    <%= iphone_comment_menu(@equipment_asset.comment) %>
-  </ul>
-  <% if @asset_check_in.errors.empty? %>
-    <div class="graytitle">Check In</div>
-  <% else %>
-    <span class="graytitle">Could not check in!</span>
-    <ul class="pageitem">
-      <li class="textbox">
-        <% @asset_check_in.errors.each do |attr,err| %>
-          <p style="color: red;"><strong><%=h attr %></strong> <%=h err %></p>
-        <% end %>
-      </li>
-    </ul>
-  <% end %>
-  <ul class="pageitem">
-    <% if false %>
-      <!-- This has some design problems when using iWebKit (non-dynamic page
-      loads) Instead we will default to a simple text field and prepare for a
-      more useful JavaScript app in the near future. -->
-      <li class="menu">
-        <%= f.hidden_field :location %>
-        <% location = @asset_check_in.location %>
-        <% location ||= @equipment_asset.location %>
-        <%= link_to "<span class=\"name\">#{location}</span><span class=\"arrow\"></span>",
-          loclist_path(@equipment_asset, :person => @asset_check_in.person, :location => location) %>
-      </li>
+    <h3><%= t :check_in_for, :asset => @equipment_asset.name %></h3>
+    <%= form_for([@equipment_asset, @asset_check_in]) do |f| %>
+      <div data-role="collapsible">
+        <h3><%= t :details %></h3>
+        <div class="box">
+          <table>
+            <tbody>
+              <tr>
+                <th scope="row"><%= t :field_asset_type %>:</th>
+                <td><%= @equipment_asset.asset_type %></td>
+              </tr>
+              <tr>
+                <th scope="row"><%= t :field_serial_number %>:</th>
+                <td><%= @equipment_asset.serial_number %></td>
+              </tr>
+              <tr>
+                <th scope="row"><%= t :field_location %>:</th>
+                <td><%= @equipment_asset.location %></td>
+              </tr>
+            </tbody>
+            <% if @equipment_asset.oos? %>
+              <tfoot>
+                <tr>
+                  <td colspan="2" class="oos">
+                    <%= t :asset_is_out_of_service, :asset => @equipment_asset.name %>
+                  </td>
+                </tr>
+              </tfoot>
+            <% end %>
+          </table>
+          <% unless @equipment_asset.resource_url.blank? %>
+            <a href="<%= @equipment_asset.resource_url %>" target="_blank"
+              data-role="button" data-mini="true" data-icon="arrow-r"
+              data-iconpos="right"><%= t :view_additional_resource %></a>
+          <% end %>
+          <% unless @equipment_asset.comment.blank? %>
+            <div>
+              <h4><%= t :field_comment %></h4>
+              <p><%= @equipment_asset.comment %></p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <%= error_messages_for 'equipment_asset', 'asset_check_in' %>
+      <div data-role="fieldcontain" class="ui-hide-label">
+        <fieldset>
+          <%= f.label :person %>
+          <%= f.text_field :person, :placeholder => t(:field_person) %>
+          <%= f.label :location %>
+          <%= f.text_field :location, :placeholder => t(:field_location) %>
+        </fieldset>
+      </div>
+      <div data-role="fieldcontain">
+        <fieldset>
+          <%= f.label :equipment_asset_oos, t(:field_oos) %>
+          <%= f.select :equipment_asset_oos, {"No" => false, "Yes" => true}, {}, {"data-role" => "slider"} %>
+        </fieldset>
+      </div>
+      <div data-role="fieldcontain">
+        <fieldset>
+          <%= f.submit t(:lable_chek) %>
+        </fieldset>
+      </div>
     <% end %>
-    <li class="bigfield">
-      <%= f.text_field :location, :placeholder => t(:field_location) %>
-    </li>
-    <li class="bigfield">
-      <%= f.text_field :person, :placeholder => t(:field_person) %>
-    </li>
-    <li class="checkbox">
-      <span class="name"><%= f.label :equipment_asset_oos, t(:field_oss) %></span>
-      <%= f.check_box :equipment_asset_oos %>
-    </li>
-  </ul>
-  <ul class="pageitem">
-    <li class="button">
-      <%= f.submit t(:lable_chek) %>
-    </li>
-  </ul>
-<% end %>
+  </div>
+
+  <!-- <div data-role="footer"></div> -->
+
 </div>
-<div id="footer">
-	<!-- Support iWebKit by sending us traffic; please keep this footer on your page, consider it a thank you for our work :-) -->
-	<a class="noeffect" href="http://iwebkit.net">Powered by iWebKit</a></div>
-<% end %>
 </body>
 </html>
