@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title><%=h html_title %></title>
+<meta name="description" content="<%= Redmine::Info.app_name %>" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta content="minimum-scale=1.0, width=device-width, maximum-scale=0.6667, user-scalable=no" name="viewport" />
+<%= csrf_meta_tag %>
+<%= favicon %>
+<%= stylesheet_link_tag 'jquery.mobile.min.css', :plugin => 'redmine_equipment_status_viewer' %>
+<%= javascript_include_tag 'jquery.min.js', :plugin => 'redmine_equipment_status_viewer' %>
+<%= javascript_include_tag 'jquery.mobile.min.js', :plugin => 'redmine_equipment_status_viewer' %>
+<%= javascript_include_tag 'jqm.autoComplete.min.js', :plugin => 'redmine_equipment_status_viewer' %>
+<style type="text/css">
+  .box {
+    /* display: inline-block; */
+    background-color: white;
+    border: solid thin black;
+    padding: 10px;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+  }
+  table { width: 100%; }
+  th {
+    text-align: right;
+  }
+  caption {
+    text-align: left;
+    font-weight: bold;
+    border-bottom: solid thin black;
+  }
+  .oos {
+    color: red;
+    text-align: center;
+    font-weight: bold;
+  }
+</style>
+</head>
+
+<body>
+  <div id="<%= page_id %>" data-role="page" data-add-back-btn="true" data-theme="c">
+    <% yield %>
+  </div>
+</body>
+</html>
