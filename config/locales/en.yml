@@ -45,3 +45,6 @@ en:
   print_all_labels: "Print all labels"
   print_list: "Print List"
   unknown: "Unknown"
+  details: "Details"
+  edit: "Edit"
+  asset_is_out_of_service: "%{asset} is out of service"

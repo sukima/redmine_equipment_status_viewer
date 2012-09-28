@@ -9,21 +9,58 @@
 <%= stylesheet_link_tag 'jquery.mobile.min.css', :plugin => 'redmine_equipment_status_viewer' %>
 <%= javascript_include_tag 'jquery.min.js', :plugin => 'redmine_equipment_status_viewer' %>
 <%= javascript_include_tag 'jquery.mobile.min.js', :plugin => 'redmine_equipment_status_viewer' %>
-<%= iphone_comment_script %>
+<style type="text/css">
+  .box {
+    border: solid thin black;
+    padding: 5px;
+    width: 250px;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+  }
+  th {
+    text-align: right;
+  }
+  caption {
+    text-align: left;
+    font-weight: bold;
+    border-bottom: solid thin black;
+  }
+</style>
 </head>
 
 <body>
 <div data-role="page" data-add-back-btn="true" data-theme="b">
   <div data-role="header" data-theme="b">
-    <h1><%= t :check_in_for, :asset => h(@equipment_asset.name) %></h1>
-    <a href="<%= edit_equipment_asset_path(@equipment_asset) %>" data-icon="gear" class="ui-btn-right">Edit</a>
+    <h1><%= t :check_in_for, :asset => @equipment_asset.name %></h1>
+    <a href="<%= edit_equipment_asset_path(@equipment_asset) %>" data-icon="gear" class="ui-btn-right"><%= t :edit %></a>
   </div>
 
   <div data-role="content">
-    <h3><%= t :details %></h3>
-    <%= iphone_details_box(@equipment_asset, false) %>
-    <%= iphone_additional_resource_menu(@equipment_asset.resource_url) %>
-    <%= iphone_comment_menu(@equipment_asset.comment) %>
+    <div class="box">
+      <table>
+        <caption><%= t :details %></caption>
+        <tbody>
+          <tr>
+            <th scope="row"><%= t :field_asset_type %>:</th>
+            <td><%= @equipment_asset.asset_type %></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= t :field_serial_number %>:</th>
+            <td><%= @equipment_asset.serial_number %></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= t :field_location %>:</th>
+            <td><%= @equipment_asset.location %></td>
+          </tr>
+        </tbody>
+        <% if @equipment_asset.oos %>
+          <tfoot><%= t :asset_is_out_of_service, :asset => @equipment_asset.name %></tfoot>
+        <% end %>
+      </table>
+    </div>
+    <%#= iphone_additional_resource_menu(@equipment_asset.resource_url) %>
+    <%#= iphone_comment_menu(@equipment_asset.comment) %>
   </div>
 
   <div data-role="footer">
