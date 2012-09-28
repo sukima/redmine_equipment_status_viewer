@@ -34,7 +34,7 @@ class AssetCheckInsController < ApplicationController
   
     respond_to do |wants|
       wants.html do
-        @locations = AssetCheckIn.find(:all).map(&:location) if mobile_device?
+        @locations = AssetCheckIn.find(:all).map(&:location).uniq if mobile_device?
         render_with_iphone_check
       end
       wants.xml  { render :xml => @asset_check_in }
