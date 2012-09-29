@@ -38,6 +38,7 @@ ru:
   label_for_asset: "Этикетка для %{asset}"
   label_for_assets: "Этикетки для оборудования активов"
   go_back: "возвращаться"
+  go: "работать"
   check_in_at: "Размещение в:"
   print_label: "Печать этикетки"
   print_labels: "Печать этикетки"
@@ -48,3 +49,4 @@ ru:
   details: "детали"
   edit: "редактировать"
   asset_is_out_of_service: "%{asset} не работает"
+  check_in_another: "Проверьте в другой"

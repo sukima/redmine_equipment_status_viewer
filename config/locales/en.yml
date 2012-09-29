@@ -38,6 +38,7 @@ en:
   label_for_asset: "Label for %{asset}"
   label_for_assets: "Labels for Equipment Assets"
   go_back: "Go back"
+  go: "Go"
   check_in_at: "Check in at:"
   print_label: "Print Label"
   print_labels: "Print Labels"
@@ -49,3 +50,4 @@ en:
   edit: "Edit"
   asset_is_out_of_service: "%{asset} is out of service"
   view_additional_resource: "View additional resource"
+  check_in_another: "Check in another"

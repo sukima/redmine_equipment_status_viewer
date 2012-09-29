@@ -38,6 +38,7 @@ de:
   label_for_asset: "Label für %{asset}"
   label_for_assets: "Etiketten für Ausrüstung Assets"
   go_back: "zurückgehen"
+  go: "machen"
   check_in_at: "Check-in an:"
   print_label: "Etikett drucken"
   print_labels: "Etiketten drucken"
@@ -48,3 +49,4 @@ de:
   details: "Details"
   edit: "bearbeiten"
   asset_is_out_of_service: "%{asset} ist außer Betrieb"
+  check_in_another: "Überprüfen Sie in einem anderen"

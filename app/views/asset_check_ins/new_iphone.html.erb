@@ -3,52 +3,12 @@
 
 <% content_for :page_header do %>
   <h1><%= t :lable_chek_plural %></h1>
-  <a href="<%= edit_equipment_asset_path(@equipment_asset) %>" data-icon="gear" class="ui-btn-right"><%= t :edit %></a>
+  <%= edit_button_for @equipment_asset %>
 <% end %>
 
 <h3><%= t :check_in_for, :asset => @equipment_asset.name %></h3>
 <%= form_for([@equipment_asset, @asset_check_in]) do |f| %>
-  <div data-role="collapsible">
-    <h3><%= t :details %></h3>
-    <div class="box">
-      <table>
-        <tbody>
-          <tr>
-            <th scope="row"><%= t :field_asset_type %>:</th>
-            <td><%= @equipment_asset.asset_type %></td>
-          </tr>
-          <tr>
-            <th scope="row"><%= t :field_serial_number %>:</th>
-            <td><%= @equipment_asset.serial_number %></td>
-          </tr>
-          <tr>
-            <th scope="row"><%= t :field_location %>:</th>
-            <td><%= @equipment_asset.location %></td>
-          </tr>
-        </tbody>
-        <% if @equipment_asset.oos? %>
-          <tfoot>
-            <tr>
-              <td colspan="2" class="oos">
-                <%= t :asset_is_out_of_service, :asset => @equipment_asset.name %>
-              </td>
-            </tr>
-          </tfoot>
-        <% end %>
-      </table>
-      <% unless @equipment_asset.resource_url.blank? %>
-        <a href="<%= @equipment_asset.resource_url %>" target="_blank"
-          data-role="button" data-mini="true" data-icon="arrow-r"
-          data-iconpos="right"><%= t :view_additional_resource %></a>
-      <% end %>
-      <% unless @equipment_asset.comment.blank? %>
-        <div>
-          <h4><%= t :field_comment %></h4>
-          <p><%= @equipment_asset.comment %></p>
-        </div>
-      <% end %>
-    </div>
-  </div>
+  <%= render :partial => "details" %>
   <%= error_messages_for 'equipment_asset', 'asset_check_in' %>
   <div data-role="fieldcontain" class="ui-hide-label">
     <fieldset>

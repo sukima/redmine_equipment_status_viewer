@@ -1,0 +1,41 @@
+<div data-role="collapsible">
+  <h3><%= t :details %></h3>
+  <div class="box">
+    <table>
+      <tbody>
+        <tr>
+          <th scope="row"><%= t :field_asset_type %>:</th>
+          <td><%= @equipment_asset.asset_type %></td>
+        </tr>
+        <tr>
+          <th scope="row"><%= t :field_serial_number %>:</th>
+          <td><%= @equipment_asset.serial_number %></td>
+        </tr>
+        <tr>
+          <th scope="row"><%= t :field_location %>:</th>
+          <td><%= @equipment_asset.location %></td>
+        </tr>
+      </tbody>
+      <% if @equipment_asset.oos? %>
+        <tfoot>
+          <tr>
+            <td colspan="2" class="oos">
+              <%= t :asset_is_out_of_service, :asset => @equipment_asset.name %>
+            </td>
+          </tr>
+        </tfoot>
+      <% end %>
+    </table>
+    <% unless @equipment_asset.resource_url.blank? %>
+      <a href="<%= @equipment_asset.resource_url %>" target="_blank"
+        data-role="button" data-mini="true" data-icon="arrow-r"
+        data-iconpos="right"><%= t :view_additional_resource %></a>
+    <% end %>
+    <% unless @equipment_asset.comment.blank? %>
+      <div>
+        <h4><%= t :field_comment %></h4>
+        <p><%= @equipment_asset.comment %></p>
+      </div>
+    <% end %>
+  </div>
+</div>
