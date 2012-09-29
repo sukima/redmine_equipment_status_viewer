@@ -41,6 +41,7 @@ zh:
   label_for_asset: "资产 %{asset} 标签"
   label_for_assets: "设备资产标签"
   go_back: "回退"
+  go: "从事"
   check_in_at: "签入于："
   print_label: "打印标签"
   print_labels: "打印标签"
@@ -51,3 +52,4 @@ zh:
   details: "详细信息"
   edit: "编辑"
   asset_is_out_of_service: "%{asset} 服务"
+  check_in_another: "入住另一"
