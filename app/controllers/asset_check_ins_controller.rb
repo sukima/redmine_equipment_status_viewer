@@ -96,7 +96,7 @@ class AssetCheckInsController < ApplicationController
     args[:template] ||= "new"
 
     if mobile_device?
-      render "#{args[:template]}_iphone", :layout => false
+      render "#{args[:template]}_iphone", :layout => 'equipment_status_viewer_mobile'
     elsif !args[:action].nil?
       render :action => args[:action]
     elsif args[:redirect]

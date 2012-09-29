@@ -1,124 +1,80 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<% html_title t(:lable_chek, :asset => @equipment_asset.name) %>
+<% content_for :page_id, "assetCheckIn" %>
 
-<head>
-<title><%= t :check_in_for, :asset => h(@equipment_asset.name) %></title>
-<!-- <meta content="yes" name="apple-mobile-web-app-capable" /> -->
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-<meta content="minimum-scale=1.0, width=device-width, maximum-scale=0.6667, user-scalable=no" name="viewport" />
-<%= stylesheet_link_tag 'jquery.mobile.min.css', :plugin => 'redmine_equipment_status_viewer' %>
-<%= javascript_include_tag 'jquery.min.js', :plugin => 'redmine_equipment_status_viewer' %>
-<%= javascript_include_tag 'jquery.mobile.min.js', :plugin => 'redmine_equipment_status_viewer' %>
-<%= javascript_include_tag 'jqm.autoComplete.min.js', :plugin => 'redmine_equipment_status_viewer' %>
-<style type="text/css">
-  .box {
-    /* display: inline-block; */
-    background-color: white;
-    border: solid thin black;
-    padding: 10px;
-    border-radius: 6px;
-    -moz-border-radius: 6px;
-    -webkit-border-radius: 6px;
-  }
-  table { width: 100%; }
-  th {
-    text-align: right;
-  }
-  caption {
-    text-align: left;
-    font-weight: bold;
-    border-bottom: solid thin black;
-  }
-  .oos {
-    color: red;
-    text-align: center;
-    font-weight: bold;
-  }
-</style>
-</head>
+<% content_for :page_header do %>
+  <h1><%= t :lable_chek_plural %></h1>
+  <a href="<%= edit_equipment_asset_path(@equipment_asset) %>" data-icon="gear" class="ui-btn-right"><%= t :edit %></a>
+<% end %>
 
-<body>
-<div id="assetCheckIn" data-role="page" data-add-back-btn="true" data-theme="c">
-  <div data-role="header" data-theme="b">
-    <h1><%= t :lable_chek_plural %></h1>
-    <a href="<%= edit_equipment_asset_path(@equipment_asset) %>" data-icon="gear" class="ui-btn-right"><%= t :edit %></a>
-  </div>
-
-  <div data-role="content">
-    <h3><%= t :check_in_for, :asset => @equipment_asset.name %></h3>
-    <%= form_for([@equipment_asset, @asset_check_in]) do |f| %>
-      <div data-role="collapsible">
-        <h3><%= t :details %></h3>
-        <div class="box">
-          <table>
-            <tbody>
-              <tr>
-                <th scope="row"><%= t :field_asset_type %>:</th>
-                <td><%= @equipment_asset.asset_type %></td>
-              </tr>
-              <tr>
-                <th scope="row"><%= t :field_serial_number %>:</th>
-                <td><%= @equipment_asset.serial_number %></td>
-              </tr>
-              <tr>
-                <th scope="row"><%= t :field_location %>:</th>
-                <td><%= @equipment_asset.location %></td>
-              </tr>
-            </tbody>
-            <% if @equipment_asset.oos? %>
-              <tfoot>
-                <tr>
-                  <td colspan="2" class="oos">
-                    <%= t :asset_is_out_of_service, :asset => @equipment_asset.name %>
-                  </td>
-                </tr>
-              </tfoot>
-            <% end %>
-          </table>
-          <% unless @equipment_asset.resource_url.blank? %>
-            <a href="<%= @equipment_asset.resource_url %>" target="_blank"
-              data-role="button" data-mini="true" data-icon="arrow-r"
-              data-iconpos="right"><%= t :view_additional_resource %></a>
-          <% end %>
-          <% unless @equipment_asset.comment.blank? %>
-            <div>
-              <h4><%= t :field_comment %></h4>
-              <p><%= @equipment_asset.comment %></p>
-            </div>
-          <% end %>
+<h3><%= t :check_in_for, :asset => @equipment_asset.name %></h3>
+<%= form_for([@equipment_asset, @asset_check_in]) do |f| %>
+  <div data-role="collapsible">
+    <h3><%= t :details %></h3>
+    <div class="box">
+      <table>
+        <tbody>
+          <tr>
+            <th scope="row"><%= t :field_asset_type %>:</th>
+            <td><%= @equipment_asset.asset_type %></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= t :field_serial_number %>:</th>
+            <td><%= @equipment_asset.serial_number %></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= t :field_location %>:</th>
+            <td><%= @equipment_asset.location %></td>
+          </tr>
+        </tbody>
+        <% if @equipment_asset.oos? %>
+          <tfoot>
+            <tr>
+              <td colspan="2" class="oos">
+                <%= t :asset_is_out_of_service, :asset => @equipment_asset.name %>
+              </td>
+            </tr>
+          </tfoot>
+        <% end %>
+      </table>
+      <% unless @equipment_asset.resource_url.blank? %>
+        <a href="<%= @equipment_asset.resource_url %>" target="_blank"
+          data-role="button" data-mini="true" data-icon="arrow-r"
+          data-iconpos="right"><%= t :view_additional_resource %></a>
+      <% end %>
+      <% unless @equipment_asset.comment.blank? %>
+        <div>
+          <h4><%= t :field_comment %></h4>
+          <p><%= @equipment_asset.comment %></p>
         </div>
-      </div>
-      <%= error_messages_for 'equipment_asset', 'asset_check_in' %>
-      <div data-role="fieldcontain" class="ui-hide-label">
-        <fieldset>
-          <%= f.label :person %>
-          <%= f.text_field :person, :placeholder => t(:field_person) %>
-        </fieldset>
-      </div>
-      <div data-role="fieldcontain" class="ui-hide-label">
-        <fieldset>
-          <%= f.label :location %>
-          <%= f.search_field :location, :placeholder => t(:field_location) %>
-          <ul id="loclist" data-role="listview" data-inset="true"></ul>
-        </fieldset>
-      </div>
-      <div data-role="fieldcontain">
-        <fieldset>
-          <%= f.label :equipment_asset_oos, t(:field_oos) %>
-          <%= f.select :equipment_asset_oos, {"No" => false, "Yes" => true}, {}, {"data-role" => "slider"} %>
-        </fieldset>
-      </div>
-      <div data-role="fieldcontain">
-        <fieldset>
-          <%= f.submit t(:lable_chek) %>
-        </fieldset>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
-
-  <!-- <div data-role="footer"></div> -->
-
-</div>
+  <%= error_messages_for 'equipment_asset', 'asset_check_in' %>
+  <div data-role="fieldcontain" class="ui-hide-label">
+    <fieldset>
+      <%= f.label :person %>
+      <%= f.text_field :person, :placeholder => t(:field_person) %>
+    </fieldset>
+  </div>
+  <div data-role="fieldcontain" class="ui-hide-label">
+    <fieldset>
+      <%= f.label :location %>
+      <%= f.search_field :location, :placeholder => t(:field_location) %>
+      <ul id="loclist" data-role="listview" data-inset="true"></ul>
+    </fieldset>
+  </div>
+  <div data-role="fieldcontain">
+    <fieldset>
+      <%= f.label :equipment_asset_oos, t(:field_oos) %>
+      <%= f.select :equipment_asset_oos, {"No" => false, "Yes" => true}, {}, {"data-role" => "slider"} %>
+    </fieldset>
+  </div>
+  <div data-role="fieldcontain">
+    <fieldset>
+      <%= f.submit t(:lable_chek) %>
+    </fieldset>
+  </div>
+<% end %>
 <script type="text/javascript">
   $("#assetCheckIn").bind("pageshow", function(e) {
     $("#asset_check_in_location").autocomplete({
@@ -133,5 +89,3 @@
     });
   });
 </script>
-</body>
-</html>

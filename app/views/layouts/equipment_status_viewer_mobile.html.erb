@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-<title><%=h html_title %></title>
+<title><%= html_title %></title>
 <meta name="description" content="<%= Redmine::Info.app_name %>" />
 <meta name="keywords" content="issue,bug,tracker" />
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
@@ -41,8 +41,19 @@
 </head>
 
 <body>
-  <div id="<%= page_id %>" data-role="page" data-add-back-btn="true" data-theme="c">
-    <% yield %>
+  <div id="<%= yield :page_id %>" data-role="page" data-add-back-btn="true" data-theme="c">
+    <div data-role="header" data-theme="b">
+      <%= yield :page_header %>
+    </div>
+    <div data-role="content">
+      <%= yield %>
+    </div>
+    <% footer_content = yield :page_footer %>
+    <% unless footer_content.blank? %>
+      <div data-role="footer">
+        <%= footer_content.html_safe %>
+      </div>
+    <% end %>
   </div>
 </body>
 </html>
