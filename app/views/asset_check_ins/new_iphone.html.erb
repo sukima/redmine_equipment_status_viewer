@@ -1,5 +1,6 @@
 <% html_title t(:lable_chek, :asset => @equipment_asset.name) %>
 <% content_for :page_id, "assetCheckInFor#{@equipment_asset.id}" %>
+<% content_for :page_url, equipment_asset_check_in_path(@equipment_asset) %>
 
 <% content_for :page_header do %>
   <h1><%= t :lable_chek_plural %></h1>

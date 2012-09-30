@@ -1,5 +1,6 @@
 <% html_title "#{t(:edit)} #{@equipment_asset.name}" %>
 <% content_for :page_id, "editEquipmentAsset#{@equipment_asset.id}" %>
+<% content_for :page_url, edit_equipment_asset_path(@equipment_asset) %>
 
 <% content_for :page_header do %>
   <h1><%= @equipment_asset.name %></h1>
