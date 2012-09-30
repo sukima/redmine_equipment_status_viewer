@@ -50,3 +50,4 @@ ru:
   edit: "редактировать"
   asset_is_out_of_service: "%{asset} не работает"
   check_in_another: "Проверьте в другой"
+  new: "новое"

@@ -51,3 +51,4 @@ en:
   asset_is_out_of_service: "%{asset} is out of service"
   view_additional_resource: "View additional resource"
   check_in_another: "Check in another"
+  new: "New"
