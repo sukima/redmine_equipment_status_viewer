@@ -17,6 +17,14 @@
 
 module AssetCheckInsHelper
   def edit_button_for(asset)
-    link_to :edit, edit_equipment_asset_path(asset), { 'data-icon' => "gear", :class => "ui-btn-right" }
+    link_to t(:edit), edit_equipment_asset_path(asset), { 'data-icon' => "gear", :class => "ui-btn-right" }
+  end
+
+  def check_in_button_for(asset)
+    link_to t(:lable_chek), equipment_asset_check_in_path(asset), { 'data-icon' => "check", :class => "ui-btn-right" }
+  end
+
+  def oss_slider_for(asset, field)
+    asset.select field, {"No" => false, "Yes" => true}, {}, {"data-role" => "slider"}
   end
 end

@@ -1,5 +1,5 @@
 <% html_title t(:lable_chek, :asset => @equipment_asset.name) %>
-<% content_for :page_id, "assetCheckIn" %>
+<% content_for :page_id, "assetCheckInFor#{@equipment_asset.id}" %>
 
 <% content_for :page_header do %>
   <h1><%= t :lable_chek_plural %></h1>
@@ -26,26 +26,24 @@
   <div data-role="fieldcontain">
     <fieldset>
       <%= f.label :equipment_asset_oos, t(:field_oos) %>
-      <%= f.select :equipment_asset_oos, {"No" => false, "Yes" => true}, {}, {"data-role" => "slider"} %>
+      <%= oss_slider_for(f, :equipment_asset_oos) %>
     </fieldset>
   </div>
-  <div data-role="fieldcontain">
-    <fieldset>
-      <%= f.submit t(:lable_chek) %>
-    </fieldset>
-  </div>
+  <%= f.submit t(:lable_chek) %>
 <% end %>
 <script type="text/javascript">
-  $("#assetCheckIn").bind("pageshow", function(e) {
-    $("#asset_check_in_location").autocomplete({
-      source: <%= @locations.to_json.html_safe %>,
-      target: $("#loclist"),
-      minLength: 1,
-      callback: function(e) {
-        var $a = $(e.currentTarget); // access the selected item
-        $('#asset_check_in_location').val($a.text()); // place the value of the selection into the search box
-        $("#asset_check_in_location").autocomplete('clear'); // clear the listview
-      }
+  (function($) {
+    $("#<%= yield :page_id %>").bind("pageshow", function(e) {
+      $("#asset_check_in_location").autocomplete({
+        source: <%= @locations.to_json.html_safe %>,
+        target: $("#loclist"),
+        minLength: 1,
+        callback: function(e) {
+          var $a = $(e.currentTarget); // access the selected item
+          $('#asset_check_in_location').val($a.text()); // place the value of the selection into the search box
+          $("#asset_check_in_location").autocomplete('clear'); // clear the listview
+        }
+      });
     });
-  });
+  })(jQuery);
 </script>
