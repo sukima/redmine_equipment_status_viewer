@@ -23,7 +23,7 @@ class EquipmentAssetsController < ApplicationController
   include EquipmentAssetsHelper
 
   #before_filter :require_login, :except => [ :index, :show, :print ]
-  before_filter :authorize_global, :save_mobile_param
+  before_filter :authorize_global, :save_mobile_param, :get_asset_types
 
   def index
     # location is not a SQL query-able variable. Make a concession here.
@@ -54,7 +54,6 @@ class EquipmentAssetsController < ApplicationController
 
   def edit
     @equipment_asset = EquipmentAsset.find(params[:id])
-    @asset_types = EquipmentAsset.find(:all).map(&:asset_type).uniq if mobile_device?
     render "edit_iphone", :layout => 'equipment_status_viewer_mobile' if mobile_device?
   end
 
@@ -142,6 +141,10 @@ class EquipmentAssetsController < ApplicationController
       @equipment_asset = EquipmentAsset.find(params[:id])
       render :layout => false
     end
+  end
+
+  def get_asset_types
+    @asset_types = EquipmentAsset.find(:all).map(&:asset_type).uniq if mobile_device?
   end
 
   # private
