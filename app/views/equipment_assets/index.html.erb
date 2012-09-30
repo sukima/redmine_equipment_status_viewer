@@ -1,7 +1,16 @@
-<% html_title "Equipment Assets" %> <% content_for :header_tags do %>
+<% html_title "Equipment Assets" %>
+<% content_for :header_tags do %>
   <%= javascript_include_tag 'jquery.min.js', :plugin => 'redmine_equipment_status_viewer' %>
-  <%= stylesheet_link_tag 'style', :plugin => 'redmine_equipment_status_viewer' %> <% end %> <div class="contextual">
-  <%= link_to t(:field_new_equipment_asset), new_equipment_asset_path, :class => "icon icon-add" %> </div> <h2><%=t :lable_equipment_status %></h2> <div id="list_top"> </div> 
+  <%= stylesheet_link_tag 'style', :plugin => 'redmine_equipment_status_viewer' %>
+<% end %>
+<div class="contextual">
+  <%= link_to t(:field_new_equipment_asset), new_equipment_asset_path, :class => "icon icon-add" %>
+</div>
+<h2><%=t :lable_equipment_status %></h2>
+<% if controller.is_mobile? %>
+  <%= link_to t(:view_mobile), params.merge(:mobile => "1") %>
+<% end %>
+<div id="list_top"> </div> 
 <!-- Placing this in a @media print {...} in the style.css file was not working in Chrome -->
 <style type="text/css" media="print">
   .pluginESV_print-buttons,
