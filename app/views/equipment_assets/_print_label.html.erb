@@ -6,10 +6,10 @@
         <% if !asset.serial_number.blank? %>
           <p><%= asset.serial_number %></p>
         <% end %>
-        <div class="qrcode" title="<%= ci_url(asset) %>"></div>
+        <div class="qrcode" title="<%= equipment_asset_check_in_url(asset) %>"></div>
         <p>
           <b><%=t(:check_in_at) %></b><br />
-          <%= ci_url(asset) %>
+          <%= equipment_asset_check_in_url(asset) %>
         </p>
         <% if !Setting.plugin_redmine_equipment_status_viewer['print_label_custom_field'].blank? %>
           <p class="custom-label"><%= Setting.plugin_redmine_equipment_status_viewer['print_label_custom_field'] %></p>
