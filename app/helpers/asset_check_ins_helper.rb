@@ -16,12 +16,23 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 module AssetCheckInsHelper
+  def jqm_button(text, href, options = {})
+    jqm_data = { 'data-role' => "button" }
+    jqm_data.merge(options.except(:icon,:pos))
+    jqm_data['data-icon'] = options[:icon] if options.has_key?(:icon)
+    if options[:pos] && options[:pos][0].upcase == "R"
+      jqm_data[:class] = "" unless jqm_data.has_key?(:class)
+      jqm_data[:class] += " ui-btn-right"
+    end
+    link_to text, href, jqm_data
+  end
+
   def edit_button_for(asset)
-    link_to t(:edit), edit_equipment_asset_path(asset), { 'data-icon' => "gear", :class => "ui-btn-right" }
+    jqm_button t(:edit), edit_equipment_asset_path(asset), { :icon => "gear", :pos => "r" }
   end
 
   def check_in_button_for(asset)
-    link_to t(:lable_chek), equipment_asset_check_in_path(asset), { 'data-icon' => "check", :class => "ui-btn-right" }
+    jqm_button t(:lable_chek), equipment_asset_check_in_path(asset), { :icon => "check", :pos => "r" }
   end
 
   def oss_slider_for(asset, field)
