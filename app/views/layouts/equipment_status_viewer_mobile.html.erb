@@ -49,6 +49,8 @@
       <%= yield %>
     </div>
     <div data-role="footer">
+      <%= jqm_button t(:view_all_assets), equipment_assets_path, { :footer => true, :icon => "grid" } %>
+      <%= jqm_button t(:view_desktop), params.merge(:mobile => "0"), { :footer => true, :pos => "r" } %>
       <div class="newCheckInBox" data-role="fieldcontain">
         <label><%= t(:check_in_another) %>:</label>
         <input type="number" data-mini="true" value="" />
