@@ -54,3 +54,6 @@ zh:
   asset_is_out_of_service: "%{asset} 服务"
   check_in_another: "入住另一"
   new: "新"
+  view_all_assets: "查看全部资产"
+  view_desktop: "桌面视图"
+  view_mobile: "移动视图"

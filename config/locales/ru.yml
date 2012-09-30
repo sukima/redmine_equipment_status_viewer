@@ -51,3 +51,6 @@ ru:
   asset_is_out_of_service: "%{asset} не работает"
   check_in_another: "Проверьте в другой"
   new: "новое"
+  view_all_assets: "Все активы"
+  view_desktop: "Просмотр рабочего"
+  view_mobile: "Мобильная версия"
