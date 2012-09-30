@@ -17,12 +17,15 @@
 
 module RedmineEquipmentStatusViewer
   module ControllerHelper
+    def is_mobile?
+      request.user_agent =~ /Mobile|Blackberry|Android/
+    end
+
     def mobile_device?
-      # Check a session variable for override (Future use)
       if session[:mobile_param]
         session[:mobile_param] == "1"
       else
-        request.user_agent =~ /Mobile|Blackberry|Android/
+        is_mobile?
       end
     end
 
