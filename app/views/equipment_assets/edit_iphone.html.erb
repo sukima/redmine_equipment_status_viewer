@@ -7,42 +7,4 @@
   <%= check_in_button_for(@equipment_asset) %>
 <% end %>
 
-<%= form_for(@equipment_asset) do |f| %>
-  <% @equipment_asset.errors.each do |attr,err| %>
-    <p style="color: red;"><strong><%=h attr %></strong> <%=h err %></p>
-  <% end %>
-  <div data-role="fieldconstrain">
-    <fieldset>
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-      <%= f.label :asset_type %>
-      <%= f.text_field :asset_type %>
-      <ul id="asset_type_list" data-role="listview" data-inset="true"></ul>
-      <%= f.label :serial_number %>
-      <%= f.text_field :serial_number %>
-      <%= f.label :oos %>
-      <%= oss_slider_for(f, :oos) %>
-      <%= f.label :resource_url %>
-      <%= f.url_field :resource_url %>
-      <%= f.label :comment %>
-      <%= f.text_area :comment %>
-      <%= f.submit %>
-    </fieldset>
-  </div>
-<% end %>
-<script type="text/javascript">
-  (function($) {
-    $("#<%= yield :page_id %>").bind("pageshow", function(e) {
-      $("#equipment_asset_asset_type").autocomplete({
-        source: <%= @asset_types.to_json.html_safe %>,
-        target: $("#asset_type_list"),
-        minLength: 1,
-        callback: function(e) {
-          var $a = $(e.currentTarget); // access the selected item
-          $('#equipment_asset_asset_type').val($a.text()); // place the value of the selection into the search box
-          $("#equipment_asset_asset_type").autocomplete('clear'); // clear the listview
-        }
-      });
-    });
-  })(jQuery);
-</script>
+<%= render :partial => "mobile_form" %>
