@@ -49,7 +49,7 @@ class EquipmentAssetsController < ApplicationController
     @equipment_asset = EquipmentAsset.find(params[:id])
   
     respond_to do |wants|
-      wants.html # show.html.erb
+      wants.html { render "show_iphone", :layout => 'equipment_status_viewer_mobile' if mobile_device? }
       wants.xml  { render :xml => @equipment_asset }
     end
   end

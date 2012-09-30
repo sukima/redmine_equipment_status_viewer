@@ -1,0 +1,21 @@
+<% html_title t(:equipment_assets) %>
+<% content_for :page_id, "listEquipmentAssets" %>
+<% content_for :page_url, equipment_assets_path %>
+
+<% content_for :page_header do %>
+  <h1><%= t(:equipment_assets) %></h1>
+  <%= jqm_button t(:new), new_equipment_asset_path, { :icon => "plus", :pos => "r" } %>
+<% end %>
+
+<ul data-role="listview">
+  <%-
+    group = nil
+    @equipment_assets.each_with_index do |e,index|
+      if new_asset_group?(e, group)
+        group = asset_group(e)
+        -%>
+        <li data-role="list-divider"><%= group %></li>
+      <% end %>
+      <li><%= link_to e.name, e %></li>
+    <% end %>
+</ul>
