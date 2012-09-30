@@ -41,6 +41,8 @@ class EquipmentAssetsController < ApplicationController
       @groups = { }
     end
     @asset_check_ins = AssetCheckIn.find(:all, :order => "id desc", :limit => 20)
+
+    render "index_iphone", :layout => 'equipment_status_viewer_mobile' if mobile_device?
   end
 
   def show
