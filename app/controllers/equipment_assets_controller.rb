@@ -135,13 +135,13 @@ class EquipmentAssetsController < ApplicationController
   def print
     if request.put?
       @equipment_assets = EquipmentAsset.find(params[:asset_ids])
-      render "printm", :layout => false
+      render "printm", :layout => 'equipment_status_viewer_print'
     elsif params[:id] == "all"
       @equipment_assets = EquipmentAsset.find(:all)
-      render "printm", :layout => false
+      render "printm", :layout => 'equipment_status_viewer_print'
     else
       @equipment_asset = EquipmentAsset.find(params[:id])
-      render :layout => false
+      render :layout => 'equipment_status_viewer_print'
     end
   end
 

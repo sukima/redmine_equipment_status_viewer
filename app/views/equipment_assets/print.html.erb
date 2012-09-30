@@ -1,22 +1,9 @@
 <% html_title h(t(:label_for_asset, :asset => @equipment_asset.name)) %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-  <head>
-    <title><%=h t(:label_for_asset, :asset => @equipment_asset.name) %></title>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <%= render :partial => 'print_style' %>
-  </head>
-  <body>
-    <div id="container">
-      <div class="label-row">
-        <%= render :partial => 'print_label', :locals => {:asset => @equipment_asset} %>
-      </div>
-      <div id="instructions">
-        <form><input type="button" value=" <%=t(:print_label) %> " onclick="window.print();return false;" /></form> 
-        <%= render :partial => "print_help" %>
-        <p><%= link_to t(:go_back), equipment_asset_path(@equipment_asset) %></p>
-      </div>
-    </div>
-    <%= render :partial => 'print_javascript' %>
-  </body>
-</html>
+<div class="label-row">
+  <%= render :partial => 'print_label', :locals => {:asset => @equipment_asset} %>
+</div>
+<div id="instructions">
+  <form><input type="button" value=" <%=t(:print_label) %> " onclick="window.print();return false;" /></form> 
+  <%= render :partial => "print_help" %>
+  <p><%= link_to t(:go_back), equipment_asset_path(@equipment_asset) %></p>
+</div>
