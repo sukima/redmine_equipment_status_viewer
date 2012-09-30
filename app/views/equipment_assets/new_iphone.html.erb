@@ -1,0 +1,9 @@
+<% html_title t(:field_new_equipment_asset) %>
+<% content_for :page_id, "newEquipmentAsset" %>
+<% content_for :page_url, new_equipment_asset_path %>
+
+<% content_for :page_header do %>
+  <h1><%= t(:field_new_equipment_asset) %></h1>
+<% end %>
+
+<%= render :partial => "mobile_form" %>
