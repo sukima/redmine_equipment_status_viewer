@@ -18,11 +18,15 @@
 module AssetCheckInsHelper
   def jqm_button(text, href, options = {})
     jqm_data = { 'data-role' => "button" }
-    jqm_data.merge(options.except(:icon,:pos))
+    jqm_data.merge!(options.except(:icon,:pos,:footer))
     jqm_data['data-icon'] = options[:icon] if options.has_key?(:icon)
     if options[:pos] && options[:pos][0].upcase == "R"
       jqm_data[:class] = "" unless jqm_data.has_key?(:class)
       jqm_data[:class] += " ui-btn-right"
+    end
+    if options[:footer]
+      jqm_data['data-mini'] = "true"
+      jqm_data['data-ajax'] = "false"
     end
     link_to text, href, jqm_data
   end
