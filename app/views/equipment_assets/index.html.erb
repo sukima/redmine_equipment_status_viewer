@@ -57,7 +57,7 @@
                   <tr class="group open">
                     <td colspan="4">
                       <span onclick="toggleRowGroup(this); return false;" class="expander">&nbsp;</span>
-                      <span><%=h group %></span>
+                      <span><%= asset_type_or_none(group) %></span>
                       <span class="count">(<%= @groups[group] %>)</span>
                       <%= check_box_tag "", e.id, false, :class => "pluginESV_group_checkbox" %>
                     </td>

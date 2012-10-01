@@ -17,7 +17,7 @@
       if new_asset_group?(e, group)
         group = asset_group(e)
         -%>
-        <li data-role="list-divider"><%= group %></li>
+        <li data-role="list-divider"><%= asset_type_or_none(group) %></li>
       <% end %>
       <li><a href="<%= equipment_asset_path(e) %>">
         <h3 class="ui-li-heading"><%= e.name %></h3>

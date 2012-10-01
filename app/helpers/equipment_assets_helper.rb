@@ -110,4 +110,8 @@ module EquipmentAssetsHelper
   def new_asset_group?(asset, group)
     return assets_grouped_by != 'none' && group != asset_group(asset)
   end
+
+  def asset_type_or_none(asset_type)
+    asset_type.blank? ? t(:no_asset_type) : asset_type
+  end
 end
