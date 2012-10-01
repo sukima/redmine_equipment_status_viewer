@@ -13,9 +13,7 @@ RedmineApp::Application.routes.draw do
       member do
         post :new
       end
-      # match "check_in", :to => "asset_check_ins#new", :as => "check_in"
     end
   end
   match "ci/:equipment_asset_id", :to => "asset_check_ins#new", :as => "equipment_asset_check_in"
-  match "asset_check_ins/loclist", :to => "asset_check_ins#loclist", :as => "loclist"
 end

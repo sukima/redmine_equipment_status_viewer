@@ -22,8 +22,7 @@ class AssetCheckInsController < ApplicationController
 
   # To avoid a login prompt on the iPhone set the 'Allow equipment check ins'
   # for the non-member/anonymous roles.
-  before_filter :authorize_global, :save_mobile_param
-  before_filter :get_equipment_asset, :except => [:loclist]
+  before_filter :authorize_global, :save_mobile_param, :get_equipment_asset
 
   def new
     @asset_check_in = @equipment_asset.asset_check_ins.new(params[:asset_check_in])
@@ -34,38 +33,10 @@ class AssetCheckInsController < ApplicationController
   
     respond_to do |wants|
       wants.html do
-        @locations = AssetCheckIn.find(:all).map(&:location).uniq if mobile_device?
+        @locations = AssetCheckIn.find(:all).map(&:location).uniq
         render_with_iphone_check
       end
       wants.xml  { render :xml => @asset_check_in }
-    end
-  end
-
-  def loclist
-    # @asset_check_in = @equipment_asset.asset_check_ins.new
-    # @asset_check_in.person = params[:person]
-    # @asset_check_in.location = params[:location]
-    @query = params[:query]
-    if @query.blank?
-      @locations = AssetCheckIn.find(:all, :group => 'location').map(&:location)
-    else
-      @locations = AssetCheckIn.find(:all, :group => 'location', :conditions => ["location LIKE ?", "%#{@query}%"] ).map(&:location)
-      @asset_check_in.location ||= @query
-    end
-
-    respond_to do |wants|
-      # Only iPhone uses this action
-      wants.html do
-        @locations.unshift(@query) if !@query.blank? && !@locations.include?(@query)
-        render 'loclist_iphone', :layout => false
-      end
-      wants.js do
-        if @query
-          render :json => { :query => @query, :suggestions => @locations }
-        else
-          render :text => "No 'query' field given.", :status => :bad_request
-        end
-      end
     end
   end
 
