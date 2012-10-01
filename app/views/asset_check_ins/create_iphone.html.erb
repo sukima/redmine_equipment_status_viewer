@@ -1,0 +1,11 @@
+<% html_title t :asset_check_in_created %>
+<% content_for :page_id, "checkInSuccess" %>
+<% content_for :page_url, equipment_asset_check_in_path(@equipment_asset) %>
+
+<% content_for :page_header do %>
+  <h1><%= t :asset_check_in_created %></h1>
+  <%= edit_button_for @equipment_asset %>
+<% end %>
+
+<h1><%=t :asset_check_in_created %></h1>
+<%= render :partial => "details" %>

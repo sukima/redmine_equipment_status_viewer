@@ -1,0 +1,50 @@
+<% html_title t(:lable_chek, :asset => @equipment_asset.name) %>
+<% content_for :page_id, "assetCheckInFor#{@equipment_asset.id}" %>
+<% content_for :page_url, equipment_asset_check_in_path(@equipment_asset) %>
+
+<% content_for :page_header do %>
+  <h1><%= t :lable_chek_plural %></h1>
+  <%= edit_button_for @equipment_asset %>
+<% end %>
+
+<h3><%= t :check_in_for, :asset => @equipment_asset.name %></h3>
+<%= form_for([@equipment_asset, @asset_check_in]) do |f| %>
+  <%= render :partial => "details" %>
+  <%= error_messages_for 'equipment_asset', 'asset_check_in' %>
+  <div data-role="fieldcontain" class="ui-hide-label">
+    <fieldset>
+      <%= f.label :person %>
+      <%= f.text_field :person, :placeholder => t(:field_person) %>
+    </fieldset>
+  </div>
+  <div data-role="fieldcontain" class="ui-hide-label">
+    <fieldset>
+      <%= f.label :location %>
+      <%= f.search_field :location, :placeholder => t(:field_location) %>
+      <ul id="loclist" data-role="listview" data-inset="true"></ul>
+    </fieldset>
+  </div>
+  <div data-role="fieldcontain">
+    <fieldset>
+      <%= f.label :equipment_asset_oos, t(:field_oos) %>
+      <%= oss_slider_for(f, :equipment_asset_oos) %>
+    </fieldset>
+  </div>
+  <%= f.submit t(:lable_chek) %>
+<% end %>
+<script type="text/javascript">
+  (function($) {
+    $("#<%= yield :page_id %>").bind("pageshow", function(e) {
+      $("#asset_check_in_location").autocomplete({
+        source: <%= @locations.to_json.html_safe %>,
+        target: $("#loclist"),
+        minLength: 1,
+        callback: function(e) {
+          var $a = $(e.currentTarget); // access the selected item
+          $('#asset_check_in_location').val($a.text()); // place the value of the selection into the search box
+          $("#asset_check_in_location").autocomplete('clear'); // clear the listview
+        }
+      });
+    });
+  })(jQuery);
+</script>

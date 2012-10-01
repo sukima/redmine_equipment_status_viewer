@@ -1,0 +1,17 @@
+      <div class="asset-label">
+        <h2><%=h asset.name %></h2>
+        <% if !asset.asset_type.blank? %>
+          <p><%=h asset.asset_type %></p>
+        <% end %>
+        <% if !asset.serial_number.blank? %>
+          <p><%= asset.serial_number %></p>
+        <% end %>
+        <div class="qrcode" title="<%= equipment_asset_check_in_url(asset) %>"></div>
+        <p>
+          <b><%=t(:check_in_at) %></b><br />
+          <%= equipment_asset_check_in_url(asset) %>
+        </p>
+        <% if !Setting.plugin_redmine_equipment_status_viewer['print_label_custom_field'].blank? %>
+          <p class="custom-label"><%= Setting.plugin_redmine_equipment_status_viewer['print_label_custom_field'] %></p>
+        <% end %>
+      </div>

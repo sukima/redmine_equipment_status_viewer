@@ -16,81 +16,30 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 module AssetCheckInsHelper
-  def iphone_comment_script
-    return <<-EOF
-      <script type="text/javascript">
-        function showAssetComment() {
-          document.getElementById('comment').style.display='block';
-          document.getElementById('comment_menu').style.display='none';
-        }
-      </script>
-    EOF
-  end
-
-  def iphone_comment_menu(comment)
-    return "" if !comment || comment.empty?
-
-    if comment.length > 140
-      prestr = <<-EOF
-        <li id="comment_menu" class="menu">
-          <a id="comment_link" href="javascript:showAssetComment()"><span class="name">Show comment</span><span class="arrow"></span></a>
-        </li>
-        <li id="comment" class="textbox" style="display:none;">
-      EOF
-    else
-      prestr = <<-EOF
-        <li id="comment" class="textbox">
-      EOF
+  def jqm_button(text, href, options = {})
+    jqm_data = { 'data-role' => "button" }
+    jqm_data.merge!(options.except(:icon,:pos,:footer))
+    jqm_data['data-icon'] = options[:icon] if options.has_key?(:icon)
+    if options[:pos] && options[:pos][0].upcase == "R"
+      jqm_data[:class] = "" unless jqm_data.has_key?(:class)
+      jqm_data[:class] += " ui-btn-right"
     end
-    str = <<-EOF
-        <div>#{comment}</div>
-      </li>
-    EOF
-
-    return prestr + str
-  end
-
-  def iphone_additional_resource_menu(resource_url)
-    return "" if !resource_url || resource_url.empty?
-
-    return <<-EOF
-      <li id="resource_menu" class="menu">
-        <a href="#{resource_url}"><span class="name">Additianal Resource</span><span class="arrow"></span></a>
-      </li>
-    EOF
-  end
-
-  def iphone_details_box(equipment_asset, use_header = true)
-    str = "<li class=\"textbox\">"
-    str += "  <span class=\"header\">#{h equipment_asset.name }</span>" if use_header
-    str += <<-EOF
-        <table>
-          <tbody>
-            <tr>
-              <td><strong>Type:</strong></td>
-              <td>#{h equipment_asset.asset_type }</td>
-            </tr>
-            <tr>
-              <td><strong>Serial #:</strong></td>
-              <td>#{h equipment_asset.serial_number }</td>
-            </tr>
-            <tr>
-              <td><strong>Location:</strong></td>
-              <td>#{h equipment_asset.location }</td>
-            </tr>
-    EOF
-    if equipment_asset.oos
-      str += <<-EOF
-            <tr>
-              <td colspan="2" style="color: red;">#{h equipment_asset.name} is <strong>out of service</strong>!</td>
-            </tr>
-      EOF
+    if options[:footer]
+      jqm_data['data-mini'] = "true"
+      jqm_data['data-ajax'] = "false"
     end
-    str += <<-EOF
-          </tbody>
-        </table>
-      </li>
-    EOF
-    return str
+    link_to text, href, jqm_data
+  end
+
+  def edit_button_for(asset)
+    jqm_button t(:edit), edit_equipment_asset_path(asset), { :icon => "gear", :pos => "r" }
+  end
+
+  def check_in_button_for(asset)
+    jqm_button t(:check_in_for, {:asset => asset.name}), equipment_asset_check_in_path(asset), { :icon => "check", :pos => "r" }
+  end
+
+  def oss_slider_for(asset, field)
+    asset.select field, {"No" => false, "Yes" => true}, {}, {"data-role" => "slider"}
   end
 end

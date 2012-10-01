@@ -17,12 +17,13 @@
 
 class EquipmentAssetsController < ApplicationController
   unloadable
+  include RedmineEquipmentStatusViewer::ControllerHelper
 
-  helper :equipment_assets, :iphone
+  helper :equipment_assets, :asset_check_ins
   include EquipmentAssetsHelper
 
   #before_filter :require_login, :except => [ :index, :show, :print ]
-  before_filter :authorize_global
+  before_filter :authorize_global, :save_mobile_param, :get_asset_types
 
   def index
     # location is not a SQL query-able variable. Make a concession here.
@@ -40,27 +41,29 @@ class EquipmentAssetsController < ApplicationController
       @groups = { }
     end
     @asset_check_ins = AssetCheckIn.find(:all, :order => "id desc", :limit => 20)
+
+    render "index_iphone", :layout => 'equipment_status_viewer_mobile' if mobile_device?
   end
 
   def show
     @equipment_asset = EquipmentAsset.find(params[:id])
   
     respond_to do |wants|
-      wants.html # show.html.erb
+      wants.html { render "show_iphone", :layout => 'equipment_status_viewer_mobile' if mobile_device? }
       wants.xml  { render :xml => @equipment_asset }
     end
   end
 
   def edit
     @equipment_asset = EquipmentAsset.find(params[:id])
-    render "edit_iphone", :layout => false if @template.is_iphone_request?(request)
+    render "edit_iphone", :layout => 'equipment_status_viewer_mobile' if mobile_device?
   end
 
   def new
     @equipment_asset = EquipmentAsset.new
   
     respond_to do |wants|
-      wants.html # new.html.erb
+      wants.html { render "new_iphone", :layout => 'equipment_status_viewer_mobile' if mobile_device? }
       wants.xml  { render :xml => @equipment_asset }
     end
   end
@@ -87,8 +90,8 @@ class EquipmentAssetsController < ApplicationController
       if @equipment_asset.update_attributes(params[:equipment_asset])
         flash[:notice] = t(:equipment_asset_updated)
         wants.html do
-          if @template.is_iphone_request?(request)
-            redirect_to :controller => 'asset_check_ins', :action => 'new', :equipment_asset_id => @equipment_asset.id
+          if mobile_device?
+            redirect_to equipment_asset_check_in_path(@equipment_asset)
           else
             redirect_to(@equipment_asset)
           end
@@ -132,14 +135,18 @@ class EquipmentAssetsController < ApplicationController
   def print
     if request.put?
       @equipment_assets = EquipmentAsset.find(params[:asset_ids])
-      render "printm", :layout => false
+      render "printm", :layout => 'equipment_status_viewer_print'
     elsif params[:id] == "all"
       @equipment_assets = EquipmentAsset.find(:all)
-      render "printm", :layout => false
+      render "printm", :layout => 'equipment_status_viewer_print'
     else
       @equipment_asset = EquipmentAsset.find(params[:id])
-      render :layout => false
+      render :layout => 'equipment_status_viewer_print'
     end
+  end
+
+  def get_asset_types
+    @asset_types = EquipmentAsset.find(:all).map(&:asset_type).uniq if mobile_device?
   end
 
   # private
