@@ -7,6 +7,7 @@
   <%= jqm_button t(:new), new_equipment_asset_path, { :icon => "plus", :pos => "r" } %>
   <style type="text/css">
     .oos { color: red; }
+    .hidden { display: none; }
   </style>
 <% end %>
 
@@ -21,10 +22,16 @@
       <% end %>
       <li><a href="<%= equipment_asset_path(e) %>">
         <h3 class="ui-li-heading"><%= e.name %></h3>
-        <p class="ui-li-desc"><%= e.location %></p>
+        <div class="ui-grid-a ui-li-desc">
+          <div class="ui-block-a"><%= e.serial_number %></div>
+          <div class="ui-block-b"><%= e.location %></div>
+        </div>
         <% if e.oos? %>
           <span class="ui-li-aside oos"><%=t :out_of_service %></span>
         <% end %>
+        <div class="hidden">
+          <%= e.asset_type %>
+        </div>
       </a></li>
     <% end %>
 </ul>
