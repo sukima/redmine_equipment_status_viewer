@@ -9,14 +9,15 @@
 
 <%= check_in_button_for(@equipment_asset) %>
 <div class="box">
+  <h2><%= @equipment_asset.name %></h2>
   <%= render :partial => "asset" %>
 </div>
 <div data-role="collapsible" class="pluginESV_asset_check_ins">
-  <h3><%=t :ch_in %></h3>
+  <h3><%=t :view_all_check_ins %></h3>
   <% if @equipment_asset.asset_check_ins.empty? %>
     <p class="nodata"><%=t :no_data %></p>
   <% end %>
-  <ul>
+  <ul data-role="listview" data-mini="true" data-inset="true">
     <% @equipment_asset.asset_check_ins.reverse.each do |check_in| %>
       <li class="pluginESV_asset_check_in"><%= print_check_in(check_in) %></li>
     <% end %>

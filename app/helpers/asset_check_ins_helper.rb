@@ -36,7 +36,7 @@ module AssetCheckInsHelper
   end
 
   def check_in_button_for(asset)
-    jqm_button t(:lable_chek), equipment_asset_check_in_path(asset), { :icon => "check", :pos => "r" }
+    jqm_button t(:check_in_for, {:asset => asset.name}), equipment_asset_check_in_path(asset), { :icon => "check", :pos => "r" }
   end
 
   def oss_slider_for(asset, field)
