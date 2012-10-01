@@ -7,7 +7,10 @@
   <%= jqm_button t(:new), new_equipment_asset_path, { :icon => "plus", :pos => "r" } %>
 <% end %>
 
-<%= check_in_button_for(@equipment_asset) %>
+<div data-role="fieldconstrain">
+  <%= check_in_button_for(@equipment_asset) %>
+  <%= edit_button_for(@equipment_asset) %>
+</div>
 <div class="box">
   <h2><%= @equipment_asset.name %></h2>
   <%= render :partial => "asset" %>
