@@ -49,7 +49,7 @@ de:
   details: "Details"
   edit: "bearbeiten"
   asset_is_out_of_service: "%{asset} ist außer Betrieb"
-  check_in_another: "Überprüfen Sie in einem anderen"
+  check_in_another: "Check-in Asset #"
   new: "neu"
   view_all_assets: "Alle Assets"
   view_desktop: "desktop-Ansicht"

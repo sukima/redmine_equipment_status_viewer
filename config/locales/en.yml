@@ -50,7 +50,7 @@ en:
   edit: "Edit"
   asset_is_out_of_service: "%{asset} is out of service"
   view_additional_resource: "View additional resource"
-  check_in_another: "Check in another"
+  check_in_another: "Check in asset #"
   new: "New"
   view_all_assets: "View All Assets"
   view_desktop: "View Desktop"
