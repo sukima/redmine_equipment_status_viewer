@@ -45,8 +45,9 @@ end
 
 Redmine::Search.register :equipment_assets
 
-require 'dispatcher'
-Dispatcher.to_prepare :redmine_equipment_status_viewer do
+# Found redmine-1.4 -> redmine-2.1 porting info at http://www.redmine.org/boards/3/topics/30423
+#require 'dispatcher'
+Rails.configuration.to_prepare do
   require_dependency 'search_controller'
   SearchController.send(:include, RedmineEquipmentStatusViewer::Patches::SearchControllerPatch)
 end

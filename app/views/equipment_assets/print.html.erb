@@ -1,0 +1,9 @@
+<% html_title h(t(:label_for_asset, :asset => @equipment_asset.name)) %>
+<div class="label-row">
+  <%= render :partial => 'print_label', :locals => {:asset => @equipment_asset} %>
+</div>
+<div id="instructions">
+  <form><input type="button" value=" <%=t(:print_label) %> " onclick="window.print();return false;" /></form> 
+  <%= render :partial => "print_help" %>
+  <p><%= link_to t(:go_back), equipment_asset_path(@equipment_asset) %></p>
+</div>

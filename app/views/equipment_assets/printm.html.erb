@@ -1,0 +1,16 @@
+<% html_title t(:label_for_assets) %>
+<div id="instructions">
+  <form><input type="button" value=" <%=t(:print_labels) %> " onclick="window.print();return false;" /></form> 
+  <%= render :partial => "print_help" %>
+  <p><%= link_to t(:go_back), equipment_assets_path %></p>
+</div>
+<div class="label-row">
+  <%- @equipment_assets.each_with_index do |asset,i| -%>
+    <% if i>0 && i%3==0  %>
+      </div>
+      <% if i>0 && i%12==0 %><div class="page-break"></div><% end %>
+      <div class="label-row">
+    <% end %>
+    <%= render :partial => 'print_label', :locals => {:asset => asset} %>
+  <%- end -%>
+</div>

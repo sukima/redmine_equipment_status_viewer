@@ -1,9 +1,19 @@
-ActionController::Routing::Routes.draw do |map| 
-#     map.connect 'projects/:project_id/opensearch/:action', :controller => 'opensearch'
-  map.resources :equipment_assets, :member => { :print => :get }, :collection => { :print => :put } do |e|
-    e.resource :asset_check_ins, :only => [:new, :create], :member => { :new => :post, :loclist => :get }
-    e.check_in 'check_in', :controller => 'asset_check_ins', :action => :new
+# Found redmine-1.4 -> redmine-2.1 infor from http://www.redmine.org/boards/3/topics/30423
+RedmineApp::Application.routes.draw do
+  # Redmine-2.1 uses Rails 3 which has a new routing DSL.
+  # Info found from http://www.engineyard.com/blog/2010/the-lowdown-on-routes-in-rails-3/
+  resources :equipment_assets do
+    member do
+      get :print
+    end
+    collection do
+      put :print
+    end
+    resources :asset_check_ins, :only => [:new, :create] do
+      member do
+        post :new
+      end
+    end
   end
-  map.ci 'ci/:equipment_asset_id', :controller => 'asset_check_ins', :action => :new
-  #map.print_multiple 'equipment_assets/print', :controller => 'equipment_assets', :action => :printm, :method => :put
+  match "ci/:equipment_asset_id", :to => "asset_check_ins#new", :as => "equipment_asset_check_in"
 end

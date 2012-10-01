@@ -27,7 +27,11 @@ module EquipmentAssetsHelper
   end
 
   def name_and_type(asset)
-    h "#{asset.name} (#{asset.asset_type})"
+    if asset.asset_type.blank?
+      asset.name
+    else
+      "#{asset.name} (#{asset.asset_type})"
+    end
   end
 
   def simple_date(time)
@@ -84,6 +88,7 @@ module EquipmentAssetsHelper
       str += " <em>#{h check_in.person}</em>"
     end
     str += "."
+    str.html_safe
   end
   
   def assets_grouped_by
@@ -104,5 +109,9 @@ module EquipmentAssetsHelper
 
   def new_asset_group?(asset, group)
     return assets_grouped_by != 'none' && group != asset_group(asset)
+  end
+
+  def asset_type_or_none(asset_type)
+    asset_type.blank? ? t(:no_asset_type) : asset_type
   end
 end

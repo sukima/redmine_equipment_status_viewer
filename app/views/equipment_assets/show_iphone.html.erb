@@ -1,0 +1,28 @@
+<% html_title @equipment_asset.name %>
+<% content_for :page_id, "showEquipmentAsset#{@equipment_asset.id}" %>
+<% content_for :page_url, equipment_asset_path(@equipment_asset) %>
+
+<% content_for :page_header do %>
+  <h1><%= @equipment_asset.name %></h1>
+  <%= jqm_button t(:new), new_equipment_asset_path, { :icon => "plus", :pos => "r" } %>
+<% end %>
+
+<div data-role="fieldconstrain">
+  <%= check_in_button_for(@equipment_asset) %>
+  <%= edit_button_for(@equipment_asset) %>
+</div>
+<div class="box">
+  <h2><%= @equipment_asset.name %></h2>
+  <%= render :partial => "asset" %>
+</div>
+<div data-role="collapsible" class="pluginESV_asset_check_ins">
+  <h3><%=t :view_all_check_ins %></h3>
+  <% if @equipment_asset.asset_check_ins.empty? %>
+    <p class="nodata"><%=t :no_data %></p>
+  <% end %>
+  <ul data-role="listview" data-mini="true" data-inset="true">
+    <% @equipment_asset.asset_check_ins.reverse.each do |check_in| %>
+      <li class="pluginESV_asset_check_in"><%= print_check_in(check_in) %></li>
+    <% end %>
+  </ul>
+</div>
