@@ -34,7 +34,7 @@
     text-align: center;
     font-weight: bold;
   }
-  .newCheckInBox label {
+  .quickSelectBox label {
     padding: 0 10px;
   }
 </style>
@@ -52,30 +52,30 @@
     <div data-role="footer">
       <%= jqm_button t(:view_all_assets), equipment_assets_path, { :footer => true, :icon => "grid" } %>
       <%= jqm_button t(:view_desktop), params.merge(:mobile => "0"), { :footer => true, :pos => "r" } %>
-      <div class="newCheckInBox" data-role="fieldcontain">
-        <label><%= t(:check_in_another) %>:</label>
+      <div class="quickSelectBox" data-role="fieldcontain">
+        <label><%= t(:quick_select_by_id) %>:</label>
         <input type="number" data-mini="true" value="" />
         <button data-icon="arrow-r" data-iconpos="right" data-inline="true" data-mini="true"
-          class="newCheckInFieldGoBtn"><%=t :go %></button>
+          class="quickSelectFieldGoBtn"><%=t :go %></button>
       </div>
       <%= yield :page_footer %>
     </div>
   </div>
 <script type="text/javascript">
   (function($) {
-    if ($.getAssetCheckInPathFor == null) {
+    if ($.getQuickSelectPathFor == null) {
       $.extend({
-        getAssetCheckInPathFor: function(asset_id) {
-          return "<%= equipment_asset_check_in_path("") %>" + asset_id;
+        getQuickSelectPathFor: function(asset_id) {
+          return "<%= equipment_asset_path("") %>" + asset_id;
         },
-        loadAssetCheckInPageFor: function(asset_id) {
-          return window.location.href = $.getAssetCheckInPathFor(asset_id);
+        loadQuickSelectPageFor: function(asset_id) {
+          return window.location.href = $.getQuickSelectPathFor(asset_id);
         }
       });
-      $(".newCheckInFieldGoBtn").live("click", function(e) {
+      $(".quickSelectFieldGoBtn").live("click", function(e) {
         var num_field = $(this).parent().prev().val();
         if (num_field !== "") {
-          return $.loadAssetCheckInPageFor(num_field);
+          return $.loadQuickSelectPageFor(num_field);
         }
       });
     }
