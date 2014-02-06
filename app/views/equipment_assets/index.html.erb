@@ -67,7 +67,7 @@
             -%>
             <tr title="<%=h e.comment %>"
               class="<%= evenodd %> pluginESV_<%= oos_class %> pluginESV_asset_row">
-                <td class="pluginESV_<%= oos_class %>">
+                <td class="pluginESV_<%= oos_class %>" style="text-align:left">
                   <%= check_box_tag "asset_ids[]", e.id, false, :class => "pluginESV_checkbox" %>
                   <%= link_to e.name, equipment_asset_path(e) %>
                 <% if e.oos %>(<%=t :out_of_service %>)<% end %>
@@ -79,7 +79,7 @@
                 <% if !attribute_is_grouped?(:location) %>
                 <td class="pluginESV_<%= oos_class %>"><%=h e.location %> (<%=t :ch_by %> <%=h e.last_checkin_by %>)</td>
                 <% end %>
-                <td class="pluginESV_<%= oos_class %> pluginESV_action-buttons">
+                <td class="pluginESV_<%= oos_class %> pluginESV_action-buttons" style="text-align:left">
                   <%= link_to "", edit_equipment_asset_path(e), :class => "icon icon-edit", :title => "Edit #{e.name}" %>
                   <%= link_to "", print_equipment_asset_path(e), :class => "icon icon-report", :title => "Print label for #{e.name}" %>
                   <%= link_to "", equipment_asset_check_in_path(e), :class => "icon icon-time-add", :title => "Check in #{e.name}" %>
