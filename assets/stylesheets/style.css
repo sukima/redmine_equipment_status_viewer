@@ -13,3 +13,8 @@
 .pluginESV_print-buttons {
   padding: 10px 0;
 }
+
+.pluginESV_asset-name-cell,
+.pluginESV_action-buttons {
+  text-align: center;
+}
