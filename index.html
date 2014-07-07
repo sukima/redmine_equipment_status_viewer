@@ -155,12 +155,12 @@
     </div>
     <div id="downloadbox" style="display:none;">
       <h2>This is a Redmine plugin</h2>
-      <p>There is only one dependency which is <a href="http://rqrcode.rubyforge.org/">rQRCode</a>. Install it with the following:</p>
-      <pre>script/plugin install git://github.com/whomwah/rqrcode.git</pre>
-      <p>Then run the following in your <strong>Redmine</strong> application directory:</p>
-      <pre>script/plugin install git://github.com/sukima/redmine_equipment_status_viewer.git</pre>
+      <p>There is only one dependency which is <a href="https://whomwah.github.io/rqrcode/">rQRCode</a>. Install it with the following:</p>
+      <pre>gem install rqrcode</pre>
+      <p>Then go into your <strong>Redmine/plugins</strong> application directory and run:</p>
+      <pre>git clone git://github.com/sukima/redmine_equipment_status_viewer.git</pre>
       <p>Finally migrate your database:</p>
-      <pre>rake db:migrate:plugins RAILS_ENV=production</pre>
+      <pre>rake redmine:plugins:migrate RAILS_ENV=production</pre>
       <p>You may need to prepend <code>sudo</code> to gain root access on some systems.</p>
     </div>
     <div id="demobox" style="display:none;">
