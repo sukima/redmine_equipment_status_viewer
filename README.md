@@ -1,4 +1,4 @@
-= Equipment Status Viewer
+# Equipment Status Viewer
 Version 1.0.1
 
 Equipment Status Viewer is a Redmine plugin that tracks the location of
