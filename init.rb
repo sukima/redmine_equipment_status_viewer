@@ -43,11 +43,31 @@ Redmine::Plugin.register :redmine_equipment_status_viewer do
     }
 end
 
+module RedmineEquipmentStatusViewer
+  module ControllerHelper
+    def is_mobile?
+      request.user_agent =~ /Mobile|Blackberry|Android/
+    end
+
+    def mobile_device?
+      if session[:mobile_param]
+        session[:mobile_param] == "1"
+      else
+        is_mobile?
+      end
+    end
+
+    def save_mobile_param
+      unless params[:mobile].blank?
+        session[:mobile_param] = params[:mobile]
+      end
+    end
+  end
+end
+
 Redmine::Search.register :equipment_assets
 
-# Found redmine-1.4 -> redmine-2.1 porting info at http://www.redmine.org/boards/3/topics/30423
-#require 'dispatcher'
 Rails.configuration.to_prepare do
   require_dependency 'search_controller'
-  SearchController.send(:include, RedmineEquipmentStatusViewer::Patches::SearchControllerPatch)
+  # SearchController.send(:include, RedmineEquipmentStatusViewer::Patches::SearchControllerPatch)
 end

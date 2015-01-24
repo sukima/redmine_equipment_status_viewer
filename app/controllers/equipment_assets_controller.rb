@@ -30,17 +30,17 @@ class EquipmentAssetsController < ApplicationController
     if assets_grouped_by != 'none' && assets_grouped_by == 'location'
       # location is a calculated attribute. Find can not sort this correctly.
       # Make our own sort.
-      @equipment_assets = EquipmentAsset.find(:all, :order => "name asc").
+      @equipment_assets = EquipmentAsset.all.order("name asc").
         sort!{|t1,t2| t1.location <=> t2.location}
-      @groups = AssetCheckIn.count(:all, :group => 'location')
+      @groups = AssetCheckIn.all.group('location').count()
     elsif assets_grouped_by != 'none'
-      @equipment_assets = EquipmentAsset.find(:all, :order => "#{assets_grouped_by}, name asc")
-      @groups = EquipmentAsset.count(:all, :group => "#{assets_grouped_by}")
+      @equipment_assets = EquipmentAsset.all.order("#{assets_grouped_by}, name asc")
+      @groups = EquipmentAsset.all.group("#{assets_grouped_by}")
     else
-      @equipment_assets = EquipmentAsset.find(:all, :order => "name asc")
+      @equipment_assets = EquipmentAsset.all.order("name asc")
       @groups = { }
     end
-    @asset_check_ins = AssetCheckIn.find(:all, :order => "id desc", :limit => 20)
+    @asset_check_ins = AssetCheckIn.all.order("id desc").limit(20)
 
     render "index_iphone", :layout => 'equipment_status_viewer_mobile' if mobile_device?
   end
