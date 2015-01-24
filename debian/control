@@ -1,0 +1,16 @@
+Source: redmine-plugin-equipment-status-viewer
+Section: ruby
+Priority: optional
+Maintainer: Klee Dienes <klee@mit.edu>
+Build-Depends: debhelper (>= 9), quilt
+Standards-Version: 3.9.6
+Homepage: https://github.com/dhanasingh/redmine_wktime
+
+Package: redmine-plugin-equipment-status-viewer
+Architecture: all
+Depends: ${misc:Depends}, redmine (>= 3)
+Description: Time & Expense plugin for redmine
+ This Plugin provides the capability to submit Time &
+ Expense within redmine. The user must be a member of a project with
+ permission to log time. If the user has 'Edit time logs' permission,
+ then he can manage other team member's Time & Expense as well.

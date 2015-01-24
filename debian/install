@@ -1,0 +1,5 @@
+*rb /usr/share/redmine/plugins/redmine_equipment_status_viewer
+app /usr/share/redmine/plugins/redmine_equipment_status_viewer
+db /usr/share/redmine/plugins/redmine_equipment_status_viewer
+config /usr/share/redmine/plugins/redmine_equipment_status_viewer
+assets/* /usr/share/redmine/public/plugin_assets/redmine_equipment_status_viewer
