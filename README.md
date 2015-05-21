@@ -16,7 +16,7 @@ Individuals making significant and valuable contributions are given commit-acces
 
 *Trust me on this!* I will hit that `merge` button so fast! Seriously, all you need to do is fork and edit the code. So send me *Pull Requests* please! On the flip side if I get just an issue asking for some feature or if this can be upgraded to the latest version of Redmine or Rails I will close it with the following reply:
 
-> I can no loger maintain this code on my own. I need contributions to make any effort worth while. I no longer use this in my day to day work and have no intention to provide support all on my own. This project follows a very loose contribution process in that a simple pull request is all that is needed to be given commit access. If you want a feature or have it upgraded to the latest version of Redmine or Rails I ask that you make a Pull Request with that change so that others can also benifit.
+> I can no longer maintain this code on my own. I need contributions to make any effort worth while. I no longer use this in my day to day work and have no intention to provide support all on my own. This project follows a very loose contribution process in that a simple pull request is all that is needed to be given commit access. If you want a feature or have it upgraded to the latest version of Redmine or Rails I ask that you make a Pull Request with that change so that others can also benefit.
 >
 > Redmine Equipment Status Viewer is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
