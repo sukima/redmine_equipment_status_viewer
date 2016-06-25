@@ -80,7 +80,7 @@
                 <td class="pluginESV_<%= oos_class %>"><%=h e.location %> (<%=t :ch_by %> <%=h e.last_checkin_by %>)</td>
                 <% end %>
                 <td class="pluginESV_<%= oos_class %> pluginESV_action-buttons">
-                  <%= link_to "", edit_equipment_asset_path(e), :class => "icon icon-edit", :title => "Edit #{e.name}" %>
+                  <%#= link_to "", edit_equipment_asset_path(e), :class => "icon icon-edit", :title => "Edit #{e.name}" %>
                   <%= link_to "", print_equipment_asset_path(e), :class => "icon icon-report", :title => "Print label for #{e.name}" %>
                   <%= link_to "", equipment_asset_check_in_path(e), :class => "icon icon-time-add", :title => "Check in #{e.name}" %>
                   <% if !e.comment.blank? %>

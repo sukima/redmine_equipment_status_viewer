@@ -18,9 +18,9 @@
 class EquipmentAsset < ActiveRecord::Base
   unloadable
 
-  has_many :asset_check_ins, :limit => 50, :dependent => :destroy
+  has_many :asset_check_ins,  :dependent => :destroy
 
-  acts_as_searchable :columns => [:name, :serial_number, :comment], :order_column => :name
+  acts_as_searchable :columns => [:name, :serial_number, :comment]
   acts_as_event :title => :name,
                 :url => Proc.new {|o| {:controller => 'equipment_assets', :action => 'show', :id => o}},
                 :author => Proc.new {|o| o.last_checkin_by},

@@ -31,7 +31,7 @@ class EquipmentAssetsController < ApplicationController
       # location is a calculated attribute. Find can not sort this correctly.
       # Make our own sort.
       @equipment_assets = EquipmentAsset.all.order("name asc").
-        sort!{|t1,t2| t1.location <=> t2.location}
+        sort{|t1,t2| t1.location <=> t2.location}
       @groups = AssetCheckIn.all.group('location').count()
     elsif assets_grouped_by != 'none'
       @equipment_assets = EquipmentAsset.all.order("#{assets_grouped_by}, name asc")
