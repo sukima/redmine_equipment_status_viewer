@@ -69,7 +69,7 @@ class EquipmentAssetsController < ApplicationController
   end
 
   def create
-    @equipment_asset = EquipmentAsset.new(params[:equipment_asset])
+    @equipment_asset = EquipmentAsset.new(params[:equipment_asset].permit!)
   
     respond_to do |wants|
       if @equipment_asset.save
@@ -87,7 +87,7 @@ class EquipmentAssetsController < ApplicationController
     @equipment_asset = EquipmentAsset.find(params[:id])
   
     respond_to do |wants|
-      if @equipment_asset.update_attributes(params[:equipment_asset])
+      if @equipment_asset.update_attributes(params[:equipment_asset].permit!)
         flash[:notice] = t(:equipment_asset_updated)
         wants.html do
           if mobile_device?
@@ -137,7 +137,7 @@ class EquipmentAssetsController < ApplicationController
       @equipment_assets = EquipmentAsset.find(params[:asset_ids])
       render "printm", :layout => 'equipment_status_viewer_print'
     elsif params[:id] == "all"
-      @equipment_assets = EquipmentAsset.find(:all)
+      @equipment_assets = EquipmentAsset.all
       render "printm", :layout => 'equipment_status_viewer_print'
     else
       @equipment_asset = EquipmentAsset.find(params[:id])
@@ -146,7 +146,7 @@ class EquipmentAssetsController < ApplicationController
   end
 
   def get_asset_types
-    @asset_types = EquipmentAsset.find(:all).map(&:asset_type).uniq if mobile_device?
+    @asset_types = EquipmentAsset.all.map(&:asset_type).uniq if mobile_device?
   end
 
   # private
