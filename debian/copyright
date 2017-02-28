@@ -1,7 +1,0 @@
-Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: redmine_wktime
-Source: https://github.com/dhanasingh/redmine_wktime
-
-Files: *
-Copyright: UNKNOWN
-License: UNKNOWN
