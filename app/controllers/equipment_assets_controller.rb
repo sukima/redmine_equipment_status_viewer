@@ -5,12 +5,12 @@
 # modify it under the terms of the GNU General Public License
 # as published by the Free Software Foundation; either version 3
 # of the License, or (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
@@ -30,24 +30,24 @@ class EquipmentAssetsController < ApplicationController
     if assets_grouped_by != 'none' && assets_grouped_by == 'location'
       # location is a calculated attribute. Find can not sort this correctly.
       # Make our own sort.
-      @equipment_assets = EquipmentAsset.find(:all, :order => "name asc").
-        sort!{|t1,t2| t1.location <=> t2.location}
-      @groups = AssetCheckIn.count(:all, :group => 'location')
+      @equipment_assets = EquipmentAsset.all.order("name asc").
+        sort{|t1,t2| t1.location <=> t2.location}
+      @groups = AssetCheckIn.all.group('location').count()
     elsif assets_grouped_by != 'none'
-      @equipment_assets = EquipmentAsset.find(:all, :order => "#{assets_grouped_by}, name asc")
-      @groups = EquipmentAsset.count(:all, :group => "#{assets_grouped_by}")
+      @equipment_assets = EquipmentAsset.all.order("#{assets_grouped_by}, name asc")
+      @groups = EquipmentAsset.all.group("#{assets_grouped_by}").count()
     else
-      @equipment_assets = EquipmentAsset.find(:all, :order => "name asc")
+      @equipment_assets = EquipmentAsset.all.order("name asc")
       @groups = { }
     end
-    @asset_check_ins = AssetCheckIn.find(:all, :order => "id desc", :limit => 20)
+    @asset_check_ins = AssetCheckIn.all.order("id desc").limit(20)
 
     render "index_iphone", :layout => 'equipment_status_viewer_mobile' if mobile_device?
   end
 
   def show
     @equipment_asset = EquipmentAsset.find(params[:id])
-  
+
     respond_to do |wants|
       wants.html { render "show_iphone", :layout => 'equipment_status_viewer_mobile' if mobile_device? }
       wants.xml  { render :xml => @equipment_asset }
@@ -61,7 +61,7 @@ class EquipmentAssetsController < ApplicationController
 
   def new
     @equipment_asset = EquipmentAsset.new
-  
+
     respond_to do |wants|
       wants.html { render "new_iphone", :layout => 'equipment_status_viewer_mobile' if mobile_device? }
       wants.xml  { render :xml => @equipment_asset }
@@ -69,8 +69,8 @@ class EquipmentAssetsController < ApplicationController
   end
 
   def create
-    @equipment_asset = EquipmentAsset.new(params[:equipment_asset])
-  
+    @equipment_asset = EquipmentAsset.new(params[:equipment_asset].permit!)
+
     respond_to do |wants|
       if @equipment_asset.save
         flash[:notice] = t(:equipment_asset_created)
@@ -85,9 +85,9 @@ class EquipmentAssetsController < ApplicationController
 
   def update
     @equipment_asset = EquipmentAsset.find(params[:id])
-  
+
     respond_to do |wants|
-      if @equipment_asset.update_attributes(params[:equipment_asset])
+      if @equipment_asset.update_attributes(params[:equipment_asset].permit!)
         flash[:notice] = t(:equipment_asset_updated)
         wants.html do
           if mobile_device?
@@ -107,7 +107,7 @@ class EquipmentAssetsController < ApplicationController
   def destroy
     @equipment_asset = EquipmentAsset.find(params[:id])
     @equipment_asset.destroy
-  
+
     respond_to do |wants|
       wants.html { redirect_to(equipment_assets_url) }
       wants.xml  { head :ok }
@@ -134,10 +134,10 @@ class EquipmentAssetsController < ApplicationController
 
   def print
     if request.put?
-      @equipment_assets = EquipmentAsset.find(params[:asset_ids])
+      @equipment_assets = EquipmentAsset.find(params[:asset_ids]) rescue []
       render "printm", :layout => 'equipment_status_viewer_print'
     elsif params[:id] == "all"
-      @equipment_assets = EquipmentAsset.find(:all)
+      @equipment_assets = EquipmentAsset.all
       render "printm", :layout => 'equipment_status_viewer_print'
     else
       @equipment_asset = EquipmentAsset.find(params[:id])
@@ -146,7 +146,7 @@ class EquipmentAssetsController < ApplicationController
   end
 
   def get_asset_types
-    @asset_types = EquipmentAsset.find(:all).map(&:asset_type).uniq if mobile_device?
+    @asset_types = EquipmentAsset.all.map(&:asset_type).uniq if mobile_device?
   end
 
   # private

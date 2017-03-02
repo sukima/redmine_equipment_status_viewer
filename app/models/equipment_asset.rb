@@ -5,12 +5,12 @@
 # modify it under the terms of the GNU General Public License
 # as published by the Free Software Foundation; either version 3
 # of the License, or (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
@@ -18,9 +18,9 @@
 class EquipmentAsset < ActiveRecord::Base
   unloadable
 
-  has_many :asset_check_ins, :limit => 50, :dependent => :destroy
+  has_many :asset_check_ins,  :dependent => :destroy
 
-  acts_as_searchable :columns => [:name, :serial_number, :comment], :order_column => :name
+  acts_as_searchable :columns => [:name, :serial_number, :comment]
   acts_as_event :title => :name,
                 :url => Proc.new {|o| {:controller => 'equipment_assets', :action => 'show', :id => o}},
                 :author => Proc.new {|o| o.last_checkin_by},
@@ -36,9 +36,7 @@ class EquipmentAsset < ActiveRecord::Base
   validates_format_of :resource_url, :allow_nil => true, :allow_blank => true,
     :with => URI::regexp(%w(http https file)), :message => 'does not appear to be valid'
 
-  # Rails 3 uses scope not named_scope per
-  # http://stackoverflow.com/questions/4025010/convert-named-scope-for-rails-3#4025360
-  scope :visible, lambda {|*args| { :conditions => EquipmentAsset.allowed_to_condition(args.first || User.current) } }
+  scope :visible, lambda {|*args| where(EquipmentAsset.allowed_to_condition(args.first || User.current)) }
 
   # Returns true if the query is visible to +user+ or the current user.
   def visible?(user=User.current)

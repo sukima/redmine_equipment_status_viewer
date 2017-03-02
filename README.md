@@ -4,7 +4,7 @@ Version 1.0.1
 Equipment Status Viewer is a Redmine plugin that tracks the location of
 equipment. It uses a check in system to track where each item is. It can also
 print out a QRCode label that your iPhone or Andriod phone can snap and check
-in quickly.
+in quickly. Simply updated it to support redmine 3.2.x and 3.3.x.
 
 Licensed under GPL v3 or earlier.
 

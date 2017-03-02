@@ -5,12 +5,12 @@
 # modify it under the terms of the GNU General Public License
 # as published by the Free Software Foundation; either version 3
 # of the License, or (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
@@ -43,10 +43,30 @@ Redmine::Plugin.register :redmine_equipment_status_viewer do
     }
 end
 
+module RedmineEquipmentStatusViewer
+  module ControllerHelper
+    def is_mobile?
+      request.user_agent =~ /Mobile|Blackberry|Android/
+    end
+
+    def mobile_device?
+      if session[:mobile_param]
+        session[:mobile_param] == "1"
+      else
+        is_mobile?
+      end
+    end
+
+    def save_mobile_param
+      unless params[:mobile].blank?
+        session[:mobile_param] = params[:mobile]
+      end
+    end
+  end
+end
+
 Redmine::Search.register :equipment_assets
 
-# Found redmine-1.4 -> redmine-2.1 porting info at http://www.redmine.org/boards/3/topics/30423
-#require 'dispatcher'
 Rails.configuration.to_prepare do
   require_dependency 'search_controller'
   SearchController.send(:include, RedmineEquipmentStatusViewer::Patches::SearchControllerPatch)
