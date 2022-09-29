@@ -23,7 +23,8 @@ module RedmineEquipmentStatusViewer
 
         base.send(:include, InstanceMethods)
         base.class_eval do
-          alias_method_chain :index, :quick_jump_equipment
+          alias_method :index_without_quick_jump_equipment, :index
+          alias_method :index, :index_with_quick_jump_equipment
         end
       end
 

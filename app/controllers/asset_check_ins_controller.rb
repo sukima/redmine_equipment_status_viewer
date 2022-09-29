@@ -22,7 +22,7 @@ class AssetCheckInsController < ApplicationController
 
   # To avoid a login prompt on the iPhone set the 'Allow equipment check ins'
   # for the non-member/anonymous roles.
-  before_filter :authorize_global, :save_mobile_param, :get_equipment_asset
+  before_action :authorize_global, :save_mobile_param, :get_equipment_asset
 
   def new
     @asset_check_in = @equipment_asset.asset_check_ins.new(params[:asset_check_in])
@@ -44,7 +44,7 @@ class AssetCheckInsController < ApplicationController
     @asset_check_in = @equipment_asset.asset_check_ins.new(params[:asset_check_in].permit!)
 
     respond_to do |wants|
-      if @asset_check_in.save && @equipment_asset.update_attributes({:oos => @asset_check_in.equipment_asset_oos})
+      if @asset_check_in.save && @equipment_asset.update_attribute(:oos, @asset_check_in.equipment_asset_oos)
         flash[:notice] = t(:asset_check_in_created)
         cookies[:asset_check_in_person] = @asset_check_in.person
         cookies[:asset_check_in_location] = @asset_check_in.location

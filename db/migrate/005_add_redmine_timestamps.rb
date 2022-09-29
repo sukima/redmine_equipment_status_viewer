@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-class AddRedmineTimestamps < ActiveRecord::Migration
+class AddRedmineTimestamps < ActiveRecord::Migration[4.2]
   def self.up
     add_column :equipment_assets, :created_on, :datetime
     add_column :equipment_assets, :updated_on, :datetime

@@ -8,6 +8,21 @@ in quickly. Simply updated it to support redmine 3.2.x and 3.3.x.
 
 Licensed under GPL v3 or earlier.
 
+# Install
+There is only one dependency which is [rQRCode](https://whomwah.github.io/rqrcode/). Install it with the following:
+```
+gem install rqrcode
+```
+Then go into your Redmine/plugins application directory and run:
+```
+git clone https://github.com/sukima/redmine_equipment_status_viewer.git
+```
+Finally migrate your database:
+```
+rake redmine:plugins:migrate RAILS_ENV=production
+```
+You may need to prepend sudo to gain root access on some systems.
+
 # Contributing
 
 **I am not maintaining this.** I wrote this a long time ago and have no intention to continue working on it **all by myself.** What this means is I need **you** to contribute!
