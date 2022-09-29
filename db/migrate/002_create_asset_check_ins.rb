@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-class CreateAssetCheckIns < ActiveRecord::Migration
+class CreateAssetCheckIns < ActiveRecord::Migration[4.2]
   def self.up
     create_table :asset_check_ins do |t|
       t.column :person, :string

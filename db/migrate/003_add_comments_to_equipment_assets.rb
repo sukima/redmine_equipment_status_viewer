@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-class AddCommentsToEquipmentAssets < ActiveRecord::Migration
+class AddCommentsToEquipmentAssets < ActiveRecord::Migration[4.2]
   def self.up
     change_table :equipment_assets do |t|
       t.text :comment
